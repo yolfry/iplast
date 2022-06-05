@@ -16,8 +16,10 @@
     "@capacitor/ios": "^3.5.1",
     "@ionic/vue": "^6.0.0",
     "@ionic/vue-router": "^6.0.0",
+    "animate.css": "^4.1.1",
     "axios": "^0.27.2",
     "core-js": "^3.6.5",
+    "pinia": "^2.0.14",
     "vue": "^3.2.21",
     "vue-router": "^4.0.12"
   },

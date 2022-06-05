@@ -9,21 +9,25 @@
         </ion-tab-button>
 
         <ion-tab-button tab="tab2" href="/tabs/tab2">
-          <ion-icon :icon="calendarOutline" />
-          <ion-label>Sitas</ion-label>
+          <ion-icon :icon="imageOutline" />
+          <ion-label>Novedad</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="tab3" href="/tabs/tab3">
-          <ion-icon :icon="newspaperOutline" />
+          <ion-icon :icon="callOutline" />
           <ion-label>Doctor</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tab4" href="/tabs/tab4">
+          <ion-icon :icon="personOutline" />
+          <ion-label>Cuenta</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import {
   IonTabBar,
   IonTabButton,
@@ -33,25 +37,10 @@ import {
   IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-import { calendarOutline, homeOutline, newspaperOutline } from "ionicons/icons";
-
-export default defineComponent({
-  name: "TabsPage",
-  components: {
-    IonLabel,
-    IonTabs,
-    IonTabBar,
-    IonTabButton,
-    IonIcon,
-    IonPage,
-    IonRouterOutlet,
-  },
-  setup() {
-    return {
-      calendarOutline,
-      homeOutline,
-      newspaperOutline,
-    };
-  },
-});
+import {
+  callOutline,
+  homeOutline,
+  imageOutline,
+  personOutline,
+} from "ionicons/icons";
 </script>

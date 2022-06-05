@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory, createWebHashHistory } from '@ionic/vue-router';
+import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '@/views/TabsPage.vue'
+import { accountStore } from '@/store/account';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -26,14 +27,52 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'tab3',
         component: () => import('@/views/Tab3Page.vue')
+      },
+      {
+        path: 'tab4',
+        component: () => import('@/views/Tab4Page.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
+    ]
+  },
+  {
+    path: '/account',
+    component: () => import('@/views/ypwAccount.vue'),
+    children: [{
+      path: '',
+      redirect: '/account/login'
+    }, {
+      path: 'login',
+      component: () => import('@/views/ypw/ypwLogin.vue')
+    }
     ]
   }
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(process.env.BASE_URL),
+  history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  //Lanzar Store cuando inicie Pinia
+  const store = accountStore()
+
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.user.keyUser && store.user.keyUser) {
+      next()
+    } else {
+      next({
+        path: '/account/login'
+      })
+    }
+  } else {
+    next()
+  }
+
 })
 
 export default router
