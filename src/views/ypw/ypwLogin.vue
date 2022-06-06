@@ -13,12 +13,11 @@
     </ion-header> -->
 
     <ion-grid>
-      <div>
-        <video width="400" controls Autoplay="autoplay">
-          <source src="@/views/ypw/assets/videoCoverYpw.mov" type="video/mov" />
-        </video>
-      </div>
-      <div class="cover"></div>
+      <!-- <div class="videoShadow"></div> -->
+      <video autoplay loop muted playsinline>
+        <source src="@/views/ypw/assets/videoCover.mp4" type="video/mp4" />
+      </video>
+      <!-- <div class="cover"></div> -->
       <ion-row class="animate__animated animate__bounceInLeft">
         <ion-col size="12">
           <ion-card>
@@ -61,10 +60,10 @@
                   ></ion-input>
 
                   <div class="ion-padding-bottom ion-padding-top">
-                    <ion-button color="primary">Siguiente</ion-button>
                     <ion-button fill="outline" color="secundary"
                       >Crear cuenta</ion-button
                     >
+                    <ion-button color="primary">Siguiente</ion-button>
                   </div>
                   <div class="ion-padding ion-text-center">
                     <a href="https://ypw.com.do" color="secundary"
@@ -99,10 +98,17 @@ import {
 } from "@ionic/vue";
 import { chevronBackOutline } from "ionicons/icons";
 import "animate.css";
+// import { ref } from "vue";
+
+// const isThemeDark = ref();
+
+// isThemeDark.value = setInterval(() => {
+//   return window.matchMedia("(prefers-color-scheme: dark)").matches;
+// }, 1000);
 </script>
 
 <style scoped>
-.cover {
+/* .cover {
   position: fixed;
   top: 0;
   left: 0;
@@ -113,6 +119,33 @@ import "animate.css";
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+} */
+
+/* .videoShadow {
+  display: block;
+  position: fixed;
+  background-color: rgba(2, 2, 2, 0.581);
+  background-size: cover;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: -2;
+  bottom: 10%;
+  opacity: 0.3;
+  filter: blur(7px);
+  border-radius: 0 0 150px 0;
+} */
+
+video {
+  position: fixed;
+  left: -75%;
+  bottom: 0;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  /* filter: blur(1.5px); */
+  overflow: hidden;
+  z-index: -3;
 }
 
 ion-grid > ion-row {
