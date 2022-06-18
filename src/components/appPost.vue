@@ -39,7 +39,7 @@ import {
   IonCol,
   IonSpinner,
   IonGrid,
-  IonText,
+  // IonText,
 } from "@ionic/vue";
 import axios from "axios";
 

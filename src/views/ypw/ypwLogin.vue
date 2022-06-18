@@ -91,7 +91,7 @@ import {
 import { chevronBackOutline } from "ionicons/icons";
 import "animate.css";
 
-import { computed } from "@vue/reactivity";
+// import { computed } from "@vue/reactivity";
 
 //Logica
 import { accountStore } from "@/store/account";
@@ -100,9 +100,9 @@ const router = useRouter()
 
 const account = accountStore();
 
-const user = computed(() => {
-  return account.user;
-});
+// const user = computed(() => {
+//   return account.user;
+// });
 
 
 async function login() {

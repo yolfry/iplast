@@ -14,21 +14,17 @@
 
       <ion-col size="10" class=" ion-padding">
 
-        <!-- <div class=" ion-padding">
-          <ion-icon color="primary" v-if="SexoPeople == 'woman'" :icon="manOutline"></ion-icon>
-          <ion-icon color="primary" v-else :icon="womanOutline"></ion-icon>
-        </div> -->
 
         <ion-select interface="popover" v-model="SexoPeople" placeholder="Sexo">
           <ion-select-option value="woman">
             Femenino 👩
           </ion-select-option>
           <ion-select-option value="men">
-            Masculino 👨‍🦳
+            Masculino 👨
           </ion-select-option>
         </ion-select>
 
-        <ion-select placeholder="Edad">
+        <ion-select v-model="edadPeople" placeholder="Edad">
           <template v-for="n in 90" :key="n">
             <ion-select-option v-if="n > 17 && n < 70" :value="n">
               {{ n }} años
@@ -37,18 +33,6 @@
         </ion-select>
       </ion-col>
 
-      <!-- <ion-col size="12" class="ion-padding">
-        <ion-radio-group v-model="IMCMode" value="metric">
-          <ion-item>
-            <ion-label>Centímetros</ion-label>
-            <ion-radio slot="start" value="metric"></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Pies’Pulgadas"</ion-label>
-            <ion-radio slot="start" value="us-imperial"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </ion-col> -->
     </ion-row>
 
     <ion-row class=" ion-justify-content-center ion-padding">
@@ -150,24 +134,10 @@
 
     <ion-row class=" ion-justify-content-center">
       <ion-col size="12">
-        <fitness-graphic-vue class="animate__animated animate__bounce" v-if="IMC" :sexo="SexoPeople" :imc="IMC">
+        <fitness-graphic-vue class="animate__animated animate__bounce" v-if="IMC" :sexo="SexoPeople" :imc="IMC"
+          :edad="edadPeople">
         </fitness-graphic-vue>
       </ion-col>
-
-      <ion-col v-show="IMC" size="6">
-        <ion-text>
-          <h2>
-            Tu IMC es:
-          </h2>
-        </ion-text>
-        <ion-text color="primary">
-          <h3>
-            {{ IMC }}
-          </h3>
-        </ion-text>
-
-      </ion-col>
-
     </ion-row>
 
   </ion-grid>
@@ -177,21 +147,22 @@
 
 
 // Import
-import { womanOutline, manOutline } from "ionicons/icons";
+// import { womanOutline, manOutline } from "ionicons/icons";
+import { calIMC } from '@/ts/imc'
 import fitnessGraphicVue from "./fitnessGraphic.vue";
 import {
   IonRow,
   IonCol,
-  IonItem,
-  IonLabel,
-  IonRadioGroup,
+  // IonItem,
+  // IonLabel,
+  // IonRadioGroup,
   IonGrid,
   IonInput,
-  IonButton,
-  IonRadio,
+  // IonButton,
+  // IonRadio,
   IonText,
-  IonItemGroup,
-  IonIcon,
+  // IonItemGroup,
+  // IonIcon,
   IonSelect,
   IonSelectOption
   // IonCard,
@@ -206,6 +177,7 @@ import 'animate.css'
 
 const typePeso = ref('KG')
 const typeAltura = ref('CM')
+const edadPeople = ref()
 
 
 //Objetos Reactivos
@@ -244,72 +216,25 @@ const altura: ialtura = reactive({
 const IMC = ref(); // Indice de Masa corporal
 const SexoPeople = ref('woman')
 
-//Functions o methodos
-async function calIMC() {
-  //Algoridmo de Calcular IMC
-
-  //Var Input Operathor
-  let pesoKg: number = peso.kg; //Peso en Kilogramo
-  let pesoLb: number = peso.lb; //peso en Libra
-  let pesoSt: number = peso.st; //peso en Libra
-  let alturaM: number = peso.kg; //Altura en Metro
-  let alturaCM: number = altura.cm; //Altura en Centimetro
-  let alturaFt: number = altura.ft; //Altura en Pie
-  let alturaIn: number = altura.in; //Altura en pulgada
-
-  // let pesoType: string = peso.type; //Tipo de Operacion IMC por Peso
-  // let pesoAltura: string = altura.type; // Tipo de Operacion IMC por Altura
-
-  // Libra a Kilogramos, una libra es igual a 0.453592
-  if (typePeso.value == "LB") {
-    pesoKg = pesoLb * 0.453592;
-  }
-
-  //ST+LB Stonia a Kilogramos
-  if (typePeso.value == "ST+LB") {
-    pesoKg = pesoSt * 6.35029 + pesoLb * 0.453592;
-  }
+calIMC(peso, altura, typePeso, typeAltura, IMC)
 
 
-  // Centimetros a Metros, un centimetro es igual a 0.01 metro
-  if (typeAltura.value == "CM") {
-    alturaM = alturaCM * 0.01;
-  }
-
-  //Converte Pie mas pulgada a metro
-  if (typeAltura.value == "FT+IN") {
-    alturaM = alturaFt * 0.3048 + alturaIn * 0.0254;
-  }
-
-  //Formula
-  // IMC = peso (kg) / altura 2 (M)
-  const formula: number = pesoKg / Math.pow(alturaM, 2);
-
-  if (formula) {
-    IMC.value = await formula.toFixed(2); // Obten 2 decimal de un numero flotante
-  } else {
-    IMC.value = 0;
-  }
-
-  // Indice de masa Corporal
-  // console.log(IMC.value);
-}
 
 watch(typeAltura, () => {
-  calIMC();
+  calIMC(peso, altura, typePeso, typeAltura, IMC);
 });
 
 watch(typePeso, () => {
-  calIMC();
+  calIMC(peso, altura, typePeso, typeAltura, IMC);
 });
 
 
 watch(peso, () => {
-  calIMC();
+  calIMC(peso, altura, typePeso, typeAltura, IMC);
 });
 
 watch(altura, () => {
-  calIMC();
+  calIMC(peso, altura, typePeso, typeAltura, IMC);
 });
 </script>
 
