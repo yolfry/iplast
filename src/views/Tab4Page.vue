@@ -12,7 +12,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <div>Esta es mi cuenta {{ user }}</div>
+      <div class=" ion-padding">Esta es mi cuenta {{ user }}</div>
     </ion-content>
   </ion-page>
 </template>
@@ -26,8 +26,7 @@ import {
   IonContent,
 } from "@ionic/vue";
 
-import { computed, onMounted, onBeforeUpdate } from "vue";
-import { useRouter } from "vue-router";
+import { computed } from "vue";
 import { accountStore } from "@/store/account";
 
 const store = accountStore();
@@ -36,26 +35,4 @@ const store = accountStore();
 const user = computed(() => {
   return store.user;
 });
-
-//User Router
-const router = useRouter();
-
-//Function Methodos
-function redirectLogin() {
-  router.push({
-    path: "/account/login",
-  });
-}
-
-// onMounted(() => {
-//   if (!user.value.appConnect && !user.value.keyUser) {
-//     redirectLogin();
-//   }
-// });
-
-// onBeforeUpdate(() => {
-//   if (!user.value.appConnect && !user.value.keyUser) {
-//     redirectLogin();
-//   }
-// });
 </script>

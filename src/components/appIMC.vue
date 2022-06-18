@@ -1,94 +1,184 @@
 <template>
   <ion-grid>
-    <ion-card>
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="12" class="ion-padding">
-            <ion-card-title color="primary">Calcula tu IMC</ion-card-title>
-            <ion-card-subtitle
-              >Calculadora del índice de masa corporal (IMC)</ion-card-subtitle
-            >
-          </ion-col>
 
-          <ion-col size="12" class="ion-padding">
-            <ion-radio-group v-model="IMCMode" value="metric">
-              <ion-item>
-                <ion-label>Centímetros</ion-label>
-                <ion-radio slot="start" value="metric"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pies’Pulgadas"</ion-label>
-                <ion-radio slot="start" value="us-imperial"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-col>
-          <ion-col size="12" class="ion-padding">
-            <!-- Default Input -->
-            <ion-item v-if="IMCMode == 'metric'">
-              <ion-label position="fixed">ALTURA</ion-label>
-              <ion-input
-                inputmode="decimal"
-                type="number"
-                v-model="altura.cm"
-                :placeholder="labelAltura"
-              ></ion-input>
-            </ion-item>
+    <ion-row class=" ion-justify-content-center ion-padding">
+      <ion-col size="12" class="ion-padding">
 
-            <ion-item v-else>
-              <ion-label position="fixed">ALTURA</ion-label>
-              <ion-input
-                inputmode="decimal"
-                type="number"
-                placeholder="ft'"
-                v-model="altura.ft"
-              ></ion-input>
+        <ion-text>
+          <h1>
+            ¿Calificas para una cirugía Plástica?
+          </h1>
+        </ion-text>
 
-              <ion-input
-                inputmode="decimal"
-                type="number"
-                placeholder='in"'
-                v-model="altura.in"
-              ></ion-input>
-            </ion-item>
+      </ion-col>
 
-            <ion-item v-if="IMCMode == 'metric'">
-              <ion-label position="fixed">PESO</ion-label>
-              <ion-input
-                inputmode="decimal"
-                type="number"
-                :placeholder="labelPeso"
-                v-model="peso.kg"
-              ></ion-input>
-            </ion-item>
+      <ion-col size="10" class=" ion-padding">
 
-            <ion-item v-else>
-              <ion-label position="fixed">PESO</ion-label>
-              <ion-input
-                inputmode="decimal"
-                type="number"
-                :placeholder="labelPeso"
-                v-model="peso.lb"
-              ></ion-input>
-            </ion-item>
-          </ion-col>
+        <!-- <div class=" ion-padding">
+          <ion-icon color="primary" v-if="SexoPeople == 'woman'" :icon="manOutline"></ion-icon>
+          <ion-icon color="primary" v-else :icon="womanOutline"></ion-icon>
+        </div> -->
 
-          <ion-col v-show="IMC" size="12" class="ion-padding">
-            <ion-card-title>Tu IMC es:</ion-card-title>
-            <ion-card-title color="primary">{{ IMC }}</ion-card-title>
-          </ion-col>
+        <ion-select interface="popover" v-model="SexoPeople" placeholder="Sexo">
+          <ion-select-option value="woman">
+            Femenino 👩
+          </ion-select-option>
+          <ion-select-option value="men">
+            Masculino 👨‍🦳
+          </ion-select-option>
+        </ion-select>
 
-          <ion-col size="12" class="ion-padding">
-            <ion-button shape="round" @click="cleanValueInput" color="primary"
-              >Limpiar</ion-button
-            >
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
+        <ion-select placeholder="Edad">
+          <template v-for="n in 90" :key="n">
+            <ion-select-option v-if="n > 17 && n < 70" :value="n">
+              {{ n }} años
+            </ion-select-option>
+          </template>
+        </ion-select>
+      </ion-col>
+
+      <!-- <ion-col size="12" class="ion-padding">
+        <ion-radio-group v-model="IMCMode" value="metric">
+          <ion-item>
+            <ion-label>Centímetros</ion-label>
+            <ion-radio slot="start" value="metric"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Pies’Pulgadas"</ion-label>
+            <ion-radio slot="start" value="us-imperial"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-col> -->
+    </ion-row>
+
+    <ion-row class=" ion-justify-content-center ion-padding">
+
+      <ion-col size="10">
+        <!-- <ion-text>
+          <h3>
+            ¿Cual es tu Altura?
+          </h3>
+        </ion-text> -->
+
+        <ion-select interface="popover" v-model="typeAltura" color="primary" placeholder="CM">
+          <ion-select-option value="CM">
+            <!-- Centímetros -->
+            CM
+          </ion-select-option>
+          <ion-select-option value="FT+IN">
+            <!-- Pies’Pulgadas" -->
+            FT+IN
+          </ion-select-option>
+        </ion-select>
+
+        <template v-if="typeAltura == 'CM'">
+          <ion-input class="ion-padding" inputmode="decimal" type="number" v-model="altura.cm" placeholder="ALTURA">
+          </ion-input>
+        </template>
+
+        <template v-if="typeAltura == 'FT+IN'">
+          <ion-row>
+            <ion-col size="6">
+              <ion-input class="ion-padding" inputmode="decimal" type="number" placeholder="ft'" v-model="altura.ft">
+              </ion-input>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-input class="ion-padding" inputmode="decimal" type="number" placeholder='in"' v-model="altura.in">
+              </ion-input>
+            </ion-col>
+          </ion-row>
+
+        </template>
+
+      </ion-col>
+
+
+      <ion-col size="10">
+        <!-- <ion-text>
+          <h3>
+            ¿Cual es tu peso?
+          </h3>
+        </ion-text> -->
+
+        <ion-select interface="popover" v-model="typePeso" placeholder="KG">
+          <ion-select-option value="KG">
+            <!-- Centímetros -->
+            KG
+          </ion-select-option>
+          <ion-select-option value="LB">
+            <!-- Pies’Pulgadas" -->
+            LB
+          </ion-select-option>
+
+          <ion-select-option value="ST+LB">
+            <!-- Pies’Pulgadas" -->
+            ST+LB
+          </ion-select-option>
+
+        </ion-select>
+
+        <template v-if="typePeso == 'KG'">
+          <ion-input class="ion-padding" inputmode="decimal" type="number" placeholder="PESO" v-model="peso.kg">
+          </ion-input>
+        </template>
+
+        <template v-if="typePeso == 'LB'">
+          <ion-input class="ion-padding" inputmode="decimal" type="number" placeholder="PESO" v-model="peso.lb">
+          </ion-input>
+        </template>
+
+        <template v-if="typePeso == 'ST+LB'">
+          <ion-row>
+            <ion-col size="6">
+              <ion-input class="ion-padding" inputmode="decimal" type="number" placeholder="st" v-model="peso.st">
+              </ion-input>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-input class="ion-padding" inputmode="decimal" type="number" placeholder="lb" v-model="peso.lb">
+              </ion-input>
+            </ion-col>
+          </ion-row>
+
+        </template>
+
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row class=" ion-justify-content-center">
+      <ion-col size="12">
+        <fitness-graphic-vue class="animate__animated animate__bounce" v-if="IMC" :sexo="SexoPeople" :imc="IMC">
+        </fitness-graphic-vue>
+      </ion-col>
+
+      <ion-col v-show="IMC" size="6">
+        <ion-text>
+          <h2>
+            Tu IMC es:
+          </h2>
+        </ion-text>
+        <ion-text color="primary">
+          <h3>
+            {{ IMC }}
+          </h3>
+        </ion-text>
+
+      </ion-col>
+
+    </ion-row>
+
   </ion-grid>
 </template>
 
 <script lang="ts" setup>
+
+
+// Import
+import { womanOutline, manOutline } from "ionicons/icons";
+import fitnessGraphicVue from "./fitnessGraphic.vue";
 import {
   IonRow,
   IonCol,
@@ -99,31 +189,40 @@ import {
   IonInput,
   IonButton,
   IonRadio,
-  IonCard,
-  IonCardContent,
-  IonCardTitle,
-  IonCardSubtitle,
+  IonText,
+  IonItemGroup,
+  IonIcon,
+  IonSelect,
+  IonSelectOption
+  // IonCard,
+  // IonCardContent,
+  // IonCardTitle,
+  // IonCardSubtitle,
 } from "@ionic/vue";
-
 import { ref, watch, reactive } from "vue";
+import 'animate.css'
+
+//Reactive Global Ref
+
+const typePeso = ref('KG')
+const typeAltura = ref('CM')
+
 
 //Objetos Reactivos
-
 interface ipeso {
-  type: string; // kg, lb
   kg: any;
   lb: any;
+  st: any;
 }
 
 // Objeto Peso
 const peso: ipeso = reactive({
-  type: "kg-kg", // kg, lb
   kg: null,
   lb: null,
+  st: null
 });
 
 interface ialtura {
-  type: string; // (FT + IN), CM, M
   m: any;
   ft: any;
   in: any;
@@ -132,7 +231,6 @@ interface ialtura {
 
 //Objeto Altura
 const altura: ialtura = reactive({
-  type: "cm-m", // (FT + IN), CM, M
   m: null,
   ft: null,
   in: null,
@@ -140,10 +238,11 @@ const altura: ialtura = reactive({
 });
 
 //Data Props
-const IMCMode = ref("metric"); //us-imperial, metric
-const labelAltura = ref("CM"); //input label Altura
-const labelPeso = ref("KG"); //Input Label Peso
+// const IMCMode = ref("metric"); //us-imperial, metric
+// const labelAltura = ref("CM"); //input label Altura
+// const labelPeso = ref("KG"); //Input Label Peso
 const IMC = ref(); // Indice de Masa corporal
+const SexoPeople = ref('woman')
 
 //Functions o methodos
 async function calIMC() {
@@ -152,25 +251,33 @@ async function calIMC() {
   //Var Input Operathor
   let pesoKg: number = peso.kg; //Peso en Kilogramo
   let pesoLb: number = peso.lb; //peso en Libra
+  let pesoSt: number = peso.st; //peso en Libra
   let alturaM: number = peso.kg; //Altura en Metro
   let alturaCM: number = altura.cm; //Altura en Centimetro
   let alturaFt: number = altura.ft; //Altura en Pie
   let alturaIn: number = altura.in; //Altura en pulgada
-  let pesoType: string = peso.type; //Tipo de Operacion IMC por Peso
-  let pesoAltura: string = altura.type; // Tipo de Operacion IMC por Altura
+
+  // let pesoType: string = peso.type; //Tipo de Operacion IMC por Peso
+  // let pesoAltura: string = altura.type; // Tipo de Operacion IMC por Altura
 
   // Libra a Kilogramos, una libra es igual a 0.453592
-  if (pesoType == "lb-kg") {
+  if (typePeso.value == "LB") {
     pesoKg = pesoLb * 0.453592;
   }
 
+  //ST+LB Stonia a Kilogramos
+  if (typePeso.value == "ST+LB") {
+    pesoKg = pesoSt * 6.35029 + pesoLb * 0.453592;
+  }
+
+
   // Centimetros a Metros, un centimetro es igual a 0.01 metro
-  if (pesoAltura == "cm-m") {
+  if (typeAltura.value == "CM") {
     alturaM = alturaCM * 0.01;
   }
 
   //Converte Pie mas pulgada a metro
-  if (pesoAltura == "ft+in-m") {
+  if (typeAltura.value == "FT+IN") {
     alturaM = alturaFt * 0.3048 + alturaIn * 0.0254;
   }
 
@@ -188,37 +295,14 @@ async function calIMC() {
   // console.log(IMC.value);
 }
 
-function cleanValueInput() {
-  altura.m = null;
-  altura.ft = null;
-  altura.in = null;
-  altura.cm = null;
-
-  peso.kg = null;
-  peso.lb = null;
-}
-
-//Watch
-watch(IMCMode, (newVal) => {
-  // Si el Modo de medida cambia entonces cambia el modo de calcular el Indice de masa corporal
-
-  // console.log(newVal);
-  if (newVal == "metric") {
-    labelAltura.value = "CM";
-    labelPeso.value = "KG";
-
-    //Declarar el tipo de operacion
-    peso.type = "kg-kg";
-    altura.type = "cm-m";
-  } else if (newVal == "us-imperial") {
-    labelAltura.value = `ft'in"`;
-    labelPeso.value = "Lbs";
-
-    //Declarar el tipo de operacion
-    peso.type = "lb-kg";
-    altura.type = "ft+in-m";
-  }
+watch(typeAltura, () => {
+  calIMC();
 });
+
+watch(typePeso, () => {
+  calIMC();
+});
+
 
 watch(peso, () => {
   calIMC();
@@ -230,7 +314,19 @@ watch(altura, () => {
 </script>
 
 <style scoped>
-.color-sub-title {
-  color: var(--ion-color-primary);
+ion-select {
+  font-size: 20px;
+  color: rgb(76, 76, 76);
 }
+
+ion-input {
+  font-size: 21px;
+  padding: 10px;
+  border: 1px solid #295b8a;
+  border-radius: 50px;
+}
+
+/* ion-icon {
+  font-size: 50px;
+} */
 </style>

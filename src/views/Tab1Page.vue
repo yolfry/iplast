@@ -1,8 +1,8 @@
 <template>
-  <ion-page>
+  <ion-page :isInOutlet="true">
     <ion-header>
-      <ion-toolbar>
-        <ion-title>Manuel Belen App</ion-title>
+      <ion-toolbar color="primary">
+        <ion-title>Iplast</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -14,7 +14,7 @@
 
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Manuel Belen App</ion-title>
+          <ion-title size="large">Iplast</ion-title>
         </ion-toolbar>
       </ion-header>
 

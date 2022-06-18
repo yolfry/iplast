@@ -46,6 +46,10 @@ const routes: Array<RouteRecordRaw> = [
     }, {
       path: 'login',
       component: () => import('@/views/ypw/ypwLogin.vue')
+    },
+    {
+      path: 'register',
+      component: () => import('@/views/ypw/ypwRegister.vue')
     }
     ]
   }
@@ -56,9 +60,9 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   //Lanzar Store cuando inicie Pinia
-  const store = accountStore()
+  const store = await accountStore()
 
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
