@@ -28,17 +28,17 @@
                 </ion-card-title>
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
-                    <img src="@/assets/logoApp.jpg" />
+                    <img src="@/assets/logoApp.png" />
                   </ion-avatar>
-                  <ion-avatar>
+                  <!-- <ion-avatar>
                     <img src="@/views/ypw/assets/logoYPW.com.jpg" />
-                  </ion-avatar>
+                  </ion-avatar> -->
                 </ion-row>
                 <!-- <ion-card-title class="ion-text-center">
                   Crear tu cuenta
                 </ion-card-title> -->
                 <ion-text class="ion-text-center" color="primary">
-                  <h3>Crear tu cuenta YPW</h3>
+                  <h3>Crear tu cuenta</h3>
                 </ion-text>
 
               </ion-card-header>
@@ -46,15 +46,16 @@
               <ion-card-content>
                 <ion-row>
                   <ion-col size="12" class="ion-padding ion-justify-content-center">
-                    <ion-input type="text" placeholder="Nombre de Usuario"></ion-input>
-                    <ion-input type="text" placeholder="Nombre Completo"></ion-input>
-                    <ion-input type="text" placeholder="Email"></ion-input>
-                    <ion-input type="text" placeholder="Numero"></ion-input>
-                    <ion-input type="password" placeholder="Contraseña"></ion-input>
-                    <ion-input type="password" placeholder="Confirme Contraseña"></ion-input>
+
+                    <!--Data register Input Entrada-->
+                    <ion-input v-model="user.username" type="text" placeholder="Usuario"></ion-input>
+                    <ion-input v-model="user.name" type="text" placeholder="Nombre"></ion-input>
+                    <ion-input v-model="user.email" type="text" placeholder="Email"></ion-input>
+                    <ion-input v-model="user.phone" type="text" placeholder="Numero"></ion-input>
+                    <ion-input v-model="user.password" type="password" placeholder="Contraseña"></ion-input>
 
                     <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button color="primary">Siguiente</ion-button>
+                      <ion-button color="primary" @click="account.register()">Siguiente</ion-button>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -86,19 +87,28 @@ import {
 } from "@ionic/vue";
 import { chevronBackOutline } from "ionicons/icons";
 import "animate.css";
+import { watch } from "vue";
 
-// import { computed } from "@vue/reactivity";
+import { computed } from "@vue/reactivity";
 
 //Logica
-// import { accountStore } from "@/store/account";
-// import { useRouter } from "vue-router";
-// const router = useRouter()
+import { accountStore } from "@/store/account";
+import { useRouter } from "vue-router";
+const router = useRouter()
 
-// const account = accountStore();
+const account = accountStore();
 
-// const user = computed(() => {
-//   return account.user;
-// });
+const user = computed(() => {
+  return account.user;
+});
+
+watch(account.user, (newData) => {
+  if (newData.keyUser && newData.appConnect) {
+    router.push({
+      path: '/taps/tab4'
+    })
+  }
+})
 
 
 // async function login() {

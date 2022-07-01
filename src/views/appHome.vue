@@ -2,7 +2,9 @@
   <ion-page :isInOutlet="true">
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>Iplast</ion-title>
+        <ion-text class=" ion-text-center">
+          <h2>Plastic surgery calculator</h2>
+        </ion-text>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -12,30 +14,57 @@
         <ion-refresher-content> </ion-refresher-content>
       </ion-refresher> -->
 
-      <ion-header collapse="condense">
+      <!-- <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Iplast</ion-title>
+          <ion-text class=" ion-text-center">
+            <h2>Plastic surgery calculator</h2>
+          </ion-text>
         </ion-toolbar>
-      </ion-header>
+      </ion-header> -->
 
+      <div class="background-page" :style="`background: rgb(239, 239, 239);
+      background: linear-gradient(255deg, rgb(239, 239, 239) 75%, ${colorIMC} 100%);`"></div>
       <app-i-m-c></app-i-m-c>
+
 
       <!-- <ExploreContainer name="Tab 1 page" /> -->
     </ion-content>
   </ion-page>
 </template>
-
+aq     
 <script lang="ts" setup>
 // import { defineComponent } from "vue";
 import {
   IonPage,
   IonHeader,
   IonToolbar,
-  IonTitle,
+  IonText,
   IonContent,
   // IonRefresher,
   // IonRefresherContent,
 } from "@ionic/vue";
 // import ExploreContainer from "@/components/ExploreContainer.vue";
 import AppIMC from "@/components/appIMC.vue";
+import { userAppStore } from "@/store/app";
+import { computed } from "vue";
+
+const appStore = userAppStore()
+
+const colorIMC = computed(() => {
+  return appStore.calculator.colorIMC;
+})
+
 </script>
+
+
+<style scoped>
+.background-page {
+  position: fixed;
+  background-color: rgb(239, 239, 239);
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+  z-index: -100;
+}
+</style>

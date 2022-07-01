@@ -3,22 +3,22 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="tab1" href="/tabs/tab1">
+        <ion-tab-button tab="home" href="/tabs/home">
           <ion-icon :icon="homeOutline" />
           <ion-label>Home</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab2" href="/tabs/tab2">
+        <ion-tab-button tab="tab2" href="/tabs/novedad">
           <ion-icon :icon="imageOutline" />
           <ion-label>Novedad</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab3" href="/tabs/tab3">
+        <ion-tab-button tab="tab3" href="/tabs/doctor">
           <ion-icon :icon="callOutline" />
           <ion-label>Doctor</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab4" href="/tabs/tab4">
+        <ion-tab-button tab="tab4" href="/tabs/mycuenta">
           <ion-icon :icon="personOutline" />
           <ion-label>Cuenta</ion-label>
         </ion-tab-button>

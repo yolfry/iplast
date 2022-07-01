@@ -6,7 +6,7 @@ import { accountStore } from '@/store/account';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/tabs/home'
   },
   {
     path: '/tabs/',
@@ -14,23 +14,29 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: '/tabs/tab1'
+        redirect: '/tabs/home'
       },
       {
-        path: 'tab1',
-        component: () => import('@/views/Tab1Page.vue')
+        path: 'home',
+        component: () => import('@/views/appHome.vue')
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2Page.vue')
+        path: 'novedad',
+        component: () => import('@/views/appNovedad.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
-        path: 'tab3',
-        component: () => import('@/views/Tab3Page.vue')
+        path: 'doctor',
+        component: () => import('@/views/appDoctor.vue'),
+        meta: {
+          requiresAuth: true
+        }
       },
       {
-        path: 'tab4',
-        component: () => import('@/views/Tab4Page.vue'),
+        path: 'mycuenta',
+        component: () => import('@/views/appMyCuenta.vue'),
         meta: {
           requiresAuth: true
         }

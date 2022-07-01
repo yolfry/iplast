@@ -9,8 +9,8 @@ interface altura {
     cm: number;
     ft: number;
     in: number;
+    m: number;
 }
-
 
 //Functions o methodos
 async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any, IMC: any) {
@@ -61,6 +61,13 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
 
     // Indice de masa Corporal
     // console.log(IMC.value);
+
+    return {
+        pesoKg,
+        alturaM,
+        IMC: IMC.value
+    }
+
 }
 
 
