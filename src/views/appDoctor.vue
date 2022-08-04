@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-title>Doctor
         </ion-title>
       </ion-toolbar>
@@ -15,6 +15,7 @@
       </ion-header>
 
       <app-doctor></app-doctor>
+
 
     </ion-content>
   </ion-page>

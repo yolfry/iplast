@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '@/views/TabsPage.vue'
-import { accountStore } from '@/store/account';
+import { useAccountStore } from '@/store/account';
+import { useAppStore } from '@/store/app';
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -56,6 +58,16 @@ const routes: Array<RouteRecordRaw> = [
     {
       path: 'register',
       component: () => import('@/views/ypw/ypwRegister.vue')
+    },
+    {
+      path: 'passwordRecovery',
+      name: 'passwordRecovery',
+      component: () => import('@/views/ypw/ypwPasswordRecovery.vue'),
+    },
+    {
+      path: 'newPassword',
+      name: 'newPassword',
+      component: () => import('@/views/ypw/newPassword.vue'),
     }
     ]
   }
@@ -68,11 +80,20 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   //Lanzar Store cuando inicie Pinia
-  const store = await accountStore()
+  const account = await useAccountStore()
 
+
+  //Loading Data Account
+  const appStore = await useAppStore()
+
+  const user = await appStore.getDataApp('user')
+
+  if (user && !account.user.appConnect && !account.user.keyUser) {
+    account.user = user
+  }
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (store.user.keyUser && store.user.keyUser) {
+    if (account.user.keyUser && account.user.keyUser) {
       next()
     } else {
       next({

@@ -8,17 +8,18 @@
         <ion-row>
           <ion-col size="4">
             <ion-text color="primary">
-              <h3>SEXO</h3>
+              <h5>{{ $t('label.sex') }}</h5>
             </ion-text>
           </ion-col>
 
           <ion-col size="8">
-            <ion-select interface="popover" v-model="SexoPeople" placeholder="Sexo">
+            <ion-select interface="popover" v-model="SexoPeople" class=" ion-text-center"
+              :placeholder="$t('placeholder.sex')">
               <ion-select-option value="woman">
-                Femenino
+                {{ $t('select.feminine') }}
               </ion-select-option>
               <ion-select-option value="men">
-                Masculino
+                {{ $t('select.male') }}
               </ion-select-option>
             </ion-select>
 
@@ -26,17 +27,16 @@
         </ion-row>
 
         <ion-row>
-
           <ion-col size="4">
             <ion-text color="primary">
-              <h4>EDAD</h4>
+              <h5>{{ $t('label.age') }}</h5>
             </ion-text>
           </ion-col>
 
-          <ion-col size="3">
+          <ion-col size="4">
 
             <ion-input color="primary" inputmode="numeric" type="number" max="3" min="2" v-model="edadPeople"
-              placeholder="Edad">
+              :placeholder="$t('placeholder.years')" class=" ion-text-center">
             </ion-input>
 
           </ion-col>
@@ -44,9 +44,12 @@
 
         </ion-row>
 
+
       </ion-col>
 
     </ion-row>
+
+
 
     <ion-row class=" ion-padding">
 
@@ -55,29 +58,29 @@
         <ion-row>
           <ion-col size="3">
             <ion-text color="primary">
-              <h5>ALTURA</h5>
+              <h5>{{ $t('label.height') }}</h5>
             </ion-text>
           </ion-col>
 
           <ion-col size="5">
 
             <template v-if="typeAltura == 'CM'">
-              <ion-input color="primary" class="ion-padding" inputmode="decimal" type="number" v-model="altura.cm"
-                placeholder="cm">
+              <ion-input color="primary" inputmode="decimal" type="number" v-model="altura.cm"
+                :placeholder="$t('placeholder.centimeters')" class=" ion-text-center">
               </ion-input>
             </template>
 
             <template v-if="typeAltura == 'FT+IN'">
               <ion-row>
-                <ion-col size="6">
-                  <ion-input color="primary" class="ion-padding" inputmode="decimal" type="number" placeholder="ft'"
-                    v-model="altura.ft">
+                <ion-col class=" ion-align-self-auto">
+                  <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.foot')"
+                    v-model="altura.ft" class=" ion-text-center">
                   </ion-input>
                 </ion-col>
 
-                <ion-col size="6">
-                  <ion-input color="primary" class="ion-padding" inputmode="decimal" type="number" placeholder='in"'
-                    v-model="altura.in">
+                <ion-col class=" ion-align-self-auto">
+                  <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.inches')"
+                    v-model="altura.in" class=" ion-text-center">
                   </ion-input>
                 </ion-col>
               </ion-row>
@@ -88,14 +91,14 @@
           </ion-col>
 
           <ion-col size="4">
-            <ion-select interface="popover" v-model="typeAltura" color="primary" placeholder="CM">
+            <ion-select interface="popover" class=" ion-text-center" v-model="typeAltura" color="primary">
               <ion-select-option value="CM">
                 <!-- Centímetros -->
-                CM
+                {{ $t('select.centimeters') }}
               </ion-select-option>
               <ion-select-option value="FT+IN">
                 <!-- Pies’Pulgadas" -->
-                FT+IN
+                {{ $t('select.foot') }}
               </ion-select-option>
             </ion-select>
           </ion-col>
@@ -109,39 +112,40 @@
         <ion-row>
           <ion-col size="3">
             <ion-text color="primary">
-              <h4>
-                PESO
-              </h4>
+              <h5>
+                {{ $t('label.weight') }}
+              </h5>
             </ion-text>
           </ion-col>
 
           <ion-col size="5">
 
             <template v-if="typePeso == 'KG'">
-              <ion-input color="primary" class="ion-padding" inputmode="decimal" type="number" placeholder="kg"
-                v-model="peso.kg">
+              <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.kilograms')"
+                v-model="peso.kg" class=" ion-text-center">
               </ion-input>
             </template>
 
             <template v-if="typePeso == 'LB'">
-              <ion-input color="primary" class="ion-padding" inputmode="decimal" type="number" placeholder="lb"
-                v-model="peso.lb">
+              <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.pounds')"
+                v-model="peso.lb" class=" ion-text-center">
               </ion-input>
             </template>
 
             <template v-if="typePeso == 'ST+LB'">
               <ion-row>
                 <ion-col size="6">
-                  <ion-input color="primary" class="ion-padding" inputmode="decimal" type="number" placeholder="st"
-                    v-model="peso.st">
+                  <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.stone')"
+                    v-model="peso.st" class=" ion-text-center">
                   </ion-input>
                 </ion-col>
 
                 <ion-col size="6">
-                  <ion-input color="primary" class="ion-padding" inputmode="decimal" type="number" placeholder="lb"
-                    v-model="peso.lb">
+                  <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.pounds')"
+                    v-model="peso.lb" class=" ion-text-center">
                   </ion-input>
                 </ion-col>
+
               </ion-row>
 
             </template>
@@ -149,25 +153,24 @@
 
           </ion-col>
           <ion-col size="4">
-            <ion-select interface="popover" v-model="typePeso" placeholder="KG">
+            <ion-select interface="popover" v-model="typePeso" class=" ion-text-center">
               <ion-select-option value="KG">
                 <!-- Centímetros -->
-                KG
+                {{ $t('select.kilograms') }}
               </ion-select-option>
               <ion-select-option value="LB">
                 <!-- Pies’Pulgadas" -->
-                LB
+                {{ $t('select.pounds') }}
               </ion-select-option>
 
               <ion-select-option value="ST+LB">
                 <!-- Pies’Pulgadas" -->
-                ST+LB
+                {{ $t('select.stonepluspounds') }}
               </ion-select-option>
 
             </ion-select>
           </ion-col>
         </ion-row>
-
 
 
       </ion-col>
@@ -177,11 +180,11 @@
 
     <ion-row>
       <ion-col size="12">
-        <fitness-graphic-vue :peso="peso" :sexo="SexoPeople" :imc="IMC" :edad="edadPeople">
+        <fitness-graphic-vue :peso="peso" :sexo="SexoPeople" :imc="parseFloat(IMC)" :edad="parseInt(edadPeople)"
+          :pesoIdeal="pesoIdeal" :pesoRecomendado="pesoRecomendado">
         </fitness-graphic-vue>
       </ion-col>
     </ion-row>
-
   </ion-grid>
 </template>
 
@@ -214,11 +217,15 @@ import {
 } from "@ionic/vue";
 import { ref, watch, reactive, onMounted } from "vue";
 
+import { useAccountStore } from '@/store/account';
+
 //Reactive Global Ref
 
 const typePeso = ref('KG')
 const typeAltura = ref('CM')
 const edadPeople = ref()
+const pesoIdeal = ref()
+const pesoRecomendado = ref()
 
 
 //Objetos Reactivos
@@ -260,11 +267,30 @@ const SexoPeople = ref('woman')
 
 //Ejecutar Script CalIMC
 
+//Guardar datos Usuario
+
+
+function dataCal() {
+  const account = useAccountStore();
+  const dataCal: any = {}
+  dataCal.IMC = IMC.value
+  dataCal.pesoKg = peso.kg
+  dataCal.alturaM = altura.m
+  account.saveDataUser(dataCal)
+}
+
 async function calcularIMC() {
-  const resCal = await calIMC(peso, altura, typePeso, typeAltura, IMC)
+  const resCal = await calIMC(peso, altura, typePeso, typeAltura, IMC, SexoPeople.value)
   IMC.value = resCal.IMC;
   peso.kg = resCal.pesoKg;
   altura.m = resCal.alturaM;
+  pesoIdeal.value = resCal.pesoIdeal;
+  pesoRecomendado.value = resCal.pesoRecomendado;
+
+
+  if (IMC.value > 8 && IMC.value < 60) {
+    dataCal()
+  }
 }
 
 
@@ -281,7 +307,15 @@ watch(peso, () => {
   calcularIMC()
 });
 
+watch(SexoPeople, () => {
+  calcularIMC()
+});
+
 watch(altura, () => {
+  calcularIMC()
+});
+
+watch(edadPeople, () => {
   calcularIMC()
 });
 
@@ -290,6 +324,7 @@ onMounted(() => {
   calcularIMC()
 });
 </script>
+
 
 <style scoped>
 ion-select {
@@ -302,15 +337,37 @@ ion-select {
   background: linear-gradient(90deg, #347fb6 0%, #2f6095 37%, #204368 100%);
 }
 
+ion-select .select-icon-inner {
+  left: -15px;
+  top: 50%;
+  margin-top: -5px;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-top: 10px solid;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  color: currentcolor;
+  pointer-events: none;
+}
+
+.select-icon {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, -webkit-transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+}
+
+
 ion-input {
   font-size: 21px;
   padding: 10px;
-
   border: 0px;
+  margin-top: -5px;
   border-bottom: 1px solid #295b8a;
   /* border: 0px 0px 0px 1px solid #295b8a; */
   /*border-radius: 50px;*/
 }
+
 
 /* ion-icon {
   font-size: 50px;

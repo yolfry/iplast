@@ -1,8 +1,6 @@
 import { defineStore } from "pinia";
-import axios from 'axios'
-import { loadingController, toastController } from '@ionic/vue'
-
-
+import { useAppStore } from "./app";
+import axios, { AxiosResponse } from 'axios'
 
 interface user {
     username: string | undefined;
@@ -12,10 +10,13 @@ interface user {
     name: string | undefined;
     email: string | undefined;
     phone: string | undefined;
+    code: string | undefined;
+    codePhone: string | undefined;
 }
 
 
-export const accountStore = defineStore('accountStore', {
+
+export const useAccountStore = defineStore('accountStore', {
     state: () => {
         return {
             user: <user>{
@@ -25,96 +26,241 @@ export const accountStore = defineStore('accountStore', {
                 keyUser: undefined,
                 name: undefined,
                 email: undefined,
-                phone: undefined
-            }
+                phone: undefined,
+                code: undefined,
+                codePhone: "+1",
+            },
+            userAll: undefined as any,
+            codeSet: false,
+            chargePasswordResult: false,
+            $i18n: {},
+            appConnect: "Iplast",
+            urlApi: "https://account.ypw.com.do/api/v1/"
         }
     },
     actions: {
-        setUser() {
-            this.user.appConnect = 'iplast'
-            this.user.keyUser = 'AlloK439u5uthfgu34h5gu343489484834hfuiwrhfuhdfxxHHHDJHDIE    '
+        async login(): Promise<AxiosResponse | undefined> {
+            try {
+                //Detectar si el usuario es un numero, y si es un numero colocarle el codigo de pais
+                let username: string | undefined
+                if (this.user.username && /^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/.exec(this.user.username)) {
+                    username = this.user.codePhone + this.user.username
+                } else {
+                    username = this.user.username
+                }
+
+                //Login Api
+                const data = {
+                    username,
+                    password: this.user.password,
+                    appConnect: this.appConnect
+                };
+
+                const config = {
+                    method: 'post',
+                    url: `${this.urlApi}account/login`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data
+                };
+
+                const response = await axios(config)
+
+                if (response.status === 200 || response.status === 201) {
+                    //Agregar Datos de Login
+                    this.user.appConnect = data.appConnect
+                    this.user.keyUser = response.data.res.keyUser
+
+                    //App Store 
+                    const appStore = useAppStore()
+
+                    //Guardar datos del usuario en local
+                    await appStore.saveDataApp('user', this.user)
+                    await this.getUserData()
+                }
+
+                //Login sin Problema True
+                return response
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+
+
         },
-        async login() {
+        //Guardar Datos en la tabla data
+        async saveDataUser(dataSet: any): Promise<AxiosResponse | undefined> {
 
+            //Cargar datos del usuario
+            await this.getUserData()
 
-            //Loading Login
-            const loading = await loadingController
-                .create({
-                    cssClass: 'my-custom-class',
-                    message: 'Cargando...',
-                });
+            // console.log(this.userAll.data)
+            const dataUser: any = await this.userAll.data
+            dataUser.iplast = await { ...dataSet }
 
-            await loading.present();
-
-
-            //Login Api
-            const data = {
-                username: this.user.username,
-                password: this.user.password,
-                appConnect: 'Iplast'
-            };
+            const data = JSON.stringify({
+                "appConnect": this.appConnect,
+                "keyUser": this.user.keyUser,
+                "data": dataUser
+            });
 
             const config = {
-                method: 'post',
-                url: 'https://account.ypw.com.do/api/v1/account/login',
+                method: 'put',
+                url: `${this.urlApi}account/updateFieldData`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 data: data
             };
 
-
             try {
                 const response = await axios(config)
 
-                if (response.status == 200 || response.status == 201) {
+                return response
 
-                    loading.dismiss()
-                    console.log(response.data)
-
-                    if (response.data.error) {
-
-                        //Toast Notification Response error
-                        const toast = await toastController
-                            .create({
-                                message: response.data.message,
-                                duration: 2000
-                            })
-
-                        toast.present();
-
-                        throw new Error(response.data.message)
-                    }
-
-                    //Agregar Datos de Login
-                    this.user.appConnect = data.appConnect
-                    this.user.keyUser = response.data.res.keyUser
-
-
-
-                } else {
-                    throw new Error(response.statusText)
-                }
-
-            } catch (error) {
+            } catch (error: any) {
                 console.log(error)
-                loading.dismiss()
+                return error.response || error //Axios Error
             }
 
-
         },
-        async register() {
+        //Obtener un Codigo de Recuperacion por correo, return true o false
+        async setCodeRecovery(): Promise<AxiosResponse | undefined> {
 
 
-            //Loading Login
-            const loading = await loadingController
-                .create({
-                    cssClass: 'my-custom-class',
-                    message: 'Cargando...',
+            //Store App 
+            const appStore = useAppStore()
+
+            //Libreria Fecha
+            const date = await new Date()
+
+
+            try {
+
+                const data = JSON.stringify({
+                    "email": this.user.email,
+                    "header": `${appStore.appName} App`,
+                    "body": "Your code is: ",
+                    "support": `Contact ${appStore.emailApp}`,
+                    "footer": `${date.getFullYear} ${appStore.emailApp} App`
                 });
 
-            await loading.present();
+                const config = {
+                    method: 'post',
+                    url: `${this.urlApi}account/setCode/email`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data
+                };
 
+                const response = await axios(config)
+                return response
+
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+
+        },
+        //Charge Password - Cmabiar contrasena
+        async chargePassword(): Promise<AxiosResponse | undefined> {
+
+            try {
+
+                const data = JSON.stringify({
+                    "email": this.user.email,
+                    "codetmp": this.user.code,
+                    "newPassword": this.user.password
+                });
+
+                const config = {
+                    method: 'post',
+                    url: `${this.urlApi}account/changePasswCode/email`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data
+                };
+
+                const response = await axios(config)
+
+                //Charge Password Ready
+                return response
+
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+
+        },
+        async getUserData(): Promise<AxiosResponse | undefined> {
+
+            try {
+                const data = JSON.stringify({
+                    "keyUser": this.user.keyUser,
+                    "appConnect": this.user.appConnect
+                });
+
+                const config = {
+                    method: 'post',
+                    url: `${this.urlApi}account/getUser`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data
+                };
+
+                const response = await axios(config)
+
+                if (response.status === 200 || response.status === 201) {
+                    const appStore = useAppStore()
+                    this.userAll = response.data.res
+
+                    // Guardar datos en el celular
+                    appStore.saveDataApp('userAll', this.userAll)
+                }
+
+                return response
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+
+        },
+        //Limpiar usuario de Store 
+        async cleanUser() {
+            //Datos del usuario relevante
+            this.userAll = undefined
+            this.user.keyUser = undefined
+            this.user.appConnect = undefined
+            this.user.password = undefined
+            this.user.code = undefined
+            this.user.email = undefined
+            this.user.phone = undefined
+            this.user.name = undefined
+        },
+        //Cerrar seccion 
+        async logout(): Promise<boolean> {
+            try {
+                const appStore = useAppStore()
+                appStore.removeDataApp('user')
+                appStore.removeDataApp('userAll')
+
+                this.cleanUser()
+
+                return true
+            } catch (error) {
+                console.log(error)
+                return false
+            }
+        },
+        async register(): Promise<AxiosResponse | undefined> {
 
             //Login Api
             const data = {
@@ -127,7 +273,7 @@ export const accountStore = defineStore('accountStore', {
 
             const config = {
                 method: 'post',
-                url: 'https://account.ypw.com.do/api/v1/account/register',
+                url: `${this.urlApi}account/register`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -138,37 +284,19 @@ export const accountStore = defineStore('accountStore', {
             try {
                 const response = await axios(config)
 
-                if (response.status == 200 || response.status == 201) {
+                //Si el usuario se registro correctamente entonces guardarlo en el celular
 
-                    loading.dismiss()
-                    console.log(response.data)
-
-                    if (response.data.error) {
-
-                        //Toast Notification Response error
-                        const toast = await toastController
-                            .create({
-                                message: response.data.message,
-                                duration: 2000
-                            })
-
-                        toast.present();
-
-                        throw new Error(response.data.message)
-                    }
-
+                if (response.status === 200 || response.status === 201) {
                     //Agregar Datos de Registro
                     this.user.appConnect = response.data.res.appConnect
                     this.user.keyUser = response.data.res.keyUser
-
-
-                } else {
-                    throw new Error(response.statusText)
                 }
 
-            } catch (error) {
+                return response
+
+            } catch (error: any) {
                 console.log(error)
-                loading.dismiss()
+                return error.response || error //Axios Error
             }
 
 

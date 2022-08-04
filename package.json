@@ -13,6 +13,7 @@
     "@capacitor/android": "^3.5.1",
     "@capacitor/app": "1.1.1",
     "@capacitor/core": "^3.5.1",
+    "@capacitor/device": "^1.1.2",
     "@capacitor/haptics": "1.1.4",
     "@capacitor/ios": "^3.5.1",
     "@capacitor/keyboard": "1.2.2",
@@ -26,6 +27,7 @@
     "core-js": "^3.6.5",
     "pinia": "^2.0.14",
     "vue": "^3.2.21",
+    "vue-i18n": "^9.1.10",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {

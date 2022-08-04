@@ -10,7 +10,9 @@
             <ion-card>
               <ion-card-header>
                 <ion-card-title>
-                  <ion-icon @click="$router.back()" :icon="chevronBackOutline"></ion-icon>
+                  <ion-icon @click="$router.push({
+                    path: '/'
+                  })" :icon="chevronBackOutline"></ion-icon>
                 </ion-card-title>
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
@@ -21,11 +23,11 @@
                   </ion-avatar> -->
                 </ion-row>
                 <ion-card-title class="ion-text-center">
-                  Acceder
+                  {{ $t('account.access') }}
                 </ion-card-title>
                 <ion-row class="ion-justify-content-center">
                   <ion-text>
-                    <span>Usa tu Cuenta</span>
+                    <span>{{ $t('account.useYourAcoount') }}</span>
                   </ion-text>
                 </ion-row>
               </ion-card-header>
@@ -34,19 +36,37 @@
                 <ion-row>
                   <ion-col size="12" class="ion-padding ion-justify-content-center">
 
-                    <!--Imput Account-->
-                    <ion-input v-model="user.username" type="text" placeholder="Email, número, usuario"></ion-input>
-                    <ion-input v-model="user.password" type="password" placeholder="Contraseña"></ion-input>
+                    <ion-row>
+                      <ion-col
+                        v-if="user.username != null && /^\d{1,4}(([.-\s]?\d{1,4}[.-\s]?)?)*$/.exec(user.username)"
+                        size="2">
+                        <ion-input name="countryCode" :maxlength="5" inputmode="numeric" autocomplete="tel-country-code"
+                          type="text" v-model="user.codePhone" class=" ion-align-self-center" placeholder="+1">
+                        </ion-input>
+                      </ion-col>
+                      <ion-col class=" ion-align-self-auto">
+                        <ion-input v-model="user.username" autocomplete="email" type="text"
+                          :placeholder="$t('account.placeholder.usernamePhoneEmail')"></ion-input>
+                      </ion-col>
+                      <ion-col size="12" class="ion-align-self-auto">
+                        <ion-input v-model="user.password" type="password"
+                          :placeholder="$t('account.placeholder.password')"></ion-input>
+                      </ion-col>
+
+                    </ion-row>
+
 
                     <div class="ion-padding-bottom ion-padding-top">
                       <ion-button fill="outline" @click="$router.push({
                         path: '/account/register'
-                      })" color="secondary">Crear cuenta</ion-button>
+                      })" color="secondary">{{ $t('account.createAccount') }}</ion-button>
 
-                      <ion-button @click="account.login()" color="primary">Siguiente</ion-button>
+                      <ion-button @click="login()" color="primary">{{ $t('account.next') }}</ion-button>
                     </div>
                     <div class="ion-padding ion-text-center">
-                      <a href="https://ypw.com.do" color="secondary">Olvide mi cuenta</a>
+                      <a @click="$router.push({
+                        name: 'passwordRecovery'
+                      })" color="secondary">{{ $t('account.forgot') }}</a>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -81,38 +101,100 @@ import "animate.css";
 // import { ref } from "vue";
 
 import { computed } from "@vue/reactivity";
-import { watch } from "vue";
+import { alertController, loadingController } from "@ionic/vue";
+import { useI18n } from "vue-i18n";
+import openAlert from "@/ts/openAlert";
 
 
 //Logica
-import { accountStore } from "@/store/account";
+import { useAccountStore } from "@/store/account";
 import { useRouter } from "vue-router";
+// import { useAppStore } from "@/store/app";
 const router = useRouter()
 
-const account = accountStore();
+const account = useAccountStore();
+// const appStore = useAppStore();
 
 const user = computed(() => {
   return account.user;
 });
 
+//Use i18n
+const { t } = useI18n();
 
-watch(account.user, (newData) => {
-  if (newData.keyUser && newData.appConnect) {
-    router.push({
-      path: '/taps/tab4'
-    })
+
+
+//Metodos
+
+async function login() {
+
+  const loading = await loadingController.create({
+    cssClass: 'my-custom-class',
+    message: t('account.loading')
+  });
+
+  try {
+
+    if (!user.value.username) {
+      throw new Error(await openAlert('account.hiddenInputUsername', t, alertController))
+    } else if (!/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.exec(user.value.username) && !/^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/.exec(user.value.username) && !/^[a-zA-Z0-9@]+[._a-zA-Z0-9@]{5,34}$/.exec(user.value.username)) {
+      throw new Error(await openAlert('account.userNameError', t, alertController))
+    } else if (!user.value.password || !/^\S(.|\s){7,200}$/.exec(user.value.password)) {
+      throw new Error(await openAlert('account.incorrectPassword', t, alertController))
+    } else if (!user.value.codePhone || !/^\+?\d{1,5}$/.exec(user.value.codePhone)) {
+      throw new Error(await openAlert('account.codePhoneError', t, alertController))
+    }
+
+    await loading.present()
+
+    const res = await account.login()
+    // appStore.setUser(account.user);
+
+    //Ocurrio un error en la aplicacion
+    if (!res) {
+      throw new Error(await openAlert('account.errorApp', t, alertController))
+    }
+
+    if (res.status === 401) {
+      throw new Error(await openAlert('account.errorUser', t, alertController))
+    }
+
+    if (res.status === 404) {
+      throw new Error(await openAlert('account.error404', t, alertController))
+    }
+
+    if (res.status === 403) {
+      throw new Error(await openAlert('account.error403', t, alertController))
+    }
+
+
+
+    if (res.status === 500) {
+      throw new Error(await openAlert('account.errorServer', t, alertController))
+    }
+
+
+    if (res.status === 200 || res.status === 201) {
+      router.push({
+        path: '/'
+      })
+    } else {
+      throw new Error(await openAlert('account.errorApp', t, alertController))
+    }
+
+
+    await loading.dismiss()
+
+
+  } catch (error) {
+    loading.dismiss()
+    console.log(error);
   }
-})
 
 
+}
 
-// async function login() {
-//   account.setUser()
-//   router.push({
-//     path: '/'
-//   })
 
-// }
 </script>
 
 <style scoped>

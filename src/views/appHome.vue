@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar color="primary">
         <ion-text class=" ion-text-center">
-          <h2>Plastic surgery calculator</h2>
+          <h2>{{ $t('title') }}</h2>
         </ion-text>
       </ion-toolbar>
     </ion-header>
@@ -31,7 +31,6 @@
     </ion-content>
   </ion-page>
 </template>
-aq     
 <script lang="ts" setup>
 // import { defineComponent } from "vue";
 import {
@@ -45,10 +44,10 @@ import {
 } from "@ionic/vue";
 // import ExploreContainer from "@/components/ExploreContainer.vue";
 import AppIMC from "@/components/appIMC.vue";
-import { userAppStore } from "@/store/app";
+import { useAppStore } from "@/store/app";
 import { computed } from "vue";
 
-const appStore = userAppStore()
+const appStore = useAppStore()
 
 const colorIMC = computed(() => {
   return appStore.calculator.colorIMC;

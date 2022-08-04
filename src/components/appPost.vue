@@ -1,21 +1,22 @@
 <template>
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-padding">
-      <ion-col v-show="isLoading" size="auto">
+      <ion-col v-show="!posts" size="auto">
         <ion-spinner></ion-spinner>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col v-if="posts">
         <ion-card v-for="post in posts" :key="post.id">
-          <img :src="post._embedded['wp:featuredmedia'][0].source_url" />
+          <div @click="link(post.link, post)"><img :src="post._embedded['wp:featuredmedia'][0].source_url" />
 
-          <ion-card-header>
-            <ion-card-subtitle>{{ post.date }}</ion-card-subtitle>
-            <ion-card-title>{{ post.title.rendered }}</ion-card-title>
-          </ion-card-header>
+            <ion-card-header>
+              <ion-card-subtitle>{{ post.date }}</ion-card-subtitle>
+              <ion-card-title>{{ post.title.rendered }}</ion-card-title>
+            </ion-card-header>
 
-          <ion-card-content v-html="post.excerpt.rendered"> </ion-card-content>
+            <ion-card-content v-html="post.excerpt.rendered"> </ion-card-content>
+          </div>
         </ion-card>
       </ion-col>
     </ion-row>
@@ -27,7 +28,7 @@
 <!--/wp-json/wp/v2/posts-->
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { onMounted, computed } from "vue";
 import {
   IonCard,
   IonCardHeader,
@@ -41,11 +42,24 @@ import {
   IonGrid,
   // IonText,
 } from "@ionic/vue";
-import axios from "axios";
+
+// import axios from "axios";
+import { useWordpressStore } from '@/store/wordpress';
+import { useAppStore } from '@/store/app';
+import { useAccountStore } from "@/store/account";
+import { useI18n } from "vue-i18n";
+
+const wordpress = useWordpressStore()
+const posts = computed(() => {
+  return wordpress.posts;
+});
+
 
 //Props
-const posts = ref();
-const isLoading = ref();
+// const posts = ref();
+
+
+// const isLoading = ref();
 // let images = ref();
 
 //Function
@@ -62,7 +76,30 @@ const isLoading = ref();
 //   return imgRes.value;
 // }
 
+function link(link: any, post: any) {
+  window.location = link;
+
+  const viewPost: any = {}
+  viewPost.ultimoPostView = post
+
+  const accountStore = useAccountStore()
+  accountStore.saveDataUser(viewPost)
+
+}
+
+const i18n = useI18n()
+
 onMounted(async () => {
+  const wordpress = useWordpressStore()
+  const appStore = await useAppStore()
+
+  //Post Local, obtener Post Guardado en Local
+  wordpress.posts = await appStore.getDataApp('posts')
+
+  await wordpress.getPost(i18n.locale.value)
+
+
+
   // const loading = await loadingController.create({
   //   cssClass: "my-custom-class",
   //   message: "Please wait...",
@@ -71,20 +108,21 @@ onMounted(async () => {
 
   // await loading.present();
 
-  try {
-    isLoading.value = true;
-    const res = await axios.get(
-      "https://manuelbelen.com/dev/es/wp-json/wp/v2/posts?_embed"
-    );
-    console.log(res.status);
-    posts.value = await res.data;
+  // try {
+  //   isLoading.value = true;
+  //   const res = await axios.get(
+  //     "https://manuelbelen.com/dev/es/wp-json/wp/v2/posts?_embed"
+  //   );
+  //   console.log(res.status);
+  //   posts.value = await res.data;
 
-    isLoading.value = await false;
-    // await loading.dismiss();
-  } catch (error) {
-    isLoading.value = await false;
-    // loading.dismiss();
-  }
+  //   isLoading.value = await false;
+  //   // await loading.dismiss();
+  // } catch (error) {
+  //   isLoading.value = await false;
+  //   // loading.dismiss();
+  // }
+
 });
 </script>
 

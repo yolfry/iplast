@@ -1,0 +1,100 @@
+{
+    "tabs": {
+        "home": "Home",
+        "novelty": "Novedad",
+        "account": "Cuenta"
+    },
+    "title": "Plastic surgery calculator",
+    "titles": {
+        "myAccount": "Mi cuenta",
+        "helloUser": "Hola!"
+    },
+    "label": {
+        "sex": "SEXO",
+        "age": "EDAD",
+        "height": "ALTURA",
+        "weight": "PESO"
+    },
+    "select": {
+        "feminine": "Femenino",
+        "male": "Masculino",
+        "centimeters": "CM",
+        "foot": "FT+IN",
+        "kilograms": "KG",
+        "pounds": "LB",
+        "stonepluspounds": "ST+LB"
+    },
+    "placeholder": {
+        "years": "Años",
+        "centimeters": "cm",
+        "foot": "ft'",
+        "inches": "in\"",
+        "sex": "Sexo",
+        "kilograms": "kg",
+        "pounds": "lb",
+        "stone": "st"
+    },
+    "text": {
+        "bmi": "IMC",
+        "weight": "Peso",
+        "RecommendedWeight": "Peso Recomendado",
+        "ExcessBMI35": "Peso Excedente para IMC 35",
+        "BMIclassification": "Clasificación IMC",
+        "forYourBMI": "Por tu IMC",
+        "BMIunder16": "Busca hábitos de alimentación para ganar pero, No califica para cirugía plástica, consulta tu médico",
+        "BMI16to16": "No recomendamos cirugía plástica, es tiempo de ganar un poco de peso, consulta tu médico.",
+        "BMI17to18": "No recomendamos cirugía plástica, es tiempo de ganar un poco de peso, consulta tu médico",
+        "BMI18to24": "Saludable, puede calificar para cualquier procedimiento quirúrgico de cirugía plástica, Probablemente no tenga suficiente grasa en caso de Liposucción (Lipoescultura)",
+        "BMI25to29": "Sobre peso, Eres el paciente ideal para cualquier procedimiento de cirugía plástica, puede realizar procedimientos combinados con las debidas precauciones médicas.",
+        "BMI30to34": "Obesidad Tipo 1, Buen candidato para cirugía plástica de cualquier tipo, incluyendo procedimientos combinados. Actúa con Cautela",
+        "BMI35to39": "Obesidad Tipo 2, es tiempo para alimentarse mejor y bajar de peso, puede calificar para procedimientos únicos No combinados., Actúa con mucha Cautela por riesgo de complicaciones Alto",
+        "BMI40to59": "Obesidad Tipo 3, es tiempo de bajar de peso, No califica para cirugía plástica.",
+        "forYourAge": "Por tu Edad",
+        "under18": "Aún no es tiempo para cirugía plástica. Habla con tus padres y tu médico para la opción correcta.",
+        "between50and60": "Se recomienda un chequeo médico general antes de consultar para cirugía plástica.",
+        "between60and70": "Tus opciones quirúrgicas pueden verse limitadas. Se recomienda un chequeo médico general antes de consultar para cirugía plástica. ",
+        "between70and80": "Tus opciones quirúrgicas pueden verse muy limitadas. Se recomienda un chequeo médico general, conversa con tu médico las opciones disponibles.",
+        "over80": "Probablemente no califiques para cirugía plástica. Conversa con tu médico las opciones disponibles. ¡Disfruta tu vida!."
+    },
+    "svgText": {
+        "BMI16to16": "Muy Bajo Peso Severo <16",
+        "BMI16to17": "Bajo Peso Severo 16-17",
+        "BMI17to18": "Bajo Peso 17-18.5",
+        "BMI18to25": "Normal 18.5-25",
+        "BMI25to30": "Sobrepeso 25-30",
+        "BMI30to35": "Obesidad Tipo I 30-35",
+        "BMI35to40": "Obeso Clase II 35-40",
+        "BMI40": "Obeso Clase III >40"
+    },
+    "account": {
+        "incorrectUserOrPassword": "Usuarios o contraseña Icorrecto",
+        "errorApp": "Ocurrio un error, intentelo mas tarde por favor",
+        "errorUser": "Usuario o contraseña incorrecto error",
+        "errorServer": "Error del servidor, Intentelo mas tarde",
+        "error404": "Recurso no encontrado",
+        "error403": "Usuario Bloqueado",
+        "hiddenInput": "Campos Incompletos",
+        "hiddenInputUsername": "Nombre de usuario en blanco, por favor agregue el usuario",
+        "userNameError": "Nombre de usuario Incorrecto",
+        "codePhoneError": "Codigo de pais incorrecto, agregue +1 o el codigo de su pais",
+        "loading": "Cargando...",
+        "access": "Acceder",
+        "useYourAcoount": "Usa tu Cuenta",
+        "createAccount": "Crear cuenta",
+        "next": "Siguiente",
+        "forgot": "Olvide micuenta",
+        "incorrectPassword": "Contraseña Incorrecta",
+        "registerError": "No se puede Registrar el usuario",
+        "free": "Gratis",
+        "placeholder": {
+            "usernamePhoneEmail": "Email, número, usuario",
+            "password": "Contraseña",
+            "email": "Correo electronico",
+            "phone": "Numero de telefono",
+            "name": "Nombre",
+            "username": "Nombre de Usuario",
+            "confirmePassword": "Confirmar",
+            "code": "Codigo"
+        }
+    }
+}

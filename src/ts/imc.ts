@@ -13,7 +13,7 @@ interface altura {
 }
 
 //Functions o methodos
-async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any, IMC: any) {
+async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any, IMC: any, sexo: string) {
     //Algoridmo de Calcular IMC
 
     //Var Input Operathor
@@ -62,10 +62,47 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
     // Indice de masa Corporal
     // console.log(IMC.value);
 
+
+    //peso ideal
+    const alturaenCentimetros = alturaM * 100;
+
+    // Formula Aplicada para Mujer
+    // const pesoIdeal = pesoCentimetros - 100 + ((edad / 10) * 0.9)
+
+    // let pesoIdeal: number
+
+    // if (sexo == "woman") {
+    //     pesoIdeal = 0.75 * pesoCentimetros - 56.25;
+    // } else {
+    //     pesoIdeal = 0.75 * pesoCentimetros - 62.5;
+    // }
+
+    // let pesoIdeal = 50 + ((alturaenCentimetros - 150) / 4) * 3 + (edad - 20) / 4
+    // if (sexo == "woman") {
+    //     pesoIdeal = pesoIdeal * 0.9;
+    // }
+
+    let pesoIdeal: number
+    let recomendado: number
+
+    if (sexo == "woman") {
+        pesoIdeal = (alturaenCentimetros - 150) * 0.6 + 50
+        recomendado = 0.63
+    } else {
+        pesoIdeal = (alturaenCentimetros - 150) * 0.75 + 50
+        recomendado = 0.556
+    }
+
+    // const pesoIdeal = 50 + ((alturaM - 150) / 4) * 3 + (edad - 20) / 4;
+    const pesoRecomendado = pesoIdeal + (pesoIdeal * recomendado); //0.40 //0.55
+
+
     return {
         pesoKg,
         alturaM,
-        IMC: IMC.value
+        IMC: IMC.value,
+        pesoIdeal,
+        pesoRecomendado
     }
 
 }

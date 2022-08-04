@@ -1,23 +1,10 @@
 <template>
   <ion-page>
-    <!-- <ion-header>
-    <ion-toolbar>
-      <ion-title> Ypw Login </ion-title>
-    </ion-toolbar>
-  </ion-header> -->
 
     <ion-content :fullscreen="true">
-      <!-- <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">Ypw Login</ion-title>
-      </ion-toolbar>
-    </ion-header> -->
 
       <ion-grid class="ion-margin-top">
-        <!-- <div class="videoShadow"></div> -->
-        <!-- <video autoplay loop muted playsinline>
-        <source src="@/views/ypw/assets/videoCover.mp4" type="video/mp4" />
-      </video> -->
+
         <div class="cover"></div>
         <ion-row class="animate__animated animate__bounceInLeft ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
@@ -30,16 +17,14 @@
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
                   </ion-avatar>
-                  <!-- <ion-avatar>
-                    <img src="@/views/ypw/assets/logoYPW.com.jpg" />
-                  </ion-avatar> -->
+
                 </ion-row>
-                <!-- <ion-card-title class="ion-text-center">
-                  Crear tu cuenta
-                </ion-card-title> -->
-                <ion-text class="ion-text-center" color="primary">
-                  <h3>Crear tu cuenta</h3>
-                </ion-text>
+                <ion-card-title color="primary" class="ion-text-center">
+                  {{ $t('account.createAccount') }}
+                </ion-card-title>
+                <ion-card-subtitle class="ion-text-center">
+                  {{ $t('account.free') }}
+                </ion-card-subtitle>
 
               </ion-card-header>
 
@@ -48,15 +33,64 @@
                   <ion-col size="12" class="ion-padding ion-justify-content-center">
 
                     <!--Data register Input Entrada-->
-                    <ion-input v-model="user.username" type="text" placeholder="Usuario"></ion-input>
-                    <ion-input v-model="user.name" type="text" placeholder="Nombre"></ion-input>
-                    <ion-input v-model="user.email" type="text" placeholder="Email"></ion-input>
-                    <ion-input v-model="user.phone" type="text" placeholder="Numero"></ion-input>
-                    <ion-input v-model="user.password" type="password" placeholder="Contraseña"></ion-input>
+                    <ion-item>
+                      <ion-label position="floating">{{ $t('account.placeholder.username') }}</ion-label>
+                      <ion-input v-model="user.username" autocomplete="username" type="text"></ion-input>
+                    </ion-item>
+
+
+
+                    <ion-item>
+                      <ion-label position="floating">{{ $t('account.placeholder.name') }}</ion-label>
+                      <ion-input v-model="user.name" autocomplete="name" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-label position="floating">{{ $t('account.placeholder.email') }}</ion-label>
+                      <ion-input v-model="user.email" autocomplete="email" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-row>
+                      <ion-col size="4">
+                        <ion-item>
+                          <ion-label position="floating">{{ $t('account.placeholder.code') }}</ion-label>
+                          <ion-input name="countryCode" :maxlength="5" inputmode="numeric"
+                            autocomplete="tel-country-code" type="text" v-model="user.codePhone"
+                            class=" ion-align-self-center">
+                          </ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col class=" ion-align-self-auto">
+                        <ion-item>
+                          <ion-label position="floating">{{ $t('account.placeholder.phone') }}</ion-label>
+                          <ion-input autocomplete="tel" v-model="user.phone" type="text"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+
+
+                    <ion-row>
+                      <ion-col class=" ion-align-self-auto">
+                        <ion-item>
+                          <ion-label position="floating">{{ $t('account.placeholder.password') }}</ion-label>
+                          <ion-input v-model="user.password" type="password"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col size="6" class=" ion-align-self-auto">
+                        <ion-item>
+                          <ion-label position="floating">{{ $t('account.placeholder.confirmePassword') }}</ion-label>
+                          <ion-input v-model="confirmePassword" type="password"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+
 
                     <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button color="primary" @click="account.register()">Siguiente</ion-button>
+                      <ion-button @click="register()" color="primary">{{ $t('account.next') }}</ion-button>
                     </div>
+
+
+
                   </ion-col>
                 </ion-row>
               </ion-card-content>
@@ -77,47 +111,78 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonText,
   IonCol,
   IonInput,
-  IonButton,
+  IonCardSubtitle,
   IonIcon,
   IonAvatar,
   IonPage,
+  IonLabel,
+  IonItem,
 } from "@ionic/vue";
 import { chevronBackOutline } from "ionicons/icons";
 import "animate.css";
-import { watch } from "vue";
+import { ref } from "vue";
 
 import { computed } from "@vue/reactivity";
+import { alertController, loadingController } from "@ionic/vue";
+import openAlert from "@/ts/openAlert";
 
-//Logica
-import { accountStore } from "@/store/account";
+import { useI18n } from "vue-i18n";
+
+import { useAccountStore } from "@/store/account";
 import { useRouter } from "vue-router";
+
+//Declare y Use
+const { t } = useI18n();
 const router = useRouter()
+const account = useAccountStore();
 
-const account = accountStore();
 
+//Computed y Methods
 const user = computed(() => {
   return account.user;
 });
 
-watch(account.user, (newData) => {
-  if (newData.keyUser && newData.appConnect) {
-    router.push({
-      path: '/taps/tab4'
-    })
+//Propiedades Radiativas
+const confirmePassword = ref("");
+
+
+// Funcion de Registro
+const register = async () => {
+
+//Validaciones
+
+  // if(/^$/){
+  // }
+
+  const loading = await loadingController.create({
+    message: t("account.loading"),
+    translucent: true,
+  });
+
+  try {
+
+    if (!user.value.username || !/^[a-zA-Z0-9@]+[._a-zA-Z0-9@]{5,34}$/.exec(user.value.username)) {
+      throw new Error(await openAlert('account.userNameError', t, alertController))
+    }
+
+    loading.present();
+
+    const register = await account.register();
+    if (!register) {
+      throw new Error(await openAlert('account.registerError', t, alertController))
+    }
+    //Ir a cuenta, Luego de que el usuario se registre
+    router.push("/tabs/mycuenta");
+
+  } catch (error) {
+    loading.dismiss();
+    console.log(error)
   }
-})
 
+};
 
-// async function login() {
-//   account.setUser()
-//   router.push({
-//     path: '/'
-//   })
-
-// }
 </script>
 
 <style scoped>
@@ -134,8 +199,5 @@ watch(account.user, (newData) => {
 
 ion-input {
   font-size: 20px;
-  border-bottom: 0.1px solid var(--ion-color-dark);
-  margin-top: 5px;
-  padding-left: 10px;
 }
 </style>

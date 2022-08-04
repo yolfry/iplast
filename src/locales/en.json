@@ -1,0 +1,64 @@
+{
+    "tabs": {
+        "home": "Home",
+        "novelty": "Novelty",
+        "account": "Account"
+    },
+    "title": "Plastic surgery calculator",
+    "label": {
+        "sex": "SEXT",
+        "age": "AGE",
+        "height": "HEIGHT",
+        "weight": "WEIGHT"
+    },
+    "select": {
+        "feminine": "Feminine",
+        "male": "Male",
+        "centimeters": "CM",
+        "foot": "FT+LB",
+        "kilograms": "KG",
+        "pounds": "LB",
+        "stonepluspounds": "ST+LB"
+    },
+    "placeholder": {
+        "years": "Years",
+        "centimeters": "cm",
+        "foot": "ft'",
+        "inches": "in\"",
+        "sex": "Sex",
+        "kilograms": "kg",
+        "pounds": "lb",
+        "stone": "st"
+    },
+    "text": {
+        "bmi": "BMI",
+        "weight": "Weight",
+        "RecommendedWeight": "Recommended Weight",
+        "ExcessBMI35": "Excess Weight for BMI 35",
+        "BMIclassification": "BMI classification",
+        "forYourBMI": "For your BMI",
+        "BMIunder16": "<h5>Look for eating habits to win but, <b>You don't qualify for plastic surgery</b>, consult your doctor </h3>",
+        "BMI16to16": "<h3> <b>We do not recommend plastic surgery</b>, it is time to gain a little weight, consult your doctor </h3>",
+        "BMI17to18": "<h3> <b>We do not recommend plastic surgery</b>, it is time to gain a little weight, consult your doctor </h3>",
+        "BMI18to24": "<h3> Healthy, <b>may qualify for any plastic surgery surgical procedure</b>, Probably not enough fat in case of Liposuction (Liposculpture)</h3>",
+        "BMI25to29": "<h3> Overweight, <b>You are the ideal patient for any plastic surgery procedure</b>, you can perform combined procedures with due medical precautions. </h3>",
+        "BMI30to34": "<h3> Obesity Type 1, <b>Good candidate for plastic surgery of any kind</b>, including combined procedures. \"Act with Caution \" </h3>",
+        "BMI35to39": "<h3> Type 2 Obesity, it is time to eat better and lose weight, <b>may qualify for single Non-combined procedures.</b>, \"Act with great Caution due to High risk of complications\" </h3>",
+        "BMI40to59": "<h3> Type 3 obesity, it's time to lose weight, <b>Does not qualify for plastic surgery.</b></h3>",
+        "forYourAge": "By your age",
+        "under18": "It's not time for surgery yet, <b>Talk to your parents</b>.",
+        "between50and60": "A general medical check-up is recommended before consulting for surgery.",
+        "between60and80": "Your surgical options may be limited, <b>A general medical check-up is recommended</b>.",
+        "over80": "You probably won't qualify for plastic surgery, <b>Enjoy your life!</b>."
+    },
+    "svgText": {
+        "BMI16to16": "Very Low Weight Severe <16",
+        "BMI16to17": "Severe Underweight 16-17",
+        "BMI17to18": "Underweight 17-18.5",
+        "BMI18to25": "Normal 18.5-25",
+        "BMI25to30": "Overweight 25-30",
+        "BMI30to35": "Obesity Type I 30-35",
+        "BMI35to40": "Obese Class II 35-40",
+        "BMI40": "Obese Class III >40"
+    }
+}

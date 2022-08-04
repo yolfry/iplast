@@ -1,88 +1,124 @@
 <template>
     <ion-grid class="fitnessGraphic">
 
-        <ion-card>
-            <ion-card-header>
-                <ion-card-title>
-                    <ion-text class=" ion-text-center">
-                        <h1 :style="`color: ${colorIMC};`">
-                            {{ titleIMC }}
-                        </h1>
-                    </ion-text>
-                </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
+        <ion-row class="ion-justify-content-center">
 
-                <p v-if="textEdad" v-html="textEdad"></p>
+            <ion-col class=" ion-align-self-auto">
 
-                <ion-text v-show="validateIMC() && !textEdad" class="ion-text-justify" :style="`color: ${colorIMC};`">
-                    <p v-html="textIMC"></p>
-                </ion-text>
+                <ion-card>
+                    <ion-card-content>
 
-                <ion-row>
-                    <ion-col size="5">
-                        <ion-text class=" ion-text-center">
-                            <h3 :style="`color: ${colorIMC};`">IMC</h3>
-                        </ion-text>
-                    </ion-col>
-                    <ion-col size="5">
-                        <ion-text class=" ion-text-center">
-                            <h3>Peso</h3>
-                        </ion-text>
-                    </ion-col>
+                        <ion-row>
+                            <ion-col v-show="validateIMC()" class=" ion-align-self-auto">
+                                <ion-img class="animate__animated animate__flash malla_background"
+                                    :src="`/assets/fitness/${props.sexo}${numeroDeIamegen}.svg`"
+                                    :style="`border-bottom: 4px solid ${colorIMC}; border-bottom-style:dotted; `" />
+                            </ion-col>
+                            <ion-col class=" ion-align-self-auto">
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-text class=" ion-text-center">
+                                            <h2>{{ $t('text.bmi') }}</h2>
+                                        </ion-text>
+                                        <ion-text class=" ion-text-center">
+                                            <h1 class="h1-plus" :style="`color: ${colorIMC};`">{{ (validateIMC()) ? imc
+                                                    : `?`
+                                            }}</h1>
+                                        </ion-text>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-text class=" ion-text-center">
+                                            <h3>{{ $t('text.weight') }}</h3>
+                                        </ion-text>
+                                        <ion-text class=" ion-text-center">
+                                            <h1>{{ (validateIMC()) ? Math.round(peso.kg) + ` KG` : `?` }}</h1>
+                                        </ion-text>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-text class=" ion-text-center">
+                                            <h3>{{ $t('text.RecommendedWeight') }}</h3>
+                                        </ion-text>
+                                        <ion-text class=" ion-text-center">
+                                            <h1>{{ (validateIMC()) ? Math.round(pesoIdeal) + ` KG` : `?` }}</h1>
+                                        </ion-text>
+                                    </ion-col>
 
+                                    <ion-col v-show="imc > 35 && Math.round(peso.kg - pesoRecomendado) > 0">
+                                        <ion-text class=" ion-text-center">
+                                            <h3>{{ $t('text.ExcessBMI35') }}</h3>
+                                        </ion-text>
+                                        <ion-text class=" ion-text-center">
+                                            <h1 style="color:#ff7c24;">{{ (validateIMC()) ? Math.round(peso.kg -
+                                                    pesoRecomendado) +
+                                                    `KG` : `?`
+                                            }}</h1>
+                                        </ion-text>
+                                    </ion-col>
+                                </ion-row>
 
-                    <ion-col size="5">
-                        <ion-text class=" ion-text-center">
-                            <h1 :style="`color: ${colorIMC};`">{{ (validateIMC()) ? imc : `?` }}</h1>
-                        </ion-text>
-                    </ion-col>
-                    <ion-col size="5">
-                        <ion-text class=" ion-text-center">
-                            <h1>{{ (validateIMC()) ? Math.round(peso.kg) + `KG` : `?` }}</h1>
-                        </ion-text>
-                    </ion-col>
-                </ion-row>
-            </ion-card-content>
-        </ion-card>
-
-        <ion-card>
-
-            <ion-img v-if="validateIMC()" class="animate__animated animate__bounce malla_background"
-                :src="`/assets/fitness/${props.sexo}${numeroDeIamegen}.svg`"
-                :style="`border-bottom: 4px solid ${colorIMC}; border-bottom-style:dotted; `" />
-
-            <!-- <ion-img v-else class="animate__animated animate__bounce malla_background"
-                :src="`/assets/fitness/default${sexo}.svg`" /> -->
-
-            <ion-card-content>
-                <ion-text class=" ion-text-center">
-                    <h2>Clasificación IMC</h2>
-                </ion-text>
-                <imc-graphic :imc="imc"></imc-graphic>
-            </ion-card-content>
-        </ion-card>
+                            </ion-col>
+                        </ion-row>
 
 
 
-        <!-- <ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+
+
 
             <ion-col size="12">
-                <imc-graphic :imc="imc"></imc-graphic>
+                <ion-card v-show="textEdad">
+                    <ion-card-header>
+                        <ion-card-title>
+                            <ion-text color="primary" class=" ion-text-center">
+                                <h1 class=" ion-text-uppercase">
+                                    {{ titleIMCEdad }}
+                                </h1>
+                            </ion-text>
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p v-html="textEdad"></p>
+                    </ion-card-content>
+                </ion-card>
             </ion-col>
 
-            <ion-col class="boxImage" size="6">
-                <ion-img v-if="validateIMC()" class="animate__animated animate__bounce "
-                    :src="`/assets/fitness/${props.sexo}${numeroDeIamegen}.svg`"
-                    :style="`border-bottom: 4px solid ${colorIMC}; border-bottom-style:dotted; `" />
+            <ion-col size="12">
+                <ion-card v-show="validateIMC()">
+                    <ion-card-header>
+                        <ion-card-title>
+                            <ion-text class=" ion-text-center">
+                                <h1 class=" ion-text-uppercase" :style="`color: ${colorIMC};`">
+                                    {{ titleIMC }}
+                                </h1>
+                            </ion-text>
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
 
-                <ion-img v-else class="animate__animated animate__bounce" :src="`/assets/fitness/default${sexo}.svg`" />
+                        <ion-text class="ion-text-justify">
+                            <div v-html="textIMC"></div>
+                        </ion-text>
 
+                    </ion-card-content>
+                </ion-card>
             </ion-col>
 
+            <ion-col size="12">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-text class=" ion-text-center">
+                            <h2>{{ $t('text.BMIclassification') }}</h2>
+                        </ion-text>
+                        <imc-graphic :imc="imc"></imc-graphic>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
 
 
-        </ion-row> -->
+
     </ion-grid>
 </template>
 
@@ -92,31 +128,48 @@ import { defineProps, ref, onMounted, watch, computed } from 'vue';
 import 'animate.css'
 import imcGraphic from '@/components/imcGraphic.vue'
 
-import { userAppStore } from '@/store/app';
+import { useAppStore } from '@/store/app';
+import { useI18n } from 'vue-i18n';
 
-const appStore = userAppStore()
 
-const props = defineProps({
-    imc: {
-        type: Number,
-        default: 0
-    },
-    sexo: {
-        type: String
-    },
-    edad: {
-        type: Number,
-        default: 0
-    },
-    peso: {
-        type: Object,
-        default: () => ({
-            kg: 0,
-            lb: 0,
-            st: 0
-        })
-    }
-})
+// Use i18n
+const { t } = useI18n()
+
+
+const appStore = useAppStore()
+
+
+
+const props = defineProps(
+    {
+        imc: {
+            type: Number,
+            default: 0
+        },
+        sexo: {
+            type: String
+        },
+        edad: {
+            type: Number,
+            default: 0,
+        },
+        peso: {
+            type: Object,
+            default: () => ({
+                kg: 0,
+                lb: 0,
+                st: 0
+            })
+        },
+        pesoIdeal: {
+            type: Number,
+            default: 0
+        },
+        pesoRecomendado: {
+            type: Number,
+            default: 0
+        },
+    })
 
 
 //Propiedad Reativas Ref
@@ -126,57 +179,61 @@ const colorIMC = computed(() => {
     return appStore.calculator.colorIMC
 })
 
+//Por IMC
 const textIMC = ref()
 const titleIMC = ref()
-const textEdad = ref()
 
+//Por edad
+const textEdad = ref()
+const titleIMCEdad = ref()
 
 //Metodos
 function initGraphic() {
+
 
     if (props.imc != null) {
 
         //Obtener informacion por Indice de Masa Colporal
         if (props.imc < 16 && props.imc > 8) {
             numeroDeIamegen.value = 1
-            appStore.calculator.colorIMC = '#FF4343'
-            titleIMC.value = 'No califica'
-            textIMC.value = 'Busca hábitos de alimentación para ganar pero, <b>No califica para cirugía plástica</b>, consulta tu médico '
+            appStore.calculator.colorIMC = '#b71515'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMIunder16')
         } else if (props.imc >= 16 && props.imc < 17) {
             numeroDeIamegen.value = 2
-            appStore.calculator.colorIMC = '#E06741'
-            titleIMC.value = 'No recomendamos cirugía plástica'
-            textIMC.value = '<b>No recomendamos cirugía plástica</b>, es tiempo de ganar un poco de peso, consulta tu médico'
+            appStore.calculator.colorIMC = '#ff7c24'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI16to16')
         } else if (props.imc >= 17 && props.imc < 18.5) {
             numeroDeIamegen.value = 3
-            appStore.calculator.colorIMC = '#DD8126'
-            titleIMC.value = 'No recomendamos cirugía plástica'
-            textIMC.value = '<b>No recomendamos cirugía plástica</b>, es tiempo de ganar un poco de peso, consulta tu médico'
+            appStore.calculator.colorIMC = '#eae01f'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI17to18')
         } else if (props.imc >= 18.5 && props.imc < 25) {
             numeroDeIamegen.value = 4
-            appStore.calculator.colorIMC = '#5AAF3E'
-            titleIMC.value = 'Califica'
-            textIMC.value = 'Saludable, <b>puede calificar para cualquier procedimiento quirúrgico de cirugía plástica</b>, Probablemente no tenga suficiente grasa en caso de Liposucción (Lipoescultura)'
+            appStore.calculator.colorIMC = '#80dd5e'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI18to24')
         } else if (props.imc >= 25 && props.imc < 30) {
             numeroDeIamegen.value = 5
-            appStore.calculator.colorIMC = '#ffc569'
-            titleIMC.value = 'Califica'
-            textIMC.value = 'Sobre peso, <b>Eres el paciente ideal para cualquier procedimiento de cirugía plástica</b>, puede realizar procedimientos combinados con las debidas precauciones médicas.'
+            appStore.calculator.colorIMC = '#319dff'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI25to29')
         } else if (props.imc >= 30 && props.imc < 35) {
             numeroDeIamegen.value = 6
-            appStore.calculator.colorIMC = '#E06741'
-            titleIMC.value = 'Califica'
-            textIMC.value = 'Obesidad Tipo 1, <b>Buen candidato para cirugía plástica de cualquier tipo</b>, incluyendo procedimientos combinados. "Actúa con Cautela"'
+            appStore.calculator.colorIMC = '#eae01f'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI30to34')
         } else if (props.imc >= 35 && props.imc < 40) {
             numeroDeIamegen.value = 7
-            appStore.calculator.colorIMC = '#FF4343'
-            titleIMC.value = 'Califica'
-            textIMC.value = 'Obesidad Tipo 2, es tiempo para alimentarse mejor y bajar de peso, <b>puede calificar para procedimientos únicos No combinados.</b>, "Actúa con mucha Cautela por riesgo de complicaciones Alto"'
+            appStore.calculator.colorIMC = '#ff7c24'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI35to39')
         } else if (props.imc > 40 && props.imc < 60) {
             numeroDeIamegen.value = 8
-            appStore.calculator.colorIMC = '#B71515'
-            titleIMC.value = 'No califica'
-            textIMC.value = 'Obesidad Tipo 3, es tiempo de bajar de peso, <b>No califica para cirugía plástica.</b>'
+            appStore.calculator.colorIMC = '#b71515'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI40to59')
         } else {
             numeroDeIamegen.value = 0
             appStore.calculator.colorIMC = '#357FB7'
@@ -186,23 +243,21 @@ function initGraphic() {
 
         //Obtener Informacion Por edad
         if (props.edad) {
-
             if (props.edad < 18 && props.edad > 0) {
-                appStore.calculator.colorIMC = '#ff4343'
-                titleIMC.value = 'Nota'
-                textEdad.value = 'Aún no es tiempo para cirugía, <b>Habla con tus padres</b>.'
+                titleIMCEdad.value = t('text.forYourAge')
+                textEdad.value = t('text.under18')
             } else if (props.edad >= 50 && props.edad < 60) {
-                appStore.calculator.colorIMC = '#E06741'
-                titleIMC.value = 'Nota'
-                textEdad.value = 'Se recomienda un chequeo medico general antes de consultar para ir a cirugía.'
+                titleIMCEdad.value = t('text.forYourAge')
+                textEdad.value = t('text.between50and60')
             } else if (props.edad >= 60 && props.edad < 70) {
-                appStore.calculator.colorIMC = '#E06741'
-                titleIMC.value = 'Nota'
-                textEdad.value = 'Tus opciones quirúrgica pueden verse limitadas, <b>Se recomienda un chequeo médico general</b>.'
-            } else if (props.edad > 70) {
-                appStore.calculator.colorIMC = '#185d84'
-                titleIMC.value = 'Nota'
-                textEdad.value = 'Probablemente no califiques para cirugía plástica, <b>¡Disfruta tu vida!</b>.'
+                titleIMCEdad.value = t('text.forYourAge')
+                textEdad.value = t('text.between60and70')
+            } else if (props.edad >= 70 && props.edad < 80) {
+                titleIMCEdad.value = t('text.forYourAge')
+                textEdad.value = t('text.between70and80')
+            } else if (props.edad >= 80) {
+                titleIMCEdad.value = t('text.forYourAge')
+                textEdad.value = t('text.over80')
             } else {
                 textEdad.value = null
             }
@@ -236,15 +291,23 @@ onMounted(() => {
 
 </script>
 
-<style>
+<style scoped>
 /* .fitnessGraphic ion-card {
     margin-left: -20%;
 } */
+ion-card {
+    border-radius: 20px;
+}
+
+.h1-plus {
+    font-size: 30px;
+}
 
 .malla_background {
     background-image: url('@/assets/malla_background.svg');
     background-size: cover;
 }
+
 
 .fitnessGraphic .grafitData {
     border-radius: 10px;
@@ -260,10 +323,6 @@ onMounted(() => {
 ion-img {
     border-radius: 30px;
 }
-
-/*
-:style="`border-bottom: 4px solid red; border-bottom-style:dotted; ` + `background: rgb(255,255,255);
-                    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 66%, ${colorIMC} 100%);`" */
 
 
 @keyframes animateBg {
