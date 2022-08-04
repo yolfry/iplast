@@ -151,7 +151,7 @@ const confirmePassword = ref("");
 // Funcion de Registro
 const register = async () => {
 
-//Validaciones
+  //Validaciones
 
   // if(/^$/){
   // }
@@ -167,14 +167,68 @@ const register = async () => {
       throw new Error(await openAlert('account.userNameError', t, alertController))
     }
 
+    if (!user.value.name || !/^[a-zA-Z]{3,20} ?[a-zA-Z]{2,40}?$/.exec(user.value.name)) {
+      throw new Error(await openAlert('account.nameError', t, alertController))
+    }
+
+    if (!user.value.email || !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.exec(user.value.email)) {
+      throw new Error(await openAlert('account.emailError', t, alertController))
+    }
+
+    if (!user.value.codePhone || !/^\+?\d{1,5}$/.exec(user.value.codePhone)) {
+      throw new Error(await openAlert('account.codePhoneError', t, alertController))
+    }
+
+    if (!user.value.phone || !/^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/.exec(user.value.phone)) {
+      throw new Error(await openAlert('account.phoneError', t, alertController))
+    }
+
+    if (!user.value.password || !/^\S(.|\s){7,200}$/.exec(user.value.password)) {
+      throw new Error(await openAlert('account.incorrectPassword', t, alertController))
+    }
+
+    if (user.value.password != confirmePassword.value) {
+      throw new Error(await openAlert('account.passwordConfirmeError', t, alertController))
+    }
+
     loading.present();
 
-    const register = await account.register();
-    if (!register) {
+    const res = await account.register();
+    if (!res) {
+      throw new Error(await openAlert('account.errorApp', t, alertController))
+    }
+
+    if (res.status === 400) {
+      account.cleanUser() //Si el usuario existe, borramos los datos del formulario
       throw new Error(await openAlert('account.registerError', t, alertController))
     }
-    //Ir a cuenta, Luego de que el usuario se registre
-    router.push("/tabs/mycuenta");
+
+    if (res.status === 401) {
+      account.cleanUser(); //Si el usuario existe, borramos los datos del formulario
+      throw new Error(await openAlert('account.registerError', t, alertController))
+    }
+
+    if (res.status === 404) {
+      throw new Error(await openAlert('account.error404', t, alertController))
+    }
+
+    if (res.status === 403) {
+      throw new Error(await openAlert('account.error403', t, alertController))
+    }
+
+    if (res.status === 500) {
+      throw new Error(await openAlert('account.errorServer', t, alertController))
+    }
+
+    if (res.status === 200 || res.status === 201) {
+      //Ir a cuenta, Luego de que el usuario se registre
+      router.push("/tabs/mycuenta");
+    } else {
+      throw new Error(await openAlert('account.errorApp', t, alertController))
+    }
+
+    loading.dismiss();
+
 
   } catch (error) {
     loading.dismiss();

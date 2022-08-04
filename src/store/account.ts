@@ -11,7 +11,7 @@ interface user {
     email: string | undefined;
     phone: string | undefined;
     code: string | undefined;
-    codePhone: string | undefined;
+    codePhone: string;
 }
 
 
@@ -39,6 +39,7 @@ export const useAccountStore = defineStore('accountStore', {
         }
     },
     actions: {
+
         async login(): Promise<AxiosResponse | undefined> {
             try {
                 //Detectar si el usuario es un numero, y si es un numero colocarle el codigo de pais
@@ -244,6 +245,7 @@ export const useAccountStore = defineStore('accountStore', {
             this.user.email = undefined
             this.user.phone = undefined
             this.user.name = undefined
+            this.user.username = undefined
         },
         //Cerrar seccion 
         async logout(): Promise<boolean> {
@@ -262,13 +264,14 @@ export const useAccountStore = defineStore('accountStore', {
         },
         async register(): Promise<AxiosResponse | undefined> {
 
+
             //Login Api
             const data = {
                 username: this.user.username,
                 password: this.user.password,
                 name: this.user.name,
                 email: this.user.email,
-                phone: this.user.phone
+                phone: `${this.user.codePhone + this.user.phone}`
             };
 
             const config = {
@@ -290,6 +293,8 @@ export const useAccountStore = defineStore('accountStore', {
                     //Agregar Datos de Registro
                     this.user.appConnect = response.data.res.appConnect
                     this.user.keyUser = response.data.res.keyUser
+
+                    this.getUserData()
                 }
 
                 return response

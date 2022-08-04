@@ -155,7 +155,13 @@ async function login() {
       throw new Error(await openAlert('account.errorApp', t, alertController))
     }
 
+    if (res.status === 400) {
+      account.cleanUser()
+      throw new Error(await openAlert('account.errorUser', t, alertController))
+    }
+
     if (res.status === 401) {
+      account.cleanUser()
       throw new Error(await openAlert('account.errorUser', t, alertController))
     }
 
