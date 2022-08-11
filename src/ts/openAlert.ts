@@ -1,12 +1,12 @@
 
 
 // Message is function for mesage i18n notification error
-export default async function openAlert(e: string | number /* i18n String*/, t: any, alertController: any): Promise<string> {
+export default async function openAlert(e: string | number /* i18n String*/, t: any, alertController: any, header = 'Alert', subHeader = ''): Promise<string> {
 
     const toast = await alertController
         .create({
-            header: 'Alert',
-            // subHeader: 'User Account',
+            header,
+            subHeader,
             message: await t(e),
             buttons: ['OK']
         })

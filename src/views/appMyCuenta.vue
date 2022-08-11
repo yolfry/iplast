@@ -1,18 +1,22 @@
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header translucent>
       <ion-toolbar color="primary">
+        <ion-avatar class=" ion-margin-start" slot="start">
+          <img src="@/assets/logoApp.png">
+        </ion-avatar>
+
         <ion-title>{{ $t('titles.myAccount') }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
+      <div class="cover"></div>
+
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Mi cuenta</ion-title>
+          <ion-title size="large">{{ $t('titles.myAccount') }}</ion-title>
         </ion-toolbar>
       </ion-header>
-
-
 
       <ion-row class=" ion-padding">
         <ion-col size="12">
@@ -22,59 +26,45 @@
         </ion-col>
       </ion-row>
 
-      <!-- <ion-row>
-        <ion-col>
-          <ion-button @click="account.logout().then(res => res ? $router.push('/') : null)">
-            <ion-icon slot="icon-only" :icon="logOutOutline"></ion-icon>
-            Cerrar sesión
-          </ion-button>
-        </ion-col>
-      </ion-row> -->
-
-
-      <!-- <ion-row>
-        <ion-col>
-          <ion-button>
-            <ion-icon slot="icon-only" :icon="listOutline"></ion-icon>
-            My consultas
-          </ion-button>
-        </ion-col>
-      </ion-row> -->
 
       <ion-row>
         <ion-col>
           <ion-list>
 
-
-            <ion-item button>
-              <ion-icon slot="start" :icon="peopleOutline"></ion-icon>
+            <ion-item button @click="$router.push({
+              name: 'fYD'
+            })" color="primary">
+              <ion-icon slot="start" :icon="peopleCircle"></ion-icon>
               <ion-label>
-                <h3>Ecuentra Tu doctor</h3>
+                <h3>{{ $t('user.findYourDoctor') }}</h3>
               </ion-label>
             </ion-item>
 
             <!--Comisung-->
 
-            <ion-item button>
-              <ion-icon slot="start" :icon="peopleOutline"></ion-icon>
+            <ion-item button @click="$router.push({
+              name: 'sLD'
+            })" color="primary">
+              <ion-icon slot="start" :icon="sparklesSharp"></ion-icon>
               <ion-label>
-                <h3>Sport Light Doctor</h3>
+                <h3>{{ $t('user.sportLightDoctor') }}</h3>
               </ion-label>
             </ion-item>
 
 
-            <ion-item button>
-              <ion-icon slot="start" :icon="settingsOutline"></ion-icon>
+            <ion-item button @click="$router.push({
+              name: 'config'
+            })" color="primary">
+              <ion-icon slot="start" :icon="settingsSharp"></ion-icon>
               <ion-label>
-                <h3>Config</h3>
+                <h3>{{ $t('user.config') }}</h3>
               </ion-label>
             </ion-item>
 
-
-            <ion-item button @click="account.logout().then(res => res ? $router.push('/') : null)">
-              <ion-icon slot="start" :icon="exitOutline"></ion-icon>
+            <ion-item button @click="logout()" color="primary">
+              <ion-icon slot="start" :icon="exitSharp"></ion-icon>
               <ion-label>
-                <h3>Cerrar Cuenta</h3>
+                <h3>{{ $t('user.exitAccount') }}</h3>
               </ion-label>
             </ion-item>
           </ion-list>
@@ -99,51 +89,88 @@ import {
   IonItem,
   IonLabel,
   IonList,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonButton,
   IonIcon,
   IonText,
-  IonCol
-} from "@ionic/vue";
-import { logOutOutline, listOutline, peopleOutline, exitOutline, settingsOutline } from "ionicons/icons";
+  IonCol,
+  IonAvatar
+} from "@ionic/vue";//<ion-icon name="sparkles-outline"></ion-icon>
+import { peopleCircle, exitSharp, settingsSharp, sparklesSharp } from "ionicons/icons";
 
-import { computed, onMounted, onActivated, onUpdated } from "vue";
+import { computed } from "vue";
 import { useAccountStore } from "@/store/account";
-import { useAppStore } from "@/store/app";
+import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+import { alertController } from "@ionic/vue";
 
 const account = useAccountStore();
-
+const router = useRouter();
 //User Store
 const user = computed(() => {
   return account.user;
 });
 
+const { t } = useI18n();
+
+
 const userAll = computed(() => {
   return account.userAll;
 });
 
-async function getUserAll() {
-  const account = useAccountStore();
-  const appStore = await useAppStore();
-  account.userAll = await appStore.getDataApp('userAll');
+const logout = async (): Promise<void> => {
+
+  const alert = await alertController.create({
+    header: "Alert",
+    message: t("account.logout"),
+    buttons: [
+      {
+        text: t('text.no'),
+        role: "cancel",
+        handler: () => {
+          console.log('cancel')
+        }
+      },
+      {
+        text: t('text.yes'),
+        handler: async () => {
+
+          const res = await account.logout()
+
+          if (res) {
+            router.push({
+              name: 'login'
+            })
+          } else {
+            console.log('Log Out Error')
+          }
+
+        }
+      }
+    ]
+  });
+
+  alert.present();
+
+
+
+
+
 }
 
-onMounted(() => {
-  getUserAll()
-});
-
-onActivated(() => {
-  getUserAll()
-});
-
-onUpdated(() => {
-  getUserAll()
-});
 
 account.getUserData()
 
 
 </script>
+
+<style scoped>
+.cover {
+  position: fixed;
+  top: -30%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: url("@/views/ypw/assets/cover.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>

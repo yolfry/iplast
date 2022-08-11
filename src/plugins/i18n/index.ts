@@ -8,10 +8,16 @@ const installI18n = async () => {
     let langueje: string
 
     if (/^es/.exec(languejeDevice.value)) {
+        // español
         langueje = 'es'
     } else if (/^en/.exec(languejeDevice.value)) {
+        // inglés
         langueje = 'en'
+    } else if (/^fr/.exec(languejeDevice.value)) {
+        // francés
+        langueje = 'fr'
     } else {
+        // por defecto Inglés
         langueje = 'en'
     }
 
@@ -24,6 +30,7 @@ const installI18n = async () => {
         messages: {
             en: require('@/locales/en.json'),
             es: require('@/locales/es.json'),
+            fr: require('@/locales/fr.json'),
         }
     })
 

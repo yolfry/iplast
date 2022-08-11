@@ -24,6 +24,6 @@
 <script lang="ts" setup>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 
-import appDoctor from '@/components/appDoctor.vue'
+import appDoctor from '@/components/drafts/appDoctor.vue'
 
 </script>

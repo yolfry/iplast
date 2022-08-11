@@ -1,26 +1,38 @@
 <template>
   <ion-page>
 
+    <ion-header translucent>
+      <ion-toolbar color="primary">
+
+        <ion-buttons slot="start">
+          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+
+        <ion-text slot="start" class=" ion-text-center ion-padding-start">
+          <h2>{{ $t('titles.login') }}</h2>
+        </ion-text>
+
+        <ion-avatar class=" ion-margin-end" slot="end">
+          <img src="@/assets/logoApp.png">
+        </ion-avatar>
+
+      </ion-toolbar>
+    </ion-header>
+
+
     <ion-content :fullscreen="true">
 
       <ion-grid class="ion-margin-top">
         <div class="cover"></div>
-        <ion-row class="animate__animated animate__bounceInLeft ion-justify-content-center">
+        <!--animate__animated animate__zoomIn -->
+        <ion-row class="ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
-              <ion-card-header>
-                <ion-card-title>
-                  <ion-icon @click="$router.push({
-                    path: '/'
-                  })" :icon="chevronBackOutline"></ion-icon>
-                </ion-card-title>
+              <!-- <ion-card-header>
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
                   </ion-avatar>
-                  <!-- <ion-avatar>
-                    <img src="@/views/ypw/assets/logoYPW.com.jpg" />
-                  </ion-avatar> -->
                 </ion-row>
                 <ion-card-title class="ion-text-center">
                   {{ $t('account.access') }}
@@ -30,7 +42,7 @@
                     <span>{{ $t('account.useYourAcoount') }}</span>
                   </ion-text>
                 </ion-row>
-              </ion-card-header>
+              </ion-card-header> -->
 
               <ion-card-content>
                 <ion-row>
@@ -58,7 +70,7 @@
 
                     <div class="ion-padding-bottom ion-padding-top">
                       <ion-button fill="outline" @click="$router.push({
-                        path: '/account/register'
+                        path: '/tabs/register'
                       })" color="secondary">{{ $t('account.createAccount') }}</ion-button>
 
                       <ion-button @click="login()" color="primary">{{ $t('account.next') }}</ion-button>
@@ -93,10 +105,13 @@ import {
   IonInput,
   IonButton,
   IonIcon,
+  IonButtons,
   IonAvatar,
-  IonPage
+  IonPage,
+  IonToolbar,
+  IonBackButton,
+  IonHeader,
 } from "@ionic/vue";
-import { chevronBackOutline } from "ionicons/icons";
 import "animate.css";
 // import { ref } from "vue";
 
@@ -109,7 +124,11 @@ import openAlert from "@/ts/openAlert";
 //Logica
 import { useAccountStore } from "@/store/account";
 import { useRouter } from "vue-router";
+import regExps from "@/ts/RegExps";
 // import { useAppStore } from "@/store/app";
+
+
+
 const router = useRouter()
 
 const account = useAccountStore();
@@ -137,11 +156,11 @@ async function login() {
 
     if (!user.value.username) {
       throw new Error(await openAlert('account.hiddenInputUsername', t, alertController))
-    } else if (!/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.exec(user.value.username) && !/^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/.exec(user.value.username) && !/^[a-zA-Z0-9@]+[._a-zA-Z0-9@]{5,34}$/.exec(user.value.username)) {
+    } else if (!regExps.email.exec(user.value.username) && !regExps.phone.exec(user.value.username) && !regExps.username.exec(user.value.username)) {
       throw new Error(await openAlert('account.userNameError', t, alertController))
-    } else if (!user.value.password || !/^\S(.|\s){7,200}$/.exec(user.value.password)) {
+    } else if (!user.value.password || !regExps.password.exec(user.value.password)) {
       throw new Error(await openAlert('account.incorrectPassword', t, alertController))
-    } else if (!user.value.codePhone || !/^\+?\d{1,5}$/.exec(user.value.codePhone)) {
+    } else if (!user.value.codePhone || !regExps.codePhone.exec(user.value.codePhone)) {
       throw new Error(await openAlert('account.codePhoneError', t, alertController))
     }
 
@@ -184,6 +203,7 @@ async function login() {
       router.push({
         path: '/'
       })
+
     } else {
       throw new Error(await openAlert('account.errorApp', t, alertController))
     }
@@ -224,5 +244,11 @@ ion-input {
   border-bottom: 0.1px solid var(--ion-color-dark);
   margin-top: 5px;
   padding-left: 10px;
+}
+</style>
+
+<style>
+ion-avatar {
+  margin: 5px;
 }
 </style>

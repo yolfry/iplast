@@ -154,6 +154,7 @@ const props = defineProps({
         default: 0,
     }
 })
+
 </script>
 
 <style scoped>

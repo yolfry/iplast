@@ -9,26 +9,18 @@
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import { useBackButton, useIonRouter } from '@ionic/vue';
 import { App } from '@capacitor/app';
-
-
-// import { useAppStore } from '@/store/app';
-
-
-
-
-// const AppStore = useAppStore();
-
-// AppStore.chargeLanguaje('en')
+import { onMounted } from 'vue';
 
 
 
 
-// const appStore = useAppStore()
-// i18n.locale  = appStore.locale
+onMounted(async () => {
+  console.log('Developers Yolfry Bautista and YPW S.T.L  ... Ready App ')
+})
 
 
 
-
+//Atras Back Boton
 const ionRouter = useIonRouter();
 useBackButton(-1, () => {
   if (!ionRouter.canGoBack()) {

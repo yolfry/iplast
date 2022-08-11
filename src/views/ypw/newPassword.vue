@@ -5,12 +5,13 @@
 
       <ion-grid class="ion-margin-top">
         <div class="cover"></div>
-        <ion-row class="animate__animated animate__bounceInLeft ion-justify-content-center">
+        <ion-row class="animate__animated animate__zoomIn ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
               <ion-card-header>
-                <ion-card-title>
-                  <ion-icon @click="$router.back()" :icon="chevronBackOutline"></ion-icon>
+                <ion-card-title @click="$router.back()">
+
+                  <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
                 </ion-card-title>
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
@@ -33,7 +34,6 @@
               <ion-card-content>
                 <ion-row>
                   <ion-col size="12" class="ion-padding ion-justify-content-center">
-
 
                     <ion-input v-model="user.password" type="password" placeholder="Nueva Contraseña"></ion-input>
 

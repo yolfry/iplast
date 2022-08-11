@@ -3,15 +3,34 @@
 
     <ion-content :fullscreen="true">
 
+      <ion-header translucent>
+        <ion-toolbar color="primary">
+
+          <ion-buttons slot="start">
+            <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
+          </ion-buttons>
+
+          <ion-text slot="start" class=" ion-text-center ion-padding-start">
+            <h2>{{ $t('account.createAccount') }}</h2>
+          </ion-text>
+
+          <ion-avatar class=" ion-margin-end" slot="end">
+            <img src="@/assets/logoApp.png">
+          </ion-avatar>
+
+        </ion-toolbar>
+      </ion-header>
+
       <ion-grid class="ion-margin-top">
 
         <div class="cover"></div>
-        <ion-row class="animate__animated animate__bounceInLeft ion-justify-content-center">
+        <!--animate__animated animate__zoomIn-->
+        <ion-row class="ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
-              <ion-card-header>
-                <ion-card-title>
-                  <ion-icon @click="$router.back()" :icon="chevronBackOutline"></ion-icon>
+              <!-- <ion-card-header>
+                <ion-card-title @click="$router.back()">
+                  <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
                 </ion-card-title>
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
@@ -26,19 +45,13 @@
                   {{ $t('account.free') }}
                 </ion-card-subtitle>
 
-              </ion-card-header>
+              </ion-card-header> -->
 
               <ion-card-content>
                 <ion-row>
                   <ion-col size="12" class="ion-padding ion-justify-content-center">
 
                     <!--Data register Input Entrada-->
-                    <ion-item>
-                      <ion-label position="floating">{{ $t('account.placeholder.username') }}</ion-label>
-                      <ion-input v-model="user.username" autocomplete="username" type="text"></ion-input>
-                    </ion-item>
-
-
 
                     <ion-item>
                       <ion-label position="floating">{{ $t('account.placeholder.name') }}</ion-label>
@@ -63,29 +76,31 @@
                       <ion-col class=" ion-align-self-auto">
                         <ion-item>
                           <ion-label position="floating">{{ $t('account.placeholder.phone') }}</ion-label>
-                          <ion-input autocomplete="tel" v-model="user.phone" type="text"></ion-input>
+                          <ion-input autocomplete="tel" v-model="user.phone" inputmode="tel" type="number"></ion-input>
                         </ion-item>
                       </ion-col>
                     </ion-row>
 
+                    <ion-item>
+                      <ion-label position="floating">{{ $t('account.placeholder.username') }}</ion-label>
+                      <ion-input v-model="user.username" autocomplete="username" type="text"></ion-input>
+                    </ion-item>
 
-                    <ion-row>
-                      <ion-col class=" ion-align-self-auto">
-                        <ion-item>
-                          <ion-label position="floating">{{ $t('account.placeholder.password') }}</ion-label>
-                          <ion-input v-model="user.password" type="password"></ion-input>
-                        </ion-item>
-                      </ion-col>
-                      <ion-col size="6" class=" ion-align-self-auto">
-                        <ion-item>
-                          <ion-label position="floating">{{ $t('account.placeholder.confirmePassword') }}</ion-label>
-                          <ion-input v-model="confirmePassword" type="password"></ion-input>
-                        </ion-item>
-                      </ion-col>
-                    </ion-row>
+                    <ion-item>
+                      <ion-label position="floating">{{ $t('account.placeholder.password') }}</ion-label>
+                      <ion-input v-model="user.password" type="password"></ion-input>
+                    </ion-item>
 
 
-                    <div class="ion-padding-bottom ion-padding-top">
+                    <ion-item>
+                      <ion-label position="floating">{{ $t('account.placeholder.confirmePassword') }}</ion-label>
+                      <ion-input v-model="confirmePassword" type="password"></ion-input>
+                    </ion-item>
+
+
+
+
+                    <div class="ion-padding-bottom ion-padding-top ion-align-items-end">
                       <ion-button @click="register()" color="primary">{{ $t('account.next') }}</ion-button>
                     </div>
 
@@ -109,18 +124,18 @@ import {
   IonRow,
   IonCard,
   IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
   IonCol,
   IonInput,
-  IonCardSubtitle,
-  IonIcon,
-  IonAvatar,
-  IonPage,
   IonLabel,
   IonItem,
+  IonButton,
+  IonHeader,
+  IonToolbar,
+  IonBackButton,
+  IonText,
+  IonButtons
+
 } from "@ionic/vue";
-import { chevronBackOutline } from "ionicons/icons";
 import "animate.css";
 import { ref } from "vue";
 
@@ -132,6 +147,7 @@ import { useI18n } from "vue-i18n";
 
 import { useAccountStore } from "@/store/account";
 import { useRouter } from "vue-router";
+import RegExps from "@/ts/RegExps";
 
 //Declare y Use
 const { t } = useI18n();
@@ -163,27 +179,27 @@ const register = async () => {
 
   try {
 
-    if (!user.value.username || !/^[a-zA-Z0-9@]+[._a-zA-Z0-9@]{5,34}$/.exec(user.value.username)) {
+    if (!user.value.username || !RegExps.username.exec(user.value.username)) {
       throw new Error(await openAlert('account.userNameError', t, alertController))
     }
 
-    if (!user.value.name || !/^[a-zA-Z]{3,20} ?[a-zA-Z]{2,40}?$/.exec(user.value.name)) {
+    if (!user.value.name || !RegExps.name.exec(user.value.name)) {
       throw new Error(await openAlert('account.nameError', t, alertController))
     }
 
-    if (!user.value.email || !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.exec(user.value.email)) {
+    if (!user.value.email || !RegExps.email.exec(user.value.email)) {
       throw new Error(await openAlert('account.emailError', t, alertController))
     }
 
-    if (!user.value.codePhone || !/^\+?\d{1,5}$/.exec(user.value.codePhone)) {
+    if (!user.value.codePhone || !RegExps.codePhone.exec(user.value.codePhone)) {
       throw new Error(await openAlert('account.codePhoneError', t, alertController))
     }
 
-    if (!user.value.phone || !/^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/.exec(user.value.phone)) {
+    if (!user.value.phone || !RegExps.phone.exec(user.value.phone)) {
       throw new Error(await openAlert('account.phoneError', t, alertController))
     }
 
-    if (!user.value.password || !/^\S(.|\s){7,200}$/.exec(user.value.password)) {
+    if (!user.value.password || !RegExps.password.exec(user.value.password)) {
       throw new Error(await openAlert('account.incorrectPassword', t, alertController))
     }
 
@@ -253,5 +269,11 @@ const register = async () => {
 
 ion-input {
   font-size: 20px;
+}
+</style>
+
+<style>
+ion-avatar {
+  margin: 5px;
 }
 </style>

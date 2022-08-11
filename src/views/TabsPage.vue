@@ -2,7 +2,7 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar slot="bottom">
+      <ion-tab-bar color="white" slot="bottom" translucent>
         <ion-tab-button tab="home" href="/tabs/home">
           <ion-icon :icon="homeOutline" />
           <ion-label>{{ $t('tabs.home') }}</ion-label>
@@ -12,11 +12,6 @@
           <ion-icon :icon="imageOutline" />
           <ion-label>{{ $t('tabs.novelty') }}</ion-label>
         </ion-tab-button>
-
-        <!-- <ion-tab-button tab="tab3" href="/tabs/doctor">
-          <ion-icon :icon="callOutline" />
-          <ion-label>Doctor</ion-label>
-        </ion-tab-button> -->
 
         <ion-tab-button tab="tab4" href="/tabs/mycuenta">
           <ion-icon :icon="personOutline" />
@@ -46,11 +41,6 @@ import {
 </script>
 
 <style scoped>
-ion-tabs {
-  background: linear-gradient(255deg, rgb(242, 242, 242) 50%, rgb(234, 234, 234) 150%);
-  /* background-color: var(--ion-color-primary); */
-}
-
 /* ion-tab-bar {
   position: absolute;
   bottom: 2%;

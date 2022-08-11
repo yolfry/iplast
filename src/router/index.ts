@@ -29,9 +29,25 @@ const routes: Array<RouteRecordRaw> = [
           requiresAuth: true
         }
       },
+      // {
+      //   path: 'doctor',
+      //   component: () => import('@/views/appDoctor.vue'),
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // },
       {
-        path: 'doctor',
-        component: () => import('@/views/appDoctor.vue'),
+        path: 'sLD',
+        name: 'sLD',
+        component: () => import('@/views/sLD.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'fYD',
+        name: 'fYD',
+        component: () => import('@/views/fYD.vue'),
         meta: {
           requiresAuth: true
         }
@@ -42,34 +58,46 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('@/views/ypw/ypwLogin.vue')
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: () => import('@/views/ypw/ypwRegister.vue')
+      },
+      {
+        path: 'passwordRecovery',
+        name: 'passwordRecovery',
+        component: () => import('@/views/ypw/ypwPasswordRecovery.vue'),
+      },
+      {
+        path: 'newPassword',
+        name: 'newPassword',
+        component: () => import('@/views/ypw/newPassword.vue'),
+      },
+      {
+        path: 'config',
+        name: 'config',
+        component: () => import('@/views/account/appConfig.vue'),
       }
     ]
   },
+  // {
+  //   path: '/account',
+  //   component: () => import('@/views/ypwAccount.vue'),
+  //   children: [{
+  //     path: '',
+  //     redirect: '/account/login'
+  //   },
+  //   ]
+  // },
   {
-    path: '/account',
-    component: () => import('@/views/ypwAccount.vue'),
-    children: [{
-      path: '',
-      redirect: '/account/login'
-    }, {
-      path: 'login',
-      component: () => import('@/views/ypw/ypwLogin.vue')
-    },
-    {
-      path: 'register',
-      component: () => import('@/views/ypw/ypwRegister.vue')
-    },
-    {
-      path: 'passwordRecovery',
-      name: 'passwordRecovery',
-      component: () => import('@/views/ypw/ypwPasswordRecovery.vue'),
-    },
-    {
-      path: 'newPassword',
-      name: 'newPassword',
-      component: () => import('@/views/ypw/newPassword.vue'),
-    }
-    ]
+    path: '/:pathMatch(.*)*',
+    redirect: '/tabs/home'
   }
 ]
 
@@ -90,6 +118,7 @@ router.beforeEach(async (to, from, next) => {
 
   if (user && !account.user.appConnect && !account.user.keyUser) {
     account.user = user
+    account.userAll = await appStore.getDataApp('userAll')
   }
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
@@ -97,7 +126,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     } else {
       next({
-        path: '/account/login'
+        path: '/tabs/login'
       })
     }
   } else {

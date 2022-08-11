@@ -31,7 +31,6 @@ export const useAccountStore = defineStore('accountStore', {
                 codePhone: "+1",
             },
             userAll: undefined as any,
-            codeSet: false,
             chargePasswordResult: false,
             $i18n: {},
             appConnect: "Iplast",
@@ -187,6 +186,7 @@ export const useAccountStore = defineStore('accountStore', {
                     data: data
                 };
 
+
                 const response = await axios(config)
 
                 //Charge Password Ready
@@ -294,7 +294,11 @@ export const useAccountStore = defineStore('accountStore', {
                     this.user.appConnect = response.data.res.appConnect
                     this.user.keyUser = response.data.res.keyUser
 
-                    this.getUserData()
+                    const { saveDataApp } = useAppStore()
+
+                    await saveDataApp('user', this.user)
+
+                    await this.getUserData()
                 }
 
                 return response
