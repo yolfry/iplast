@@ -8,14 +8,6 @@
           <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
         </ion-buttons>
 
-        <ion-text slot="start" class=" ion-text-center ion-padding-start">
-          <h2>{{ $t('titles.login') }}</h2>
-        </ion-text>
-
-        <ion-avatar class=" ion-margin-end" slot="end">
-          <img src="@/assets/logoApp.png">
-        </ion-avatar>
-
       </ion-toolbar>
     </ion-header>
 
@@ -28,7 +20,8 @@
         <ion-row class="ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
-              <!-- <ion-card-header>
+
+              <ion-card-header>
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
@@ -42,7 +35,7 @@
                     <span>{{ $t('account.useYourAcoount') }}</span>
                   </ion-text>
                 </ion-row>
-              </ion-card-header> -->
+              </ion-card-header>
 
               <ion-card-content>
                 <ion-row>
@@ -64,19 +57,17 @@
                         <ion-input v-model="user.password" type="password"
                           :placeholder="$t('account.placeholder.password')"></ion-input>
                       </ion-col>
-
                     </ion-row>
 
-
                     <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button fill="outline" @click="$router.push({
-                        path: '/tabs/register'
+                      <ion-button fill="outline" @click="$router.replace({
+                        name: 'register'
                       })" color="secondary">{{ $t('account.createAccount') }}</ion-button>
 
                       <ion-button @click="login()" color="primary">{{ $t('account.next') }}</ion-button>
                     </div>
                     <div class="ion-padding ion-text-center">
-                      <a @click="$router.push({
+                      <a @click="$router.replace({
                         name: 'passwordRecovery'
                       })" color="secondary">{{ $t('account.forgot') }}</a>
                     </div>
@@ -104,13 +95,15 @@ import {
   IonCol,
   IonInput,
   IonButton,
-  IonIcon,
+  // IonIcon,
   IonButtons,
   IonAvatar,
   IonPage,
   IonToolbar,
   IonBackButton,
   IonHeader,
+  useIonRouter,
+
 } from "@ionic/vue";
 import "animate.css";
 // import { ref } from "vue";
@@ -123,13 +116,13 @@ import openAlert from "@/ts/openAlert";
 
 //Logica
 import { useAccountStore } from "@/store/account";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import regExps from "@/ts/RegExps";
 // import { useAppStore } from "@/store/app";
 
 
-
-const router = useRouter()
+const ionRouter = useIonRouter();
+// const router = useRouter()
 
 const account = useAccountStore();
 // const appStore = useAppStore();
@@ -175,12 +168,12 @@ async function login() {
     }
 
     if (res.status === 400) {
-      account.cleanUser()
+      account.user.password = '' //Limpiar password
       throw new Error(await openAlert('account.errorUser', t, alertController))
     }
 
     if (res.status === 401) {
-      account.cleanUser()
+      account.user.password = '' //Limpiar password
       throw new Error(await openAlert('account.errorUser', t, alertController))
     }
 
@@ -200,9 +193,7 @@ async function login() {
 
 
     if (res.status === 200 || res.status === 201) {
-      router.push({
-        path: '/'
-      })
+      ionRouter.push('/home')
 
     } else {
       throw new Error(await openAlert('account.errorApp', t, alertController))
@@ -236,7 +227,7 @@ async function login() {
 }
 
 ion-grid {
-  margin-top: 40%;
+  margin-top: 25%;
 }
 
 ion-input {
@@ -247,8 +238,8 @@ ion-input {
 }
 </style>
 
-<style>
+<!-- <style>
 ion-avatar {
   margin: 5px;
 }
-</style>
+</style> -->

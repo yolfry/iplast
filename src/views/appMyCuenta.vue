@@ -5,18 +5,19 @@
         <ion-avatar class=" ion-margin-start" slot="start">
           <img src="@/assets/logoApp.png">
         </ion-avatar>
-
-        <ion-title>{{ $t('titles.myAccount') }}</ion-title>
+        <ion-title slot="start">{{ $t('titles.myAccount') }}</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
-      <div class="cover"></div>
+    <ion-content :fullscreen="true" color="tertiary" class="cover">
 
-      <ion-header collapse="condense">
+      <!-- <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ $t('titles.myAccount') }}</ion-title>
         </ion-toolbar>
-      </ion-header>
+      </ion-header> -->
+      <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
 
       <ion-row class=" ion-padding">
         <ion-col size="12">
@@ -33,10 +34,12 @@
 
             <ion-item button @click="$router.push({
               name: 'fYD'
-            })" color="primary">
+            })" color="secondary">
               <ion-icon slot="start" :icon="peopleCircle"></ion-icon>
               <ion-label>
-                <h3>{{ $t('user.findYourDoctor') }}</h3>
+                <ion-text class="textItem">
+                  {{ $t('user.findYourDoctor') }}
+                </ion-text>
               </ion-label>
             </ion-item>
 
@@ -44,27 +47,27 @@
 
             <ion-item button @click="$router.push({
               name: 'sLD'
-            })" color="primary">
+            })" color="secondary">
               <ion-icon slot="start" :icon="sparklesSharp"></ion-icon>
-              <ion-label>
-                <h3>{{ $t('user.sportLightDoctor') }}</h3>
+              <ion-label class="textItem">
+                {{ $t('user.sportLightDoctor') }}
               </ion-label>
             </ion-item>
 
 
             <ion-item button @click="$router.push({
               name: 'config'
-            })" color="primary">
+            })" color="secondary">
               <ion-icon slot="start" :icon="settingsSharp"></ion-icon>
-              <ion-label>
-                <h3>{{ $t('user.config') }}</h3>
+              <ion-label class="textItem">
+                {{ $t('user.config') }}
               </ion-label>
             </ion-item>
 
-            <ion-item button @click="logout()" color="primary">
+            <ion-item button @click="logout()" color="secondary">
               <ion-icon slot="start" :icon="exitSharp"></ion-icon>
-              <ion-label>
-                <h3>{{ $t('user.exitAccount') }}</h3>
+              <ion-label class="textItem">
+                {{ $t('user.exitAccount') }}
               </ion-label>
             </ion-item>
           </ion-list>
@@ -92,7 +95,9 @@ import {
   IonIcon,
   IonText,
   IonCol,
-  IonAvatar
+  IonAvatar,
+  IonRefresher,
+  IonRefresherContent
 } from "@ionic/vue";//<ion-icon name="sparkles-outline"></ion-icon>
 import { peopleCircle, exitSharp, settingsSharp, sparklesSharp } from "ionicons/icons";
 
@@ -108,6 +113,12 @@ const router = useRouter();
 const user = computed(() => {
   return account.user;
 });
+
+const doRefresh = async (e: any) => {
+  await account.getUserData();
+  // console.log('reload...', e)
+  e.target.complete();
+}
 
 const { t } = useI18n();
 
@@ -164,13 +175,22 @@ account.getUserData()
 
 <style scoped>
 .cover {
-  position: fixed;
-  top: -30%;
-  left: 0;
-  bottom: 0;
-  right: 0;
   background-image: url("@/views/ypw/assets/cover.svg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.textItem {
+  font-size: 20px;
+}
+
+ion-item {
+  margin-bottom: 2px;
+}
+</style>
+
+<style>
+ion-avatar {
+  margin: 5px;
 }
 </style>

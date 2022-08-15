@@ -12,9 +12,15 @@
 
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
-      <div class="background-page" :style="`background: rgb(239, 239, 239);
-      background: linear-gradient(255deg, rgb(239, 239, 239) 75%, ${colorIMC} 100%);`"></div>
+    <ion-content :fullscreen="true" color="tertiary">
+
+      <!-- <div class="background-page" :style="`background: rgb(239, 239, 239);
+      background: linear-gradient(255deg, rgb(239, 239, 239) 75%, ${colorIMC} 100%);`"></div> -->
+
+      <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
       <app-i-m-c></app-i-m-c>
     </ion-content>
   </ion-page>
@@ -22,6 +28,8 @@
 <script lang="ts" setup>
 import {
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   IonHeader,
   IonToolbar,
   IonText,
@@ -38,11 +46,25 @@ const colorIMC = computed(() => {
   return appStore.calculator.colorIMC;
 })
 
+
+const doRefresh = async (e: any) => {
+  console.log('reload...', e)
+  e.target.complete()
+}
+
+//IOS Phone
+
+// const doRefresh = async (e: any) => {
+//   console.log('reload...', e)
+//   e.target.complete()
+// }
+
+
 </script>
 
 
 <style scoped>
-.background-page {
+/* .background-page {
   position: fixed;
   background-color: rgb(239, 239, 239);
   top: 0%;
@@ -50,7 +72,7 @@ const colorIMC = computed(() => {
   bottom: 0%;
   right: 0%;
   z-index: -100;
-}
+} */
 </style>
 
 <style>

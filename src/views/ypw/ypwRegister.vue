@@ -10,13 +10,13 @@
             <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
           </ion-buttons>
 
-          <ion-text slot="start" class=" ion-text-center ion-padding-start">
+          <!-- <ion-text slot="start" class=" ion-text-center ion-padding-start">
             <h2>{{ $t('account.createAccount') }}</h2>
-          </ion-text>
+          </ion-text> -->
 
-          <ion-avatar class=" ion-margin-end" slot="end">
+          <!-- <ion-avatar class=" ion-margin-end" slot="end">
             <img src="@/assets/logoApp.png">
-          </ion-avatar>
+          </ion-avatar> -->
 
         </ion-toolbar>
       </ion-header>
@@ -28,10 +28,10 @@
         <ion-row class="ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
-              <!-- <ion-card-header>
-                <ion-card-title @click="$router.back()">
+              <ion-card-header>
+                <!-- <ion-card-title @click="$router.back()">
                   <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
-                </ion-card-title>
+                </ion-card-title> -->
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
@@ -45,7 +45,7 @@
                   {{ $t('account.free') }}
                 </ion-card-subtitle>
 
-              </ion-card-header> -->
+              </ion-card-header>
 
               <ion-card-content>
                 <ion-row>
@@ -83,7 +83,8 @@
 
                     <ion-item>
                       <ion-label position="floating">{{ $t('account.placeholder.username') }}</ion-label>
-                      <ion-input v-model="user.username" autocomplete="username" type="text"></ion-input>
+                      <ion-input v-model="user.username" autocomplete="username" type="text">
+                      </ion-input>
                     </ion-item>
 
                     <ion-item>
@@ -96,8 +97,6 @@
                       <ion-label position="floating">{{ $t('account.placeholder.confirmePassword') }}</ion-label>
                       <ion-input v-model="confirmePassword" type="password"></ion-input>
                     </ion-item>
-
-
 
 
                     <div class="ion-padding-bottom ion-padding-top ion-align-items-end">
@@ -132,8 +131,12 @@ import {
   IonHeader,
   IonToolbar,
   IonBackButton,
-  IonText,
-  IonButtons
+  IonPage,
+  IonButtons,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardHeader,
+  IonAvatar,
 
 } from "@ionic/vue";
 import "animate.css";
@@ -178,6 +181,9 @@ const register = async () => {
   });
 
   try {
+
+    //Eliminar espacio en blanco al inicio y al final de la cadena
+    user.value.username = user.value.username?.replace(/\s/g, "");
 
     if (!user.value.username || !RegExps.username.exec(user.value.username)) {
       throw new Error(await openAlert('account.userNameError', t, alertController))
@@ -269,11 +275,5 @@ const register = async () => {
 
 ion-input {
   font-size: 20px;
-}
-</style>
-
-<style>
-ion-avatar {
-  margin: 5px;
 }
 </style>

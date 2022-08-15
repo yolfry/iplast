@@ -7,15 +7,17 @@ interface iregExps {
     password: RegExp;
     codePhone: RegExp;
     name: RegExp;
+    code: RegExp;
 }
 
 const regExps: iregExps = {
-    username: /^[a-zA-Z0-9_]{3,15}$/,
+    username: /^[a-zA-Z0-9@]+[._a-zA-Z0-9@]{3,34}$/,
     email: /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/,
     phone: /^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/,
     password: /^\S(.|\s){7,200}$/,
     codePhone: /^\+?\d{1,5}$/,
-    name: /^[a-zA-Z]{3,20} ?[a-zA-Z]{2,40}?$/
+    name: /^[a-zA-Z]{3,20} ?[a-zA-Z]{2,40}?$/,
+    code: /^\d{6}$/,
 
 }
 

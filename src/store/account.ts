@@ -3,14 +3,14 @@ import { useAppStore } from "./app";
 import axios, { AxiosResponse } from 'axios'
 
 interface user {
-    username: string | undefined;
-    password: string | undefined;
-    appConnect: string | undefined;
-    keyUser: string | undefined;
-    name: string | undefined;
-    email: string | undefined;
-    phone: string | undefined;
-    code: string | undefined;
+    username: string | any;
+    password: string | any;
+    appConnect: string | any;
+    keyUser: string | any;
+    name: string | any;
+    email: string | any;
+    phone: string | any;
+    code: string | any;
     codePhone: string;
 }
 
@@ -166,8 +166,8 @@ export const useAccountStore = defineStore('accountStore', {
             }
 
         },
-        //Charge Password - Cmabiar contrasena
-        async chargePassword(): Promise<AxiosResponse | undefined> {
+        //changePassword - Cmabiar contrasena
+        async changePassword(): Promise<AxiosResponse | undefined> {
 
             try {
 

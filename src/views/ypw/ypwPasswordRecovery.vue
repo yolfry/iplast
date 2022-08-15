@@ -1,6 +1,24 @@
 <template>
   <ion-page>
 
+    <ion-header translucent>
+      <ion-toolbar color="primary">
+
+        <ion-buttons slot="start">
+          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+
+        <!-- <ion-text slot="start" class=" ion-text-center ion-padding-start">
+          <h2>{{ $t('titles.login') }}</h2>
+        </ion-text> -->
+
+        <!-- <ion-avatar class=" ion-margin-end" slot="end">
+          <img src="@/assets/logoApp.png">
+        </ion-avatar> -->
+
+      </ion-toolbar>
+    </ion-header>
+
     <ion-content :fullscreen="true">
 
       <ion-grid class="ion-margin-top">
@@ -9,16 +27,16 @@
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
               <ion-card-header>
-                <ion-card-title @click="$router.back()">
+                <!-- <ion-card-title @click="$router.back()">
                   <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
-                </ion-card-title>
+                </ion-card-title> -->
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
                   </ion-avatar>
                 </ion-row>
                 <ion-card-title class="ion-text-center">
-                  Recuperar Cuenta
+                  {{ t('account.createAccount') }}
                 </ion-card-title>
               </ion-card-header>
 
@@ -29,15 +47,15 @@
                     <!--Imput Account-->
                     <ion-input v-if="!setCode" v-model="user.email" type="text" placeholder="Email de Recuperación">
                     </ion-input>
-                    <ion-input v-else v-model="user.code" type="text" placeholder="Código de Recuperación"></ion-input>
+                    <ion-input v-else class=" ion-padding codeText" v-model="user.code" inputmode="numeric"
+                      type="number" :placeholder="t('account.placeholder.recoveryCode')"></ion-input>
 
                     <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button v-if="!setCode" @click="setCodeRecoveryEmail()" color="primary">Enviar
-                        Código
-                      </ion-button>
-                      <ion-button v-else @click="$router.push({
+                      <ion-button v-if="!setCode" @click="setCodeRecoveryEmail()" color="primary">
+                        {{ t('account.setCode') }}</ion-button>
+                      <ion-button v-else @click="$router.replace({
                         name: 'newPassword'
-                      })" color="primary">Siguiente</ion-button>
+                      })" color="primary">{{ t('account.next') }}</ion-button>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -63,11 +81,13 @@ import {
   IonCol,
   IonInput,
   IonButton,
-  IonIcon,
   IonAvatar,
-  IonPage
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonBackButton,
+  IonButtons
 } from "@ionic/vue";
-import { chevronBackOutline } from "ionicons/icons";
 import "animate.css";
 // import { ref } from "vue";
 
@@ -83,6 +103,7 @@ import openAlert from "@/ts/openAlert";
 import { useI18n } from "vue-i18n";
 import { alertController, loadingController } from "@ionic/vue";
 import { ref } from "vue";
+import regExps from "@/ts/RegExps";
 
 const { t } = useI18n();
 
@@ -102,8 +123,8 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
 
   try {
 
-    if (!user.value.email || !/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.exec(user.value.email)) {
-      throw new Error(t("account.emailError"));
+    if (!user.value.email || !regExps.email.exec(user.value.email)) {
+      throw new Error(await openAlert('account.emailError', t, alertController));
     }
 
     loading.present();
@@ -168,8 +189,13 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
   background-size: cover;
 }
 
+.codeText {
+  font-size: 30px;
+  border: 1px solid rgb(166, 166, 166);
+}
+
 ion-grid {
-  margin-top: 40%;
+  margin-top: 25%;
 }
 
 ion-input {

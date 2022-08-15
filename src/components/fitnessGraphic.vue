@@ -5,7 +5,8 @@
 
             <ion-col class=" ion-align-self-auto">
 
-                <ion-card>
+                <ion-card class="background-page" :style="`background: #fff;
+                background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`">
                     <ion-card-content>
 
                         <ion-row>
@@ -39,7 +40,12 @@
                                             <h3>{{ $t('text.RecommendedWeight') }}</h3>
                                         </ion-text>
                                         <ion-text class=" ion-text-center">
-                                            <h1>{{ (validateIMC()) ? Math.round(pesoIdeal) + ` KG` : `?` }}</h1>
+                                            <h1>{{
+                                                    // Converte, convertir valor de peso ideal Kilogramo a peso del usuario
+                                                    (validateIMC()) ? round(converte(pesoIdeal, typePeso).peso) + `
+                                                                                            ${converte(pesoIdeal, typePeso).typePeso} ` : `?`
+                                            }}
+                                            </h1>
                                         </ion-text>
                                     </ion-col>
 
@@ -48,9 +54,10 @@
                                             <h3>{{ $t('text.ExcessBMI35') }}</h3>
                                         </ion-text>
                                         <ion-text class=" ion-text-center">
-                                            <h1 style="color:#ff7c24;">{{ (validateIMC()) ? Math.round(peso.kg -
-                                                    pesoRecomendado) +
-                                                    `KG` : `?`
+                                            <h1 style="color:#ff7c24;">{{ (validateIMC()) ? round(converte(peso.kg -
+                                                    pesoRecomendado, typePeso).peso) +
+                                                    converte(peso.kg -
+                                                        pesoRecomendado, typePeso).typePeso : `?`
                                             }}</h1>
                                         </ion-text>
                                     </ion-col>
@@ -58,9 +65,6 @@
 
                             </ion-col>
                         </ion-row>
-
-
-
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -130,6 +134,12 @@ import imcGraphic from '@/components/imcGraphic.vue'
 
 import { useAppStore } from '@/store/app';
 import { useI18n } from 'vue-i18n';
+import { converte } from '@/ts/imc';
+
+
+const round = (value: number) => {
+    return Math.round(value);
+}
 
 
 // Use i18n
@@ -168,6 +178,10 @@ const props = defineProps(
         pesoRecomendado: {
             type: Number,
             default: 0
+        },
+        typePeso: {
+            type: String,
+            default: 'kg'
         },
     })
 

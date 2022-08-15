@@ -107,5 +107,23 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
 
 }
 
+/*@peso = kilogramo */
+const converte = (peso: number, typePeso: string) => {
 
-export { calIMC };
+    //Solo permite la conversion de libra
+
+    // Libra a Kilogramos, una libra es igual a 0.453592
+    if (typePeso == "LB") {
+        peso = peso / 0.453592;
+    }
+
+    if (typePeso == "ST+LB") {
+        peso = peso / 0.453592;
+        typePeso = "LB" // NO SE PODRA CONVERTIR A STONIA
+    }
+
+    return { peso, typePeso }
+}
+
+
+export { calIMC, converte };

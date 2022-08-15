@@ -181,7 +181,7 @@
     <ion-row>
       <ion-col size="12">
         <fitness-graphic-vue :peso="peso" :sexo="SexoPeople" :imc="parseFloat(IMC)" :edad="parseInt(edadPeople)"
-          :pesoIdeal="pesoIdeal" :pesoRecomendado="pesoRecomendado">
+          :pesoIdeal="pesoIdeal" :pesoRecomendado="pesoRecomendado" :typePeso="typePeso">
         </fitness-graphic-vue>
       </ion-col>
     </ion-row>

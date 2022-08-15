@@ -18,7 +18,7 @@
         "sex": "SEXE",
         "age": "ÂGE",
         "height": "LA TAILLE",
-        "weight": "LESTER"
+        "weight": "POIDS"
     },
     "select": {
         "feminine": "Féminin",
@@ -41,7 +41,7 @@
     },
     "text": {
         "bmi": "IMC",
-        "weight": "Lester",
+        "weight": "Poids",
         "back": "Retour",
         "RecommendedWeight": "Poids idéal",
         "ExcessBMI35": "Surpoids pour IMC 35",
@@ -87,6 +87,8 @@
         "errorServer": "Une erreur s'est produite sur le serveur, réessayez s'il vous plaît.",
         "error404": "Le nom d'utilisateur ou l'itinéraire n'a pas été trouvé.",
         "error403": "Utilisateur bloqué.",
+        "errorChangePassword": "Échec de la modification du mot de passe",
+        "changePasswordReady": "Le mot de passe a été changé avec succès",
         "hiddenInput": "Champs incomplets.",
         "hiddenInputUsername": "Veuillez choisir un nom d'utilisateur.",
         "userNameError": "Nom d'utilisateur incorrect.",
@@ -96,15 +98,20 @@
         "emailError": "E-mail erroné.",
         "incorrectPassword": "Mot de passe incorrect.",
         "passwordConfirmeError": "Le mot de passe de confirmation est incorrect. ",
+        "codeRecoveryError": "Le code de récupération est incorrect.",
         "loading": "Chargement...",
         "access": "Connexion",
         "useYourAcoount": "Utilisez votre compte.",
         "createAccount": "Créer un compte. ",
+        "recoverAccount": "Récupérer le compte",
         "next": "Suivant.",
         "forgot": "J'ai oublié mon mot de passe",
         "registerError": "Impossible de s'inscrire, vérifiez si vous avez déjà créé un compte avec ces informations et réessayez, s'il vous plaît. ",
         "free": "",
         "logout": "Êtes-vous sûr de vouloir vous déconnecter?",
+        "setCode": "Envoyer le code",
+        "change": "Changer",
+        "changePassword": "Changer le mot de passe",
         "placeholder": {
             "usernamePhoneEmail": "Email, numéro, nom d'utilisateur",
             "password": "Mot de passe",

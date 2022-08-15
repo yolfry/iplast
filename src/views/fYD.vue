@@ -1,8 +1,7 @@
 <template>
   <ion-page>
-    <div class="cover"></div>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
@@ -10,14 +9,18 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
+
+      <div class="coverBox"></div>
+
+      <!-- <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ $t('titles.findYourDoctor') }}</ion-title>
         </ion-toolbar>
-      </ion-header>
+      </ion-header> -->
       <ion-row>
         <ion-col>
-          <ion-card class="animate__animated animate__zoomIn">
+          <!--animate__animated animate__zoomIn-->
+          <ion-card>
             <ion-card-header>
               <ion-card-title>{{ $t('titles.findYourDoctor') }}</ion-card-title>
             </ion-card-header>
@@ -32,7 +35,8 @@
             </ion-card-content>
           </ion-card>
 
-          <ion-card class="animate__animated animate__zoomIn animate__delay-2s">
+          <!--animate__delay-2s animate__animated animate__zoomIn-->
+          <ion-card>
             <ion-card-content>
               <ion-text class=" ion-text-center">
                 <h1>{{ $t('text.comingSoon') }}</h1>
@@ -50,12 +54,12 @@
 
 
 <script lang="ts" setup>
-import { IonRow, IonCol, IonButtons, IonBackButton, IonToolbar, IonHeader, IonContent, IonText, IonPage, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/vue';
+import { IonRow, IonCol, IonButtons, IonBackButton, IonToolbar, IonHeader, IonContent, IonText, IonPage, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonTitle } from '@ionic/vue';
 import "animate.css";
 </script>
 
 <style scoped>
-.cover {
+.coverBox {
   position: fixed;
   top: -30%;
   left: 0;
@@ -72,6 +76,6 @@ ion-card {
 }
 
 ion-row {
-  margin-top: 40%;
+  margin-top: 25%;
 }
 </style>

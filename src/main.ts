@@ -49,11 +49,14 @@ const app = createApp(App)
   .use(router)
   .use(pinia)
 
+
+
 router.isReady().then(async () => {
   // const appStore = useAppStore();
 
   const i18n = await installI18n()
   app.use(i18n)
+
   app.mount('#app');
 
 });
