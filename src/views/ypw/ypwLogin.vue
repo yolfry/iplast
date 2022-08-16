@@ -15,7 +15,7 @@
     <ion-content :fullscreen="true">
 
       <ion-grid class="ion-margin-top">
-        <div class="cover"></div>
+        <div class="cover-box"></div>
         <!--animate__animated animate__zoomIn -->
         <ion-row class="ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
@@ -60,16 +60,15 @@
                     </ion-row>
 
                     <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button fill="outline" @click="$router.replace({
-                        name: 'register'
-                      })" color="secondary">{{ $t('account.createAccount') }}</ion-button>
+                      <ion-button fill="outline" router-link="/tabs/register" color="secondary">{{
+                          $t('account.createAccount')
+                      }}</ion-button>
 
                       <ion-button @click="login()" color="primary">{{ $t('account.next') }}</ion-button>
                     </div>
                     <div class="ion-padding ion-text-center">
-                      <a @click="$router.replace({
-                        name: 'passwordRecovery'
-                      })" color="secondary">{{ $t('account.forgot') }}</a>
+                      <ion-text router-link="/tabs/passwordRecovery" color="secondary">{{ $t('account.forgot') }}
+                      </ion-text>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -102,7 +101,7 @@ import {
   IonToolbar,
   IonBackButton,
   IonHeader,
-  useIonRouter,
+  useIonRouter
 
 } from "@ionic/vue";
 import "animate.css";
@@ -215,17 +214,6 @@ async function login() {
 </script>
 
 <style scoped>
-.cover {
-  position: fixed;
-  top: -30%;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-image: url("@/views/ypw/assets/cover.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 ion-grid {
   margin-top: 25%;
 }

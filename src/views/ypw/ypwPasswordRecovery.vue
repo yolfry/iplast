@@ -20,10 +20,12 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
+      <div class="cover"></div>
 
       <ion-grid class="ion-margin-top">
-        <div class="cover"></div>
-        <ion-row class="animate__animated animate__zoomIn ion-justify-content-center">
+
+        <!--animate__animated animate__zoomIn ion-justify-content-center-->
+        <ion-row>
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
               <ion-card-header>
@@ -36,7 +38,7 @@
                   </ion-avatar>
                 </ion-row>
                 <ion-card-title class="ion-text-center">
-                  {{ t('account.createAccount') }}
+                  {{ t('account.recoverAccount') }}
                 </ion-card-title>
               </ion-card-header>
 
@@ -51,12 +53,23 @@
                       type="number" :placeholder="t('account.placeholder.recoveryCode')"></ion-input>
 
                     <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button v-if="!setCode" @click="setCodeRecoveryEmail()" color="primary">
+                      <ion-button v-if="!setCode || setCodeNew == true" @click="setCodeRecoveryEmail()"
+                        color="secondary">
                         {{ t('account.setCode') }}</ion-button>
-                      <ion-button v-else @click="$router.replace({
-                        name: 'newPassword'
-                      })" color="primary">{{ t('account.next') }}</ion-button>
+                      <ion-button v-if="setCode || setCodeNew == true" router-link="/tabs/newPassword" color="primary">
+                        {{
+                            t('account.next')
+                        }}
+                      </ion-button>
                     </div>
+
+                    <ion-text v-show="setCodeNew == false && setCode == true" color="medium" class=" ion-text-center">
+                      {{
+                          $t('account.setNewCode', { second: second })
+                      }}
+                    </ion-text>
+
+
                   </ion-col>
                 </ion-row>
               </ion-card-content>
@@ -86,7 +99,8 @@ import {
   IonHeader,
   IonToolbar,
   IonBackButton,
-  IonButtons
+  IonButtons,
+  IonText
 } from "@ionic/vue";
 import "animate.css";
 // import { ref } from "vue";
@@ -108,7 +122,11 @@ import regExps from "@/ts/RegExps";
 const { t } = useI18n();
 
 const account = useAccountStore();
+
 const setCode = ref(false)
+const setCodeNew = ref(false)
+const second = ref(30)
+
 const user = computed(() => {
   return account.user;
 });
@@ -160,6 +178,26 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
     if (res.status === 200 || res.status === 201) {
       //COdigo de recuperacion enviado
       setCode.value = true;
+      setCodeNew.value = false;
+
+      // Set Interval
+
+      const interval = setInterval(() => {
+        setCodeNew.value = true;
+        clearInterval(interval);
+      }, 30000);
+
+      //Set Interval Secund 
+      const intervalSecond = setInterval(() => {
+        second.value--;
+        if (second.value === 0) {
+          clearInterval(intervalSecond);
+          second.value = 30;
+        }
+      }, 1000);
+
+
+
     } else {
       throw new Error(await openAlert('account.errorApp', t, alertController))
     }

@@ -11,8 +11,10 @@
 
     <ion-content :fullscreen="true">
 
+      <div class="cover-box"></div>
+
       <ion-grid class="ion-margin-top">
-        <div class="cover"></div>
+
         <!--animate__animated animate__zoomIn-->
         <ion-row class="ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
@@ -84,7 +86,8 @@ import {
   IonHeader,
   IonToolbar,
   IonBackButton,
-  IonButtons
+  IonButtons,
+  useIonRouter
 } from "@ionic/vue";
 import "animate.css";
 // import { ref } from "vue";
@@ -94,19 +97,21 @@ import { computed } from "@vue/reactivity";
 
 //Logica
 import { useAccountStore } from "@/store/account";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import regExps from "@/ts/RegExps";
 import openAlert from "@/ts/openAlert";
 import { useI18n } from "vue-i18n";
 import { alertController, loadingController } from "@ionic/vue";
 import { ref } from "vue";
 
+const ionRouter = useIonRouter();
+
 
 const confirmePassword: any = ref();
 
 const { t } = useI18n();
 
-const router = useRouter()
+// const router = useRouter()
 
 const account = useAccountStore();
 
@@ -124,6 +129,16 @@ const changePassword = async (): Promise<any> => {
 
   try {
 
+
+    if (!regExps.code.exec(user.value.code)) {
+
+      ionRouter.back();
+      account.user.code = undefined;
+      throw new Error(await openAlert('account.codeRecoveryError', t, alertController));
+      //Error of Password 
+    }
+
+
     if (!regExps.password.exec(user.value.password)) {
       throw new Error(await openAlert("account.incorrectPassword", t, alertController));
       //Error of Password 
@@ -131,11 +146,6 @@ const changePassword = async (): Promise<any> => {
 
     if (confirmePassword.value != user.value.password) {
       throw new Error(await openAlert('account.passwordConfirmeError', t, alertController));
-      //Error of Password 
-    }
-
-    if (!regExps.code.exec(user.value.code)) {
-      throw new Error(await openAlert('account.codeRecoveryError', t, alertController));
       //Error of Password 
     }
 
@@ -152,10 +162,16 @@ const changePassword = async (): Promise<any> => {
     }
 
     if (res.status === 401) {
+      account.user.password = undefined;
+      confirmePassword.value = undefined;
+      account.user.code = undefined;
+      ionRouter.back();
       throw new Error(await openAlert('account.errorChangePassword', t, alertController))
     }
 
     if (res.status === 404) {
+      ionRouter.back();
+      account.user.code = undefined;
       throw new Error(await openAlert('account.error404', t, alertController))
     }
 
@@ -172,8 +188,9 @@ const changePassword = async (): Promise<any> => {
 
     if (res.status == 200 || res.status == 201) {
       loading.dismiss();
+      account.user.code = undefined; //Limpiar codigo
       openAlert(t("account.changePasswordReady"), t, alertController);
-      router.push("/login");
+      ionRouter.push("/tabs/login");
     } else {
       throw new Error(await openAlert('account.errorApp', t, alertController))
     }
@@ -206,17 +223,6 @@ const changePassword = async (): Promise<any> => {
 </script>
 
 <style scoped>
-.cover {
-  position: fixed;
-  top: -30%;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-image: url("@/views/ypw/assets/cover.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 ion-grid {
   margin-top: 25%;
 }

@@ -8,8 +8,9 @@
         <ion-title slot="start">{{ $t('titles.myAccount') }}</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true" color="tertiary" class="cover">
+    <ion-content :fullscreen="true" color="tertiary">
 
+      <div class="cover-box"></div>
       <!-- <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ $t('titles.myAccount') }}</ion-title>
@@ -97,18 +98,19 @@ import {
   IonCol,
   IonAvatar,
   IonRefresher,
-  IonRefresherContent
+  IonRefresherContent,
+  useIonRouter
 } from "@ionic/vue";//<ion-icon name="sparkles-outline"></ion-icon>
 import { peopleCircle, exitSharp, settingsSharp, sparklesSharp } from "ionicons/icons";
 
 import { computed } from "vue";
 import { useAccountStore } from "@/store/account";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { alertController } from "@ionic/vue";
 
 const account = useAccountStore();
-const router = useRouter();
+const router = useIonRouter();
 //User Store
 const user = computed(() => {
   return account.user;
@@ -147,9 +149,7 @@ const logout = async (): Promise<void> => {
           const res = await account.logout()
 
           if (res) {
-            router.push({
-              name: 'login'
-            })
+            router.push('/tabs/login')
           } else {
             console.log('Log Out Error')
           }
@@ -174,12 +174,6 @@ account.getUserData()
 </script>
 
 <style scoped>
-.cover {
-  background-image: url("@/views/ypw/assets/cover.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .textItem {
   font-size: 20px;
 }

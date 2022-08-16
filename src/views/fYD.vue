@@ -10,7 +10,7 @@
     </ion-header>
     <ion-content :fullscreen="true">
 
-      <div class="coverBox"></div>
+      <div class="cover-box"></div>
 
       <!-- <ion-header collapse="condense">
         <ion-toolbar>
@@ -59,18 +59,6 @@ import "animate.css";
 </script>
 
 <style scoped>
-.coverBox {
-  position: fixed;
-  top: -30%;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-image: url("@/views/ypw/assets/cover.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: 1;
-}
-
 ion-card {
   z-index: 2;
 }

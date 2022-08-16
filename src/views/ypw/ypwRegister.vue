@@ -1,29 +1,33 @@
 <template>
   <ion-page>
 
-    <ion-content :fullscreen="true">
+    <ion-header translucent>
+      <ion-toolbar color="primary">
 
-      <ion-header translucent>
-        <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
+        </ion-buttons>
 
-          <ion-buttons slot="start">
-            <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
-          </ion-buttons>
-
-          <!-- <ion-text slot="start" class=" ion-text-center ion-padding-start">
+        <!-- <ion-text slot="start" class=" ion-text-center ion-padding-start">
             <h2>{{ $t('account.createAccount') }}</h2>
           </ion-text> -->
 
-          <!-- <ion-avatar class=" ion-margin-end" slot="end">
+        <!-- <ion-avatar class=" ion-margin-end" slot="end">
             <img src="@/assets/logoApp.png">
           </ion-avatar> -->
 
-        </ion-toolbar>
-      </ion-header>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content :fullscreen="true">
+
+      <div class="cover-box"></div>
+
+      <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
 
       <ion-grid class="ion-margin-top">
-
-        <div class="cover"></div>
         <!--animate__animated animate__zoomIn-->
         <ion-row class="ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
@@ -64,7 +68,7 @@
                     </ion-item>
 
                     <ion-row>
-                      <ion-col size="4">
+                      <ion-col size="5">
                         <ion-item>
                           <ion-label position="floating">{{ $t('account.placeholder.code') }}</ion-label>
                           <ion-input name="countryCode" :maxlength="5" inputmode="numeric"
@@ -73,7 +77,7 @@
                           </ion-input>
                         </ion-item>
                       </ion-col>
-                      <ion-col class=" ion-align-self-auto">
+                      <ion-col size="7">
                         <ion-item>
                           <ion-label position="floating">{{ $t('account.placeholder.phone') }}</ion-label>
                           <ion-input autocomplete="tel" v-model="user.phone" inputmode="tel" type="number"></ion-input>
@@ -137,6 +141,9 @@ import {
   IonCardSubtitle,
   IonCardHeader,
   IonAvatar,
+  useIonRouter,
+  IonRefresherContent,
+  IonRefresher
 
 } from "@ionic/vue";
 import "animate.css";
@@ -149,14 +156,22 @@ import openAlert from "@/ts/openAlert";
 import { useI18n } from "vue-i18n";
 
 import { useAccountStore } from "@/store/account";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import RegExps from "@/ts/RegExps";
+import { IonRefresherCustomEvent, RefresherEventDetail } from "@ionic/core";
 
 //Declare y Use
 const { t } = useI18n();
-const router = useRouter()
+const router = useIonRouter()
 const account = useAccountStore();
 
+
+//Refresh
+
+const doRefresh = async (event: IonRefresherCustomEvent<RefresherEventDetail>) => {
+  await account.cleanUser();
+  event.detail.complete();
+}
 
 //Computed y Methods
 const user = computed(() => {
@@ -221,12 +236,12 @@ const register = async () => {
     }
 
     if (res.status === 400) {
-      account.cleanUser() //Si el usuario existe, borramos los datos del formulario
+      // account.cleanUser() //Si el usuario existe, borramos los datos del formulario
       throw new Error(await openAlert('account.registerError', t, alertController))
     }
 
     if (res.status === 401) {
-      account.cleanUser(); //Si el usuario existe, borramos los datos del formulario
+      // account.cleanUser(); //Si el usuario existe, borramos los datos del formulario
       throw new Error(await openAlert('account.registerError', t, alertController))
     }
 
@@ -262,17 +277,6 @@ const register = async () => {
 </script>
 
 <style scoped>
-.cover {
-  position: fixed;
-  top: -30%;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-image: url("@/views/ypw/assets/cover.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 ion-input {
   font-size: 20px;
 }

@@ -1,8 +1,8 @@
 <template>
   <ion-page>
-    <ion-tabs>
+    <ion-tabs :translucent="true">
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar color="white" slot="bottom" translucent>
+      <ion-tab-bar slot="bottom">
         <ion-tab-button tab="home" href="/tabs/home">
           <ion-icon :icon="homeOutline" />
           <ion-label>{{ $t('tabs.home') }}</ion-label>
