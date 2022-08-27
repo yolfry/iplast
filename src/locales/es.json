@@ -52,9 +52,9 @@
         "BMI17to18": "Bajo Peso: es tiempo de subir un poco de peso. Podrías calificar para algunos procedimientos de cirugía plástica, consulta a tu médico para ver las opciones disponibles para ti.",
         "BMI18to24": "Saludable: puedes calificar para cualquier procedimiento quirúrgico de cirugía plástica. Probablemente no tengas suficiente grasa en caso de Liposucción (Lipoescultura).",
         "BMI25to29": "Sobrepeso: eres el paciente ideal para cualquier procedimiento de cirugía plástica, puedes realizarte procedimientos combinados con las debidas precauciones médicas.",
-        "BMI30to34": "Obeso Tipo 1: buen candidato para cirugía plástica de cualquier tipo, incluyendo procedimientos combinados. Se debe actuar con Cautela.",
-        "BMI35to39": "Obeso Tipo 2: debes  alimentarte mejor y bajar de peso. Puedes calificar para procedimientos únicos no combinados. Se debe actuar con mucha Cautela por el alto riesgo de complicaciones que pueden presentarse.",
-        "BMI40to59": "Obeso Tipo 3: debes buscar opciones para bajar de peso.  No calificas para cirugía plástica por el momento. Consulta a tu médico para encontrar las mejores opciones.",
+        "BMI30to34": "Obesidad Tipo 1: buen candidato para cirugía plástica de cualquier tipo, incluyendo procedimientos combinados. Se debe actuar con Cautela.",
+        "BMI35to39": "Obesidad Tipo 2: debes  alimentarte mejor y bajar de peso. Puedes calificar para procedimientos únicos no combinados. Se debe actuar con mucha Cautela por el alto riesgo de complicaciones que pueden presentarse.",
+        "BMI40to59": "Obesidad Tipo 3: debes buscar opciones para bajar de peso.  No calificas para cirugía plástica por el momento. Consulta a tu médico para encontrar las mejores opciones.",
         "forYourAge": "Por tu Edad",
         "under18": "Aún no es tiempo para cirugía plástica. Habla con tus padres y tu médico, así encontrar la opción correcta para ti.",
         "between50and60": "Se recomienda un chequeo médico general antes de consultar para cirugía plástica.",
@@ -77,7 +77,7 @@
         "BMI25to30": "Sobrepeso: 25-30",
         "BMI30to35": "Obesidad Tipo I: 30-35",
         "BMI35to40": "Obesidad Tipo II: 35-40",
-        "BMI40": "Obesidad Tipo II: 35-40"
+        "BMI40": "Obesidad Tipo III: >40"
     },
     "account": {
         "incorrectUserOrPassword": "Usuario y/o contraseña Incorrectos ",
@@ -89,6 +89,7 @@
         "error403": "Usuario Bloqueado.",
         "errorChangePassword": "Código erróneo, inténtalo de nuevo",
         "changePasswordReady": "La contraseña ha sido cambiada con éxito",
+        "updateError": "Ocurrió un error al Guardar los datos, por favor inténtelo más tarde.",
         "hiddenInput": "Campos Incompletos.",
         "hiddenInputUsername": "Nombre de usuario en blanco, por favor agregue el usuario.",
         "userNameError": "Nombre de usuario incorrecto.",
@@ -110,7 +111,7 @@
         "registerError": "No se puede Registrar, por favor verifique si ya creo una cuenta con estos datos e inténtelo de nuevo.",
         "free": "",
         "logout": "¿Seguro que quieres cerrar sección?",
-        "setCode": "Enviar Código",
+        "setCode": "Enviar nuevo Código",
         "change": "Cambiar",
         "changePassword": "Cambiar Contraseña",
         "placeholder": {
@@ -123,8 +124,11 @@
             "username": "Nombre de Usuario",
             "code": "Código",
             "add": "Agregar",
-            "recoveryCode": "Código",
-            "newPassword": "Nueva contraseña"
+            "newPassword": "Nueva contraseña",
+            "country": "Pais",
+            "dateOfBirth": "Fecha de nacimiento",
+            "segurity": "Seguridad",
+            "help": "Ayuda"
         }
     },
     "user": {

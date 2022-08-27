@@ -310,5 +310,60 @@ export const useAccountStore = defineStore('accountStore', {
 
 
         }
+        ,
+        // Actualizar datos del usuario
+        async updateUser(): Promise<AxiosResponse | undefined> {
+            //Login Api
+            const data = {
+                appConnect: this.user.appConnect,
+                keyUser: this.user.keyUser,
+
+                name: this.userAll.name,
+                dateOfBirth: this.userAll.dateOfBirth,
+                language: this.userAll.language,
+                country: this.userAll.country,
+                shippingAddress: this.userAll.shippingAddress,
+                identificationCard: this.userAll.identificationCard,
+                accountVersion: this.userAll.accountVersion,
+                timeZone: this.userAll.timeZone,
+                accountType: this.userAll.accountType,
+                pagWeb: this.userAll.pagWeb,
+            };
+
+
+            const config = {
+                method: 'put',
+                url: `${this.urlApi}account/updateDataUser`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+
+            try {
+                const response = await axios(config)
+
+                //Si el usuario se registro correctamente entonces guardarlo en el celular
+
+                // if (response.status === 200 || response.status === 201) {
+                //     //Agregar Datos de Registro
+                //     this.user.appConnect = response.data.res.appConnect
+                //     this.user.keyUser = response.data.res.keyUser
+
+                //     const { saveDataApp } = useAppStore()
+
+                //     await saveDataApp('user', this.user)
+
+                //     await this.getUserData()
+                // }
+
+                return response
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+        }
     }
 })

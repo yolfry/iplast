@@ -2,15 +2,15 @@
   <ion-page>
     <ion-header translucent>
       <ion-toolbar color="primary">
-        <ion-avatar class=" ion-margin-start" slot="start">
+        <!-- <ion-avatar class=" ion-margin-start" slot="start">
           <img src="@/assets/logoApp.png">
-        </ion-avatar>
+        </ion-avatar> -->
         <ion-title slot="start">{{ $t('titles.myAccount') }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" color="tertiary">
 
-      <div class="cover-box"></div>
+
       <!-- <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ $t('titles.myAccount') }}</ion-title>
@@ -19,6 +19,8 @@
       <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
+
+      <div class="cover-box"></div>
 
       <ion-row class=" ion-padding">
         <ion-col size="12">

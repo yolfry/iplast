@@ -228,6 +228,9 @@ const pesoIdeal = ref()
 const pesoRecomendado = ref()
 
 
+
+
+
 //Objetos Reactivos
 interface ipeso {
   kg: any;
@@ -294,11 +297,29 @@ async function calcularIMC() {
 }
 
 
+//Clean input data 
+function cleanInputPeso() {
+  peso.kg = null;
+  peso.lb = null;
+  peso.st = null;
+}
+
+function cleanInputAltura() {
+  altura.m = null;
+  altura.ft = null;
+  altura.in = null;
+  altura.cm = null;
+  IMC.value = null;
+}
+
+
 watch(typeAltura, () => {
+  cleanInputAltura()
   calcularIMC()
 });
 
 watch(typePeso, () => {
+  cleanInputPeso()
   calcularIMC()
 });
 

@@ -52,9 +52,9 @@
         "BMI17to18": "Underweight: You may qualify for certain plastic surgery procedures. It is recommended to put on some weight to be considered for qualification. Please consult your doctor for know your options.",
         "BMI18to24": "Healthy: You currently qualify for most plastic surgery procedures. However, you probably do not have enough fat specifically required for a Liposuction (Liposculpture) procedure.",
         "BMI25to29": "Overweight: You are the ideal patient for a plastic surgery procedure. You are able to undergo combined procedures with due medical consultation and precautions.",
-        "BMI30to34": "Obese Type 1: You are good candidate for plastic surgery of any kind. You are able to undergo combined procedures with due medical consultation and precautions.",
-        "BMI35to39": "Obese Type 2: You may qualify for single, non-combination surgical procedures, though caution must be exercised due to high risk of complications. Please consider losing additional weight and consulting your general physician/doctor in order to qualify for additional surgery procedures.",
-        "BMI40to59": "Obese Type 3: You don't qualify for plastic surgery. Please consider losing additional weight and consulting your general physician/doctor in order to qualify for plastic surgery procedures.",
+        "BMI30to34": "Obesity Type 1: You are good candidate for plastic surgery of any kind. You are able to undergo combined procedures with due medical consultation and precautions.",
+        "BMI35to39": "Obesity Type 2: You may qualify for single, non-combination surgical procedures, though caution must be exercised due to high risk of complications. Please consider losing additional weight and consulting your general physician/doctor in order to qualify for additional surgery procedures.",
+        "BMI40to59": "Obesity Type 3: You don't qualify for plastic surgery. Please consider losing additional weight and consulting your general physician/doctor in order to qualify for plastic surgery procedures.",
         "forYourAge": "Based on your Age ",
         "under18": "It is not recommended you undergo plastic surgery. Please talk to your parents and your general physician/doctor to discuss the right alternative options available to you.",
         "between50and60": "A general medical check-up is recommended before seeking consulting for plastic surgery.",
@@ -89,6 +89,7 @@
         "error403": "User blocked.",
         "errorChangePassword": "Wrong code, try again",
         "changePasswordReady": "The password has been changed successfully",
+        "updateError": "An error occurred while saving the data, please try again later.",
         "hiddenInput": "Incomplete fields.",
         "hiddenInputUsername": "Please choose a username.",
         "userNameError": "Username incorrect.",
@@ -110,7 +111,7 @@
         "registerError": "Unable to Register, check if you already created an account with this information and try again, please.",
         "free": "",
         "logout": "Are you sure you want to log out?",
-        "setCode": "Send code",
+        "setCode": "Send new code",
         "change": "Change",
         "changePassword": "Change Password",
         "placeholder": {
@@ -122,7 +123,12 @@
             "name": "Full Name",
             "username": "Username",
             "code": "Code",
-            "add": "Add"
+            "add": "Add",
+            "newPassword": "New Password",
+            "country": "Country",
+            "dateOfBirth": "Date of Birth",
+            "segurity": "Security",
+            "help": "Help"
         }
     },
     "user": {

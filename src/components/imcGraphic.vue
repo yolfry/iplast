@@ -176,7 +176,7 @@ const props = defineProps({
 }
 
 .st4 {
-    font-size: 44.1107px;
+    font-size: 55px;
 }
 
 .st5 {
@@ -196,7 +196,7 @@ const props = defineProps({
 }
 
 .st9 {
-    fill: #EAE01F;
+    fill: #aba30c;
 }
 
 .st10 {

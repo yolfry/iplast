@@ -19,6 +19,16 @@
       </ion-header> -->
       <ion-row>
         <ion-col>
+
+          <!--animate__delay-2s animate__animated animate__zoomIn-->
+          <ion-card>
+            <ion-card-content>
+              <ion-text class=" ion-text-center">
+                <h1>{{ $t('text.comingSoon') }}</h1>
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+
           <!--animate__animated animate__zoomIn-->
           <ion-card>
             <ion-card-header>
@@ -35,14 +45,7 @@
             </ion-card-content>
           </ion-card>
 
-          <!--animate__delay-2s animate__animated animate__zoomIn-->
-          <ion-card>
-            <ion-card-content>
-              <ion-text class=" ion-text-center">
-                <h1>{{ $t('text.comingSoon') }}</h1>
-              </ion-text>
-            </ion-card-content>
-          </ion-card>
+
 
         </ion-col>
       </ion-row>
@@ -59,10 +62,6 @@ import "animate.css";
 </script>
 
 <style scoped>
-ion-card {
-  z-index: 2;
-}
-
 ion-row {
   margin-top: 25%;
 }

@@ -36,10 +36,10 @@
                                         </ion-text>
                                     </ion-col>
                                     <ion-col>
-                                        <ion-text class=" ion-text-center">
+                                        <ion-text class=" ion-text-center" color="success">
                                             <h3>{{ $t('text.RecommendedWeight') }}</h3>
                                         </ion-text>
-                                        <ion-text class=" ion-text-center">
+                                        <ion-text class=" ion-text-center" color="success">
                                             <h1>{{
                                                     // Converte, convertir valor de peso ideal Kilogramo a peso del usuario
                                                     (validateIMC()) ? round(converte(pesoIdeal, typePeso).peso) + `

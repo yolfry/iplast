@@ -47,10 +47,11 @@
                   <ion-col size="12" class="ion-padding ion-justify-content-center">
 
                     <!--Imput Account-->
-                    <ion-input v-if="!setCode" v-model="user.email" type="text" placeholder="Email de Recuperación">
+                    <ion-input v-if="!setCode" v-model="user.email" type="email" inputmode="email"
+                      placeholder="Email de Recuperación" autocomplete="email">
                     </ion-input>
                     <ion-input v-else class=" ion-padding codeText" v-model="user.code" inputmode="numeric"
-                      type="number" :placeholder="t('account.placeholder.recoveryCode')"></ion-input>
+                      type="number" :placeholder="t('account.placeholder.code')"></ion-input>
 
                     <div class="ion-padding-bottom ion-padding-top">
                       <ion-button v-if="!setCode || setCodeNew == true" @click="setCodeRecoveryEmail()"

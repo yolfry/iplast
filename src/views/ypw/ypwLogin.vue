@@ -14,8 +14,10 @@
 
     <ion-content :fullscreen="true">
 
+      <div class="cover-box"></div>
+
       <ion-grid class="ion-margin-top">
-        <div class="cover-box"></div>
+
         <!--animate__animated animate__zoomIn -->
         <ion-row class="ion-justify-content-center">
           <ion-col size-lg="6" size-sm="12">
@@ -50,11 +52,11 @@
                         </ion-input>
                       </ion-col>
                       <ion-col class=" ion-align-self-auto">
-                        <ion-input v-model="user.username" autocomplete="email" type="text"
+                        <ion-input v-model="user.username" autocomplete="email" type="email" inputmode="email"
                           :placeholder="$t('account.placeholder.usernamePhoneEmail')"></ion-input>
                       </ion-col>
                       <ion-col size="12" class="ion-align-self-auto">
-                        <ion-input v-model="user.password" type="password"
+                        <ion-input v-model="user.password" type="password" autocomplete="current-password"
                           :placeholder="$t('account.placeholder.password')"></ion-input>
                       </ion-col>
                     </ion-row>
@@ -107,7 +109,7 @@ import {
 import "animate.css";
 // import { ref } from "vue";
 
-import { computed } from "@vue/reactivity";
+import { onMounted, computed } from "vue";
 import { alertController, loadingController } from "@ionic/vue";
 import { useI18n } from "vue-i18n";
 import openAlert from "@/ts/openAlert";
@@ -210,12 +212,17 @@ async function login() {
 
 }
 
+onMounted(() => {
+  user.value.password = undefined;
+  user.value.username = undefined;
+})
+
 
 </script>
 
 <style scoped>
 ion-grid {
-  margin-top: 25%;
+  margin-top: 20%;
 }
 
 ion-input {

@@ -52,9 +52,9 @@
         "BMI17to18": "Sous Poids:  il est temps de prendre du poids. Vous pourriez être admissible à certaines procédures de chirurgie plastique, consultez votre médecin pour connaître les options.",
         "BMI18to24": "En bonne santé: vous pouvez bénéficier de toute intervention chirurgicale de chirurgie plastique. Vous n'avez probablement pas assez de graisse en cas de Liposuccion (Liposculpture).",
         "BMI25to29": "Surpoids: vous êtes le patient idéal pour toute intervention de chirurgie plastique, vous pouvez effectuer des interventions combinées avec les précautions médicales nécessaires.",
-        "BMI30to34": "Obèse de type 1: bon candidat pour la chirurgie plastique de tout type, y compris les procédures combinées. Il faut faire preuve de prudence.",
-        "BMI35to39": "Obèse de type 2: vous devriez mieux manger et perdre du poids. Vous pouvez être admissible à des procédures uniques et non combinées. La prudence s'impose en raison du risque élevé de complications.",
-        "BMI40to59": "Obèse de type 3: vous devriez rechercher des options pour perdre du poids. Vous n'êtes pas admissible à la chirurgie plastique. Consultez votre médecin.",
+        "BMI30to34": "Obésité type 1: bon candidat pour la chirurgie plastique de tout type, y compris les procédures combinées. Il faut faire preuve de prudence.",
+        "BMI35to39": "Obésité type 2: vous devriez mieux manger et perdre du poids. Vous pouvez être admissible à des procédures uniques et non combinées. La prudence s'impose en raison du risque élevé de complications.",
+        "BMI40to59": "Obésité type 3: vous devriez rechercher des options pour perdre du poids. Vous n'êtes pas admissible à la chirurgie plastique. Consultez votre médecin.",
         "forYourAge": "Pour votre âge:",
         "under18": "Ce n'est pas encore l'heure de la chirurgie esthétique. Parlez-en à vos parents et votre médecin pour la bonne option.",
         "between50and60": "Un bilan médical général est recommandé avant de consulter pour une chirurgie plastique. ",
@@ -89,6 +89,7 @@
         "error403": "Utilisateur bloqué.",
         "errorChangePassword": "Mauvais code, réessayez",
         "changePasswordReady": "Le mot de passe a été changé avec succès",
+        "updateError": "Une erreur s'est produite lors de l'enregistrement des données, veuillez réessayer plus tard.",
         "hiddenInput": "Champs incomplets.",
         "hiddenInputUsername": "Veuillez choisir un nom d'utilisateur.",
         "userNameError": "Nom d'utilisateur incorrect.",
@@ -122,7 +123,12 @@
             "name": "Nom et prénom",
             "username": "Nom d'utilisateur",
             "code": "Code",
-            "add": "Ajouter"
+            "add": "Ajouter",
+            "newPassword": "nouveau mot de passe",
+            "country": "Pays",
+            "dateOfBirth": "Date de naissance",
+            "segurity": "Sécurité",
+            "help": "Aide"
         }
     },
     "user": {

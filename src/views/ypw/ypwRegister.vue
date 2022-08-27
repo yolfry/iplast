@@ -19,9 +19,9 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content :fullscreen="true">
+    <ion-content :fullscreen="true" color="tertiary">
 
-      <div class="cover-box"></div>
+      <!-- <div class="cover-box"></div> -->
 
       <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
@@ -64,7 +64,7 @@
 
                     <ion-item>
                       <ion-label position="floating">{{ $t('account.placeholder.email') }}</ion-label>
-                      <ion-input v-model="user.email" autocomplete="email" type="text"></ion-input>
+                      <ion-input v-model="user.email" inputmode="email" autocomplete="email" type="email"></ion-input>
                     </ion-item>
 
                     <ion-row>
@@ -87,7 +87,7 @@
 
                     <ion-item>
                       <ion-label position="floating">{{ $t('account.placeholder.username') }}</ion-label>
-                      <ion-input v-model="user.username" autocomplete="username" type="text">
+                      <ion-input v-model="user.username" type="text">
                       </ion-input>
                     </ion-item>
 
@@ -174,9 +174,11 @@ const doRefresh = async (event: IonRefresherCustomEvent<RefresherEventDetail>) =
 }
 
 //Computed y Methods
-const user = computed(() => {
-  return account.user;
-});
+// const user = computed(() => {
+//   return account.user;
+// });
+
+const user = ref({ ...account.user })
 
 //Propiedades Radiativas
 const confirmePassword = ref("");
@@ -228,8 +230,12 @@ const register = async () => {
       throw new Error(await openAlert('account.passwordConfirmeError', t, alertController))
     }
 
+    account.user = user.value
     loading.present();
 
+
+
+    //Registrar
     const res = await account.register();
     if (!res) {
       throw new Error(await openAlert('account.errorApp', t, alertController))
