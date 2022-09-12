@@ -4,7 +4,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-image: url("@/views/ypw/assets/cover.svg");
+    background-image: url("@/views/login/assets/cover.svg");
     background-repeat: no-repeat;
     background-size: cover;
   }

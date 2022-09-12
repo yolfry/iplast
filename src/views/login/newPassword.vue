@@ -24,18 +24,10 @@
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
                   </ion-avatar>
-                  <!-- <ion-avatar>
-                    <img src="@/views/ypw/assets/logoYPW.com.jpg" />
-                  </ion-avatar> -->
                 </ion-row>
                 <ion-card-title class="ion-text-center">
                   {{ $t('account.changePassword') }}
                 </ion-card-title>
-                <!-- <ion-row class="ion-justify-content-center">
-                  <ion-text>
-                    <span>Usa tu Cuenta</span>
-                  </ion-text>
-                </ion-row> -->
               </ion-card-header>
 
               <ion-card-content>
@@ -202,24 +194,6 @@ const changePassword = async (): Promise<any> => {
   }
 
 }
-
-// watch(account, (newData) => {
-//   if (newData.chargePasswordResult == true) {
-//     router.push({
-//       path: '/account/login'
-//     })
-//   }
-// })
-
-
-
-// async function login() {
-//   account.setUser()
-//   router.push({
-//     path: '/'
-//   })
-
-// }
 </script>
 
 <style scoped>

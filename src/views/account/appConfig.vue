@@ -56,9 +56,6 @@
                     <ion-label position="fixed" class=" ion-text-wrap">
                         {{ $t('account.placeholder.dateOfBirth') }}
                     </ion-label>
-                    <!-- <ion-input v-if="user" v-model="userNew.country" type="text" :disabled="disabledEdit"
-                        :placeholder="$t('account.placeholder.add')">
-                    </ion-input> -->
 
                     <ion-datetime-button datetime="datetime"></ion-datetime-button>
 
@@ -102,7 +99,9 @@
                     <ion-label>{{ $t('account.placeholder.segurity') }}</ion-label>
                 </ion-item-divider>
 
-                <ion-item button>
+                <ion-item button @click="$router.replace({
+                  name: 'changePassword'
+                })">
                     <ion-icon slot="start" :icon="settingsSharp"></ion-icon>
                     <ion-label class="textItem">
                         {{ $t('account.placeholder.password') }}
@@ -209,6 +208,7 @@ const saveConfig = async () => {
         }
 
         if (res.status === 200 || res.status === 201) {
+            disabledEdit.value = !disabledEdit.value
             //Ir a cuenta, Luego de que el usuario se registre
             router.push("/tabs/mycuenta");
             loading.dismiss();

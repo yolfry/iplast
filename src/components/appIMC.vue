@@ -190,44 +190,27 @@
 
 <script lang="ts" setup>
 
-
-// Import
-// import { womanOutline, manOutline } from "ionicons/icons";
 import { calIMC } from '@/ts/imc'
 import fitnessGraphicVue from "./fitnessGraphic.vue";
 import {
   IonRow,
   IonCol,
-  // IonItem,
-  // IonLabel,
-  // IonRadioGroup,
   IonGrid,
   IonInput,
-  // IonButton,
-  // IonRadio,
   IonText,
-  // IonItemGroup,
-  // IonIcon,
   IonSelect,
   IonSelectOption,
-  // IonCard,
-  // IonCardContent,
-  // IonCardTitle,
-  // IonCardSubtitle,
 } from "@ionic/vue";
 import { ref, watch, reactive, onMounted } from "vue";
 
 import { useAccountStore } from '@/store/account';
 
 //Reactive Global Ref
-
 const typePeso = ref('KG')
 const typeAltura = ref('CM')
 const edadPeople = ref()
 const pesoIdeal = ref()
 const pesoRecomendado = ref()
-
-
 
 
 
@@ -274,12 +257,12 @@ const SexoPeople = ref('woman')
 
 
 function dataCal() {
-  const account = useAccountStore();
+  // const account = useAccountStore();
   const dataCal: any = {}
   dataCal.IMC = IMC.value
   dataCal.pesoKg = peso.kg
   dataCal.alturaM = altura.m
-  account.saveDataUser(dataCal)
+  // account.saveDataUser(dataCal)
 }
 
 async function calcularIMC() {
@@ -385,12 +368,5 @@ ion-input {
   border: 0px;
   margin-top: -5px;
   border-bottom: 1px solid #295b8a;
-  /* border: 0px 0px 0px 1px solid #295b8a; */
-  /*border-radius: 50px;*/
 }
-
-
-/* ion-icon {
-  font-size: 50px;
-} */
 </style>

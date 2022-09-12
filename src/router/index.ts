@@ -62,39 +62,41 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'login',
         name: 'login',
-        component: () => import('@/views/ypw/ypwLogin.vue')
+        component: () => import('@/views/login/ypwLogin.vue')
       },
       {
         path: 'register',
         name: 'register',
-        component: () => import('@/views/ypw/ypwRegister.vue')
+        component: () => import('@/views/login/ypwRegister.vue')
       },
       {
         path: 'passwordRecovery',
         name: 'passwordRecovery',
-        component: () => import('@/views/ypw/ypwPasswordRecovery.vue'),
+        component: () => import('@/views/login/ypwPasswordRecovery.vue'),
       },
       {
         path: 'newPassword',
         name: 'newPassword',
-        component: () => import('@/views/ypw/newPassword.vue'),
+        component: () => import('@/views/login/newPassword.vue'),
       },
       {
         path: 'config',
         name: 'config',
         component: () => import('@/views/account/appConfig.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'changePassword',
+        name: 'changePassword',
+        component: () => import('@/views/account/changePassword.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   },
-  // {
-  //   path: '/account',
-  //   component: () => import('@/views/ypwAccount.vue'),
-  //   children: [{
-  //     path: '',
-  //     redirect: '/account/login'
-  //   },
-  //   ]
-  // },
   {
     path: '/:pathMatch(.*)*',
     redirect: '/tabs/home'

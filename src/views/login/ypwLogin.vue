@@ -63,7 +63,7 @@
 
                     <div class="ion-padding-bottom ion-padding-top">
                       <ion-button fill="outline" router-link="/tabs/register" color="secondary">{{
-                          $t('account.createAccount')
+                      $t('account.createAccount')
                       }}</ion-button>
 
                       <ion-button @click="login()" color="primary">{{ $t('account.next') }}</ion-button>
@@ -96,7 +96,6 @@ import {
   IonCol,
   IonInput,
   IonButton,
-  // IonIcon,
   IonButtons,
   IonAvatar,
   IonPage,
@@ -106,10 +105,8 @@ import {
   useIonRouter
 
 } from "@ionic/vue";
-import "animate.css";
-// import { ref } from "vue";
 
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { alertController, loadingController } from "@ionic/vue";
 import { useI18n } from "vue-i18n";
 import openAlert from "@/ts/openAlert";
@@ -117,28 +114,24 @@ import openAlert from "@/ts/openAlert";
 
 //Logica
 import { useAccountStore } from "@/store/account";
-// import { useRouter } from "vue-router";
 import regExps from "@/ts/RegExps";
-// import { useAppStore } from "@/store/app";
 
 
 const ionRouter = useIonRouter();
-// const router = useRouter()
-
 const account = useAccountStore();
-// const appStore = useAppStore();
 
 const user = computed(() => {
   return account.user;
 });
 
-//Use i18n
+//Use
 const { t } = useI18n();
 
 
+const noLogin = ref(0)
+
 
 //Metodos
-
 async function login() {
 
   const loading = await loadingController.create({
@@ -161,7 +154,6 @@ async function login() {
     await loading.present()
 
     const res = await account.login()
-    // appStore.setUser(account.user);
 
     //Ocurrio un error en la aplicacion
     if (!res) {
@@ -169,11 +161,13 @@ async function login() {
     }
 
     if (res.status === 400) {
+      noLogin.value++
       account.user.password = '' //Limpiar password
       throw new Error(await openAlert('account.errorUser', t, alertController))
     }
 
     if (res.status === 401) {
+      noLogin.value++
       account.user.password = '' //Limpiar password
       throw new Error(await openAlert('account.errorUser', t, alertController))
     }
@@ -185,8 +179,6 @@ async function login() {
     if (res.status === 403) {
       throw new Error(await openAlert('account.error403', t, alertController))
     }
-
-
 
     if (res.status === 500) {
       throw new Error(await openAlert('account.errorServer', t, alertController))
@@ -205,6 +197,12 @@ async function login() {
 
 
   } catch (error) {
+
+
+    if (noLogin.value > 5) {
+      noLogin.value = 0
+      ionRouter.push('passwordRecovery')
+    }
     loading.dismiss()
     console.log(error);
   }
@@ -232,9 +230,3 @@ ion-input {
   padding-left: 10px;
 }
 </style>
-
-<!-- <style>
-ion-avatar {
-  margin: 5px;
-}
-</style> -->

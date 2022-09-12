@@ -12,7 +12,8 @@
         "sLD": "Spotlight Doctors",
         "findYourDoctor": "Encuentra tu doctor",
         "news": "Novedades",
-        "login": "Iniciar sesión"
+        "login": "Iniciar sesión",
+        "titleApp": "Iplast"
     },
     "label": {
         "sex": "SEXO",
@@ -114,6 +115,12 @@
         "setCode": "Enviar nuevo Código",
         "change": "Cambiar",
         "changePassword": "Cambiar Contraseña",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "activateAccount": "Activar Cuenta",
+        "incorrectCode": "Código incorrecto",
+        "messageCodeSent": "Enviamos un Código a su correo para activar su cuenta",
+        "logoutCode": "Esta por abandonar la activación de su cuenta, si no activa su cuenta no podrá iniciar sección, y su cuenta será eliminada en unos días, si desea retornar la activación, tendrá que recuperar su cuenta.",
         "placeholder": {
             "usernamePhoneEmail": "Email, Número, Usuario",
             "password": "Contraseña",
@@ -128,7 +135,8 @@
             "country": "Pais",
             "dateOfBirth": "Fecha de nacimiento",
             "segurity": "Seguridad",
-            "help": "Ayuda"
+            "help": "Ayuda",
+            "removeSections": "Cerrar todas las sesiones en los dispositivos"
         }
     },
     "user": {

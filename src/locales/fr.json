@@ -4,7 +4,7 @@
         "novelty": "Nouveauté",
         "account": "Compte"
     },
-    "title": "Calculatrice De Chirurgie Plastique",
+    "title": "Plastic Surgery Calculator",
     "titles": {
         "myAccount": "Mon compte",
         "helloUser": "alut!",
@@ -12,7 +12,8 @@
         "sLD": "Médecins en vedette",
         "findYourDoctor": "Trouvez votre médecin",
         "news": "Nouveautes",
-        "login": "Connexion"
+        "login": "Connexion",
+        "titleApp": "Iplast"
     },
     "label": {
         "sex": "SEXE",
@@ -70,7 +71,7 @@
         "yes": "oui"
     },
     "svgText": {
-        "BMI16to16": "Insuffisance pondérale sévère: <16",
+        "BMI16to16": "Sous Poids: <16",
         "BMI16to17": "Poids très faible: 16-17",
         "BMI17to18": "Sous Poids: 17-18,5",
         "BMI18to25": "Normale: 18,5-25",
@@ -114,6 +115,12 @@
         "setCode": "Envoyer le code",
         "change": "Changer",
         "changePassword": "Changer le mot de passe",
+        "confirm": "Confirmer",
+        "cancel": "Annuler",
+        "activateAccount": "Activer le compte",
+        "messageCodeSent": "Nous envoyons un code à votre adresse e-mail pour activer votre compte",
+        "incorrectCode": "code incorrect",
+        "logoutCode": "Vous êtes sur le point d'abandonner l'activation de votre compte, si vous n'activez pas votre compte vous ne pourrez pas démarrer la section, et votre compte sera supprimé dans quelques jours, si vous souhaitez retourner l'activation, vous devrez pour récupérer votre compte.",
         "placeholder": {
             "usernamePhoneEmail": "Email, numéro, nom d'utilisateur",
             "password": "Mot de passe",
@@ -128,7 +135,8 @@
             "country": "Pays",
             "dateOfBirth": "Date de naissance",
             "segurity": "Sécurité",
-            "help": "Aide"
+            "help": "Aide",
+            "removeSections": "Fermer toutes les sessions sur les appareils"
         }
     },
     "user": {

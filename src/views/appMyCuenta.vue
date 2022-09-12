@@ -1,88 +1,3 @@
-<template>
-  <ion-page>
-    <ion-header translucent>
-      <ion-toolbar color="primary">
-        <!-- <ion-avatar class=" ion-margin-start" slot="start">
-          <img src="@/assets/logoApp.png">
-        </ion-avatar> -->
-        <ion-title slot="start">{{ $t('titles.myAccount') }}</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true" color="tertiary">
-
-
-      <!-- <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">{{ $t('titles.myAccount') }}</ion-title>
-        </ion-toolbar>
-      </ion-header> -->
-      <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
-
-      <div class="cover-box"></div>
-
-      <ion-row class=" ion-padding">
-        <ion-col size="12">
-          <ion-text>
-            <h3>{{ $t('titles.helloUser') }}, <span v-if="userAll"> {{ userAll.name }}</span></h3>
-          </ion-text>
-        </ion-col>
-      </ion-row>
-
-
-      <ion-row>
-        <ion-col>
-          <ion-list>
-
-            <ion-item button @click="$router.push({
-              name: 'fYD'
-            })" color="secondary">
-              <ion-icon slot="start" :icon="peopleCircle"></ion-icon>
-              <ion-label>
-                <ion-text class="textItem">
-                  {{ $t('user.findYourDoctor') }}
-                </ion-text>
-              </ion-label>
-            </ion-item>
-
-            <!--Comisung-->
-
-            <ion-item button @click="$router.push({
-              name: 'sLD'
-            })" color="secondary">
-              <ion-icon slot="start" :icon="sparklesSharp"></ion-icon>
-              <ion-label class="textItem">
-                {{ $t('user.sportLightDoctor') }}
-              </ion-label>
-            </ion-item>
-
-
-            <ion-item button @click="$router.push({
-              name: 'config'
-            })" color="secondary">
-              <ion-icon slot="start" :icon="settingsSharp"></ion-icon>
-              <ion-label class="textItem">
-                {{ $t('user.config') }}
-              </ion-label>
-            </ion-item>
-
-            <ion-item button @click="logout()" color="secondary">
-              <ion-icon slot="start" :icon="exitSharp"></ion-icon>
-              <ion-label class="textItem">
-                {{ $t('user.exitAccount') }}
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-
-
-      <!-- <div class=" ion-padding">Esta es mi cuenta {{ user }}</div>
-      <div class=" ion-padding">{{ userAll }}</div> -->
-    </ion-content>
-  </ion-page>
-</template>
 
 <script lang="ts" setup>
 import {
@@ -162,11 +77,6 @@ const logout = async (): Promise<void> => {
   });
 
   alert.present();
-
-
-
-
-
 }
 
 
@@ -174,7 +84,7 @@ account.getUserData()
 
 
 </script>
-
+  
 <style scoped>
 .textItem {
   font-size: 20px;
@@ -184,9 +94,86 @@ ion-item {
   margin-bottom: 2px;
 }
 </style>
-
+  
 <style>
 ion-avatar {
   margin: 5px;
 }
 </style>
+  
+
+<template>
+  <ion-page>
+    <ion-header translucent>
+      <ion-toolbar color="primary">
+
+        <ion-title slot="start">{{ $t('titles.myAccount') }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content :fullscreen="true" color="tertiary">
+
+      <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
+      <div class="cover-box"></div>
+
+      <ion-row class=" ion-padding">
+        <ion-col size="12">
+          <ion-text>
+            <h3>{{ $t('titles.helloUser') }}, <span v-if="userAll"> {{ userAll.name }}</span></h3>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <ion-list>
+
+            <ion-item button @click="$router.push({
+              name: 'fYD'
+            })" color="secondary">
+              <ion-icon slot="start" :icon="peopleCircle"></ion-icon>
+              <ion-label>
+                <ion-text class="textItem">
+                  {{ $t('user.findYourDoctor') }}
+                </ion-text>
+              </ion-label>
+            </ion-item>
+
+            <!--Comisung-->
+
+            <ion-item button @click="$router.push({
+              name: 'sLD'
+            })" color="secondary">
+              <ion-icon slot="start" :icon="sparklesSharp"></ion-icon>
+              <ion-label class="textItem">
+                {{ $t('user.sportLightDoctor') }}
+              </ion-label>
+            </ion-item>
+
+
+            <ion-item button @click="$router.push({
+              name: 'config'
+            })" color="secondary">
+              <ion-icon slot="start" :icon="settingsSharp"></ion-icon>
+              <ion-label class="textItem">
+                {{ $t('user.config') }}
+              </ion-label>
+            </ion-item>
+
+            <ion-item button @click="logout()" color="secondary">
+              <ion-icon slot="start" :icon="exitSharp"></ion-icon>
+              <ion-label class="textItem">
+                {{ $t('user.exitAccount') }}
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+    </ion-content>
+  </ion-page>
+</template>
+

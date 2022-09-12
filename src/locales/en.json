@@ -12,7 +12,8 @@
         "sLD": "Spotlight Doctors",
         "findYourDoctor": "Find your doctor",
         "news": "News",
-        "login": "Login"
+        "login": "Login",
+        "titleApp": "Iplast"
     },
     "label": {
         "sex": "GENDER",
@@ -114,6 +115,12 @@
         "setCode": "Send new code",
         "change": "Change",
         "changePassword": "Change Password",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "activateAccount": "Activate Account",
+        "messageCodeSent": "We send a Code to your email to activate your account",
+        "incorrectCode": "Incorrect code",
+        "logoutCode": "You are about to abandon the activation of your account, if you do not activate your account you will not be able to start the section, and your account will be deleted in a few days, if you want to return the activation, you will have to recover your account.",
         "placeholder": {
             "usernamePhoneEmail": "Email, Number, Username",
             "password": "Password",
@@ -128,7 +135,8 @@
             "country": "Country",
             "dateOfBirth": "Date of Birth",
             "segurity": "Security",
-            "help": "Help"
+            "help": "Help",
+            "removeSections": "Close all sessions on devices"
         }
     },
     "user": {

@@ -3,11 +3,15 @@
     <ion-header translucent>
       <ion-toolbar color="primary">
 
-        <ion-avatar class=" ion-margin-start" slot="start">
+        <ion-avatar size=" smol" class=" ion-margin-start" slot="start">
           <img src="@/assets/logoApp.png">
         </ion-avatar>
         <ion-text slot="start" class=" ion-text-center ion-padding-start">
-          <h2>{{ $t('title') }}</h2>
+          <ion-title>
+            {{ $t('title') }}
+          </ion-title>
+          <!-- <h1>{{ $t('titles.titleApp') }}</h1> -->
+          <!-- <span>{{ $t('title') }}</span> -->
         </ion-text>
 
       </ion-toolbar>
@@ -28,6 +32,7 @@
 <script lang="ts" setup>
 import {
   IonPage,
+  IonTitle,
   IonRefresher,
   IonRefresherContent,
   IonHeader,
@@ -73,6 +78,11 @@ const doRefresh = async (e: any) => {
   right: 0%;
   z-index: -100;
 } */
+
+ion-avatar {
+  width: 40px;
+  height: 40px;
+}
 </style>
 
 <style>

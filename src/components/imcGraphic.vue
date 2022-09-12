@@ -196,7 +196,7 @@ const props = defineProps({
 }
 
 .st9 {
-    fill: #aba30c;
+    fill: #EAE01F;
 }
 
 .st10 {

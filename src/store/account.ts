@@ -12,6 +12,8 @@ interface user {
     phone: string | any;
     code: string | any;
     codePhone: string;
+    newPassword: string | any;
+    removeSections: boolean
 }
 
 
@@ -29,6 +31,8 @@ export const useAccountStore = defineStore('accountStore', {
                 phone: undefined,
                 code: undefined,
                 codePhone: "+1",
+                newPassword: undefined,
+                removeSections: false
             },
             userAll: undefined as any,
             chargePasswordResult: false,
@@ -253,6 +257,7 @@ export const useAccountStore = defineStore('accountStore', {
                 const appStore = useAppStore()
                 appStore.removeDataApp('user')
                 appStore.removeDataApp('userAll')
+                this.changePassword
 
                 this.cleanUser()
 
@@ -277,6 +282,51 @@ export const useAccountStore = defineStore('accountStore', {
             const config = {
                 method: 'post',
                 url: `${this.urlApi}account/register`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+
+            try {
+                const response = await axios(config)
+
+                //Si el usuario se registro correctamente entonces guardarlo en el celular
+
+                // if (response.status === 200 || response.status === 201) {
+                //     //Agregar Datos de Registro
+                //     this.user.appConnect = response.data.res.appConnect
+                //     this.user.keyUser = response.data.res.keyUser
+
+                //     const { saveDataApp } = useAppStore()
+
+                //     await saveDataApp('user', this.user)
+
+                //     await this.getUserData()
+                // }
+
+                return response
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+
+
+        },
+        async activeAccount(): Promise<AxiosResponse | undefined> {
+
+
+            //Login Api
+            const data = {
+                codetmp: this.user.code,
+                email: this.user.email,
+            };
+
+            const config = {
+                method: 'post',
+                url: `${this.urlApi}account/activateAccount/email`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -320,20 +370,65 @@ export const useAccountStore = defineStore('accountStore', {
 
                 name: this.userAll.name,
                 dateOfBirth: this.userAll.dateOfBirth,
-                language: this.userAll.language,
+                // language: this.userAll.language,
                 country: this.userAll.country,
-                shippingAddress: this.userAll.shippingAddress,
-                identificationCard: this.userAll.identificationCard,
-                accountVersion: this.userAll.accountVersion,
-                timeZone: this.userAll.timeZone,
-                accountType: this.userAll.accountType,
-                pagWeb: this.userAll.pagWeb,
+                // shippingAddress: this.userAll.shippingAddress,
+                // identificationCard: this.userAll.identificationCard,
+                // accountVersion: this.userAll.accountVersion,
+                // timeZone: this.userAll.timeZone,
+                // accountType: this.userAll.accountType,
+                // pagWeb: this.userAll.pagWeb,
             };
 
 
             const config = {
                 method: 'put',
                 url: `${this.urlApi}account/updateDataUser`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+
+            try {
+                const response = await axios(config)
+
+                //Si el usuario se registro correctamente entonces guardarlo en el celular
+
+                // if (response.status === 200 || response.status === 201) {
+                //     //Agregar Datos de Registro
+                //     this.user.appConnect = response.data.res.appConnect
+                //     this.user.keyUser = response.data.res.keyUser
+
+                //     const { saveDataApp } = useAppStore()
+
+                //     await saveDataApp('user', this.user)
+
+                //     await this.getUserData()
+                // }
+
+                return response
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+        },
+        // Actualizar datos del usuario
+        async changePasswordUser(): Promise<AxiosResponse | undefined> {
+            //Login Api
+            const data = {
+                appConnect: this.user.appConnect,
+                keyUser: this.user.keyUser,
+                newPassword: this.user.newPassword,
+                removeSections: this.user.removeSections
+            };
+
+
+            const config = {
+                method: 'post',
+                url: `${this.urlApi}account/changePassword`,
                 headers: {
                     'Content-Type': 'application/json'
                 },

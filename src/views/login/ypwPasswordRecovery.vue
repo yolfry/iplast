@@ -59,14 +59,14 @@
                         {{ t('account.setCode') }}</ion-button>
                       <ion-button v-if="setCode || setCodeNew == true" router-link="/tabs/newPassword" color="primary">
                         {{
-                            t('account.next')
+                        t('account.next')
                         }}
                       </ion-button>
                     </div>
 
                     <ion-text v-show="setCodeNew == false && setCode == true" color="medium" class=" ion-text-center">
                       {{
-                          $t('account.setNewCode', { second: second })
+                      $t('account.setNewCode', { second: second })
                       }}
                     </ion-text>
 
@@ -223,7 +223,7 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
   left: 0;
   bottom: 0;
   right: 0;
-  background-image: url("@/views/ypw/assets/cover.svg");
+  background-image: url("@/views/login/assets/cover.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }

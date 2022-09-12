@@ -8,14 +8,6 @@
           <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
         </ion-buttons>
 
-        <!-- <ion-text slot="start" class=" ion-text-center ion-padding-start">
-            <h2>{{ $t('account.createAccount') }}</h2>
-          </ion-text> -->
-
-        <!-- <ion-avatar class=" ion-margin-end" slot="end">
-            <img src="@/assets/logoApp.png">
-          </ion-avatar> -->
-
       </ion-toolbar>
     </ion-header>
 
@@ -144,21 +136,25 @@ import {
   useIonRouter,
   IonRefresherContent,
   IonRefresher
-
 } from "@ionic/vue";
 import "animate.css";
 import { ref } from "vue";
 
-import { computed } from "@vue/reactivity";
-import { alertController, loadingController } from "@ionic/vue";
+import { alertController, loadingController, modalController } from "@ionic/vue";
 import openAlert from "@/ts/openAlert";
 
 import { useI18n } from "vue-i18n";
 
 import { useAccountStore } from "@/store/account";
-// import { useRouter } from "vue-router";
+
 import RegExps from "@/ts/RegExps";
 import { IonRefresherCustomEvent, RefresherEventDetail } from "@ionic/core";
+
+//Modal Import
+import activeAccountVue from "@/components/modal/activeAccount.vue";
+
+
+
 
 //Declare y Use
 const { t } = useI18n();
@@ -174,9 +170,6 @@ const doRefresh = async (event: IonRefresherCustomEvent<RefresherEventDetail>) =
 }
 
 //Computed y Methods
-// const user = computed(() => {
-//   return account.user;
-// });
 
 const user = ref({ ...account.user })
 
@@ -184,14 +177,30 @@ const user = ref({ ...account.user })
 const confirmePassword = ref("");
 
 
+//Open modal code
+const openModal = async () => {
+
+  const modal = await modalController.create({
+    component: activeAccountVue,
+  });
+  modal.present();
+
+  const { data, role } = await modal.onWillDismiss();
+
+  if (role === 'confirm') {
+    console.log(role, data)
+  }
+
+
+}
+
+
+
+
 // Funcion de Registro
 const register = async () => {
 
   //Validaciones
-
-  // if(/^$/){
-  // }
-
   const loading = await loadingController.create({
     message: t("account.loading"),
     translucent: true,
@@ -233,8 +242,6 @@ const register = async () => {
     account.user = user.value
     loading.present();
 
-
-
     //Registrar
     const res = await account.register();
     if (!res) {
@@ -265,7 +272,15 @@ const register = async () => {
 
     if (res.status === 200 || res.status === 201) {
       //Ir a cuenta, Luego de que el usuario se registre
+
+      loading.dismiss();
+
+      //Activar cuenta
+      await openModal()
+
       router.push("/tabs/mycuenta");
+
+
     } else {
       throw new Error(await openAlert('account.errorApp', t, alertController))
     }
