@@ -29,13 +29,6 @@ const routes: Array<RouteRecordRaw> = [
           requiresAuth: true
         }
       },
-      // {
-      //   path: 'doctor',
-      //   component: () => import('@/views/appDoctor.vue'),
-      //   meta: {
-      //     requiresAuth: true
-      //   }
-      // },
       {
         path: 'sLD',
         name: 'sLD',
@@ -109,13 +102,10 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  //Lanzar Store cuando inicie Pinia
   const account = await useAccountStore()
-
 
   //Loading Data Account
   const appStore = await useAppStore()
-
   const user = await appStore.getDataApp('user')
 
   if (user && !account.user.appConnect && !account.user.keyUser) {

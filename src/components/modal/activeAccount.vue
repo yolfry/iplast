@@ -165,7 +165,6 @@ ion-input {
     font-size: 30px;
     border: 0.1px solid var(--ion-color-primary);
     border-radius: 10px;
-    /* border-bottom: 0.1px solid var(--ion-color-dark); */
 }
 </style>
   

@@ -14,11 +14,6 @@
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true" color="tertiary">
-            <!-- <ion-header collapse="condense">
-                <ion-toolbar>
-                    <ion-title size="large">{{ $t('titles.config') }}</ion-title>
-                </ion-toolbar>
-            </ion-header> -->
 
             <ion-item-group class=" ion-padding">
                 <ion-item>
@@ -57,14 +52,12 @@
 
 <script lang="ts" setup>
 import {
-    IonItemGroup, IonButtons, IonBackButton, IonIcon, IonTitle, IonToolbar, IonItem, IonHeader, IonContent, IonText, IonPage, IonLabel, IonInput, IonAvatar, IonRow, IonCol, IonDatetime,
-    IonDatetimeButton, IonModal, IonItemDivider, IonToggle
+    IonItemGroup, IonButtons, IonBackButton, IonToolbar, IonTitle, IonItem, IonHeader, IonContent, IonText, IonPage, IonLabel, IonInput, IonToggle
 } from '@ionic/vue';
 import openAlert from '@/ts/openAlert';
 import { alertController, loadingController, useIonRouter } from '@ionic/vue';
 import { useI18n } from 'vue-i18n';
-import { createOutline, settingsSharp, linkOutline } from 'ionicons/icons';
-import { computed, onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useAccountStore } from '@/store/account';
 import RegExps from "@/ts/RegExps";
 // import { useAppStore } from '@/store/app';
@@ -80,10 +73,6 @@ const userPassword = ref({
     newPassword: undefined,
     confirmeNewPassword: undefined,
 
-})
-
-onMounted(() => {
-    // useAppStore().getDataApp('userAll')
 })
 
 

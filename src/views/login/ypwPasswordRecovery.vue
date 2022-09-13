@@ -1,86 +1,3 @@
-<template>
-  <ion-page>
-
-    <ion-header translucent>
-      <ion-toolbar color="primary">
-
-        <ion-buttons slot="start">
-          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
-        </ion-buttons>
-
-        <!-- <ion-text slot="start" class=" ion-text-center ion-padding-start">
-          <h2>{{ $t('titles.login') }}</h2>
-        </ion-text> -->
-
-        <!-- <ion-avatar class=" ion-margin-end" slot="end">
-          <img src="@/assets/logoApp.png">
-        </ion-avatar> -->
-
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
-      <div class="cover"></div>
-
-      <ion-grid class="ion-margin-top">
-
-        <!--animate__animated animate__zoomIn ion-justify-content-center-->
-        <ion-row>
-          <ion-col size-lg="6" size-sm="12">
-            <ion-card>
-              <ion-card-header>
-                <!-- <ion-card-title @click="$router.back()">
-                  <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
-                </ion-card-title> -->
-                <ion-row class="ion-justify-content-center ion-text-center">
-                  <ion-avatar>
-                    <img src="@/assets/logoApp.png" />
-                  </ion-avatar>
-                </ion-row>
-                <ion-card-title class="ion-text-center">
-                  {{ t('account.recoverAccount') }}
-                </ion-card-title>
-              </ion-card-header>
-
-              <ion-card-content>
-                <ion-row>
-                  <ion-col size="12" class="ion-padding ion-justify-content-center">
-
-                    <!--Imput Account-->
-                    <ion-input v-if="!setCode" v-model="user.email" type="email" inputmode="email"
-                      placeholder="Email de Recuperación" autocomplete="email">
-                    </ion-input>
-                    <ion-input v-else class=" ion-padding codeText" v-model="user.code" inputmode="numeric"
-                      type="number" :placeholder="t('account.placeholder.code')"></ion-input>
-
-                    <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button v-if="!setCode || setCodeNew == true" @click="setCodeRecoveryEmail()"
-                        color="secondary">
-                        {{ t('account.setCode') }}</ion-button>
-                      <ion-button v-if="setCode || setCodeNew == true" router-link="/tabs/newPassword" color="primary">
-                        {{
-                        t('account.next')
-                        }}
-                      </ion-button>
-                    </div>
-
-                    <ion-text v-show="setCodeNew == false && setCode == true" color="medium" class=" ion-text-center">
-                      {{
-                      $t('account.setNewCode', { second: second })
-                      }}
-                    </ion-text>
-
-
-                  </ion-col>
-                </ion-row>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-content>
-  </ion-page>
-</template>
 
 <script lang="ts" setup>
 import {
@@ -215,6 +132,94 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
 
 
 </script>
+
+<template>
+  <ion-page>
+
+    <ion-header translucent>
+      <ion-toolbar color="primary">
+
+        <ion-buttons slot="start">
+          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+
+        <!-- <ion-text slot="start" class=" ion-text-center ion-padding-start">
+          <h2>{{ $t('titles.login') }}</h2>
+        </ion-text> -->
+
+        <!-- <ion-avatar class=" ion-margin-end" slot="end">
+          <img src="@/assets/logoApp.png">
+        </ion-avatar> -->
+
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content :fullscreen="true">
+      <div class="cover"></div>
+
+      <ion-grid class="ion-margin-top">
+
+        <!--animate__animated animate__zoomIn ion-justify-content-center-->
+        <ion-row>
+          <ion-col size-lg="6" size-sm="12">
+            <ion-card>
+              <ion-card-header>
+                <!-- <ion-card-title @click="$router.back()">
+                  <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
+                </ion-card-title> -->
+                <ion-row class="ion-justify-content-center ion-text-center">
+                  <ion-avatar>
+                    <img src="@/assets/logoApp.png" />
+                  </ion-avatar>
+                </ion-row>
+                <ion-card-title class="ion-text-center">
+                  {{ t('account.recoverAccount') }}
+                </ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                <ion-row>
+                  <ion-col size="12" class="ion-padding ion-justify-content-center">
+
+                    <!--Imput Account-->
+                    <ion-input v-if="!setCode" v-model="user.email" type="email" inputmode="email"
+                      placeholder="Email de Recuperación" autocomplete="email">
+                    </ion-input>
+                    <ion-input v-else class=" ion-padding codeText" v-model="user.code" inputmode="numeric"
+                      type="number" :placeholder="t('account.placeholder.code')"></ion-input>
+
+                    <div class="ion-padding-bottom ion-padding-top">
+
+                      <ion-button v-if="setCode || setCodeNew == true" router-link="/tabs/newPassword" color="primary">
+                        {{
+                        t('account.next')
+                        }}
+                      </ion-button>
+
+                      <ion-button fill="outline" v-if="!setCode || setCodeNew == true" @click="setCodeRecoveryEmail()"
+                        color="secondary">
+                        {{ t('account.setCode') }}</ion-button>
+                    </div>
+
+                    <ion-text v-show="setCodeNew == false && setCode == true" color="medium" class=" ion-text-center">
+                      {{
+                      $t('account.setNewCode', { second: second })
+                      }}
+                    </ion-text>
+
+
+                  </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-content>
+  </ion-page>
+</template>
+
+
 
 <style scoped>
 .cover {

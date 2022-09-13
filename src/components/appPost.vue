@@ -25,8 +25,6 @@
   </ion-grid>
 </template>
 
-<!--/wp-json/wp/v2/posts-->
-
 <script lang="ts" setup>
 import { onMounted, computed } from "vue";
 import {
@@ -35,12 +33,10 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonCardContent,
-  // loadingController,
   IonRow,
   IonCol,
   IonSpinner,
   IonGrid,
-  // IonText,
 } from "@ionic/vue";
 
 // import axios from "axios";
@@ -53,28 +49,6 @@ const wordpress = useWordpressStore()
 const posts = computed(() => {
   return wordpress.posts;
 });
-
-
-//Props
-// const posts = ref();
-
-
-// const isLoading = ref();
-// let images = ref();
-
-//Function
-
-// function getImg(id: number) {
-//   const res = axios.get(
-//     `https://manuelbelen.com/dev/wp-json/wp/v2/media/${id}`
-//   );
-
-//   res.then((res) => {
-//     imgRes.value = res.data.guid.rendered;
-//   });
-
-//   return imgRes.value;
-// }
 
 function link(link: any, post: any) {
   window.location = link;
@@ -95,33 +69,7 @@ onMounted(async () => {
 
   //Post Local, obtener Post Guardado en Local
   wordpress.posts = await appStore.getDataApp('posts')
-
   await wordpress.getPost(i18n.locale.value)
-
-
-
-  // const loading = await loadingController.create({
-  //   cssClass: "my-custom-class",
-  //   message: "Please wait...",
-  //   // duration: this.timeout,
-  // });
-
-  // await loading.present();
-
-  // try {
-  //   isLoading.value = true;
-  //   const res = await axios.get(
-  //     "https://manuelbelen.com/dev/es/wp-json/wp/v2/posts?_embed"
-  //   );
-  //   console.log(res.status);
-  //   posts.value = await res.data;
-
-  //   isLoading.value = await false;
-  //   // await loading.dismiss();
-  // } catch (error) {
-  //   isLoading.value = await false;
-  //   // loading.dismiss();
-  // }
 
 });
 </script>

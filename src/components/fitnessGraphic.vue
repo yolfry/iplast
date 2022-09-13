@@ -1,14 +1,10 @@
 <template>
     <ion-grid class="fitnessGraphic">
-
         <ion-row class="ion-justify-content-center">
-
             <ion-col class=" ion-align-self-auto">
-
                 <ion-card class="background-page" :style="`background: #fff;
                 background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`">
                     <ion-card-content>
-
                         <ion-row>
                             <ion-col v-show="validateIMC()" class=" ion-align-self-auto">
                                 <ion-img class="animate__animated animate__flash malla_background"
@@ -62,7 +58,6 @@
                                         </ion-text>
                                     </ion-col>
                                 </ion-row>
-
                             </ion-col>
                         </ion-row>
                     </ion-card-content>
@@ -306,9 +301,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* .fitnessGraphic ion-card {
-    margin-left: -20%;
-} */
 ion-card {
     border-radius: 20px;
 }

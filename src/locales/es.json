@@ -120,7 +120,7 @@
         "activateAccount": "Activar Cuenta",
         "incorrectCode": "Código incorrecto",
         "messageCodeSent": "Enviamos un Código a su correo para activar su cuenta",
-        "logoutCode": "Esta por abandonar la activación de su cuenta, si no activa su cuenta no podrá iniciar sección, y su cuenta será eliminada en unos días, si desea retornar la activación, tendrá que recuperar su cuenta.",
+        "logoutCode": "Estas por abandonar la activación de su cuenta, si no activa su cuenta no podrá iniciar sección, y su cuenta será eliminada en unos días, si desea retornar la activación, tendrá que recuperar su cuenta.",
         "placeholder": {
             "usernamePhoneEmail": "Email, Número, Usuario",
             "password": "Contraseña",

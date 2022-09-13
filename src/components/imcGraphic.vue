@@ -148,7 +148,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 
-const props = defineProps({
+defineProps({
     imc: {
         type: Number,
         default: 0,
