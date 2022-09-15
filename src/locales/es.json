@@ -95,7 +95,7 @@
         "hiddenInputUsername": "Nombre de usuario en blanco, por favor agregue el usuario.",
         "userNameError": "Nombre de usuario incorrecto.",
         "nameError": "Nombre incorrecto.",
-        "codePhoneError": "Código de país incorrecto, agregue +1 o el código de su país. ",
+        "numberCodeError": "Código de país incorrecto, agregue +1 o el código de su país. ",
         "phoneError": "Teléfono incorrecto.",
         "emailError": "Correo electrónico incorrecto.",
         "incorrectPassword": "Contraseña Incorrecta.",
@@ -121,6 +121,7 @@
         "incorrectCode": "Código incorrecto",
         "messageCodeSent": "Enviamos un Código a su correo para activar su cuenta",
         "logoutCode": "Estas por abandonar la activación de su cuenta, si no activa su cuenta no podrá iniciar sección, y su cuenta será eliminada en unos días, si desea retornar la activación, tendrá que recuperar su cuenta.",
+        "edit": "Editar",
         "placeholder": {
             "usernamePhoneEmail": "Email, Número, Usuario",
             "password": "Contraseña",

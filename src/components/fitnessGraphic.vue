@@ -3,7 +3,7 @@
         <ion-row class="ion-justify-content-center">
             <ion-col class=" ion-align-self-auto">
                 <ion-card class="background-page" :style="`background: #fff;
-                background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`">
+                background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`" mode="ios">
                     <ion-card-content>
                         <ion-row>
                             <ion-col v-show="validateIMC()" class=" ion-align-self-auto">
@@ -19,7 +19,7 @@
                                         </ion-text>
                                         <ion-text class=" ion-text-center">
                                             <h1 class="h1-plus" :style="`color: ${colorIMC};`">{{ (validateIMC()) ? imc
-                                                    : `?`
+                                            : `?`
                                             }}</h1>
                                         </ion-text>
                                     </ion-col>
@@ -37,9 +37,9 @@
                                         </ion-text>
                                         <ion-text class=" ion-text-center" color="success">
                                             <h1>{{
-                                                    // Converte, convertir valor de peso ideal Kilogramo a peso del usuario
-                                                    (validateIMC()) ? round(converte(pesoIdeal, typePeso).peso) + `
-                                                                                            ${converte(pesoIdeal, typePeso).typePeso} ` : `?`
+                                            // Converte, convertir valor de peso ideal Kilogramo a peso del usuario
+                                            (validateIMC()) ? round(converte(pesoIdeal, typePeso).peso) + `
+                                            ${converte(pesoIdeal, typePeso).typePeso} ` : `?`
                                             }}
                                             </h1>
                                         </ion-text>
@@ -51,9 +51,9 @@
                                         </ion-text>
                                         <ion-text class=" ion-text-center">
                                             <h1 style="color:#ff7c24;">{{ (validateIMC()) ? round(converte(peso.kg -
-                                                    pesoRecomendado, typePeso).peso) +
-                                                    converte(peso.kg -
-                                                        pesoRecomendado, typePeso).typePeso : `?`
+                                            pesoRecomendado, typePeso).peso) +
+                                            converte(peso.kg -
+                                            pesoRecomendado, typePeso).typePeso : `?`
                                             }}</h1>
                                         </ion-text>
                                     </ion-col>
@@ -67,7 +67,7 @@
 
 
             <ion-col size="12">
-                <ion-card v-show="textEdad">
+                <ion-card v-show="textEdad" mode="ios">
                     <ion-card-header>
                         <ion-card-title>
                             <ion-text color="primary" class=" ion-text-center">
@@ -84,7 +84,7 @@
             </ion-col>
 
             <ion-col size="12">
-                <ion-card v-show="validateIMC()">
+                <ion-card v-show="validateIMC()" mode="ios">
                     <ion-card-header>
                         <ion-card-title>
                             <ion-text class=" ion-text-center">
@@ -105,7 +105,7 @@
             </ion-col>
 
             <ion-col size="12">
-                <ion-card>
+                <ion-card mode="ios">
                     <ion-card-content>
                         <ion-text class=" ion-text-center">
                             <h2>{{ $t('text.BMIclassification') }}</h2>

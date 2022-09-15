@@ -95,7 +95,7 @@
         "hiddenInputUsername": "Please choose a username.",
         "userNameError": "Username incorrect.",
         "nameError": "Name incorrect.",
-        "codePhoneError": "Wrong country code, please add +1 or your country code.",
+        "numberCodeError": "Wrong country code, please add +1 or your country code.",
         "phoneError": "Phone number incorrect.",
         "emailError": "E-mail incorrect.",
         "incorrectPassword": "Password incorrect.",
@@ -121,6 +121,7 @@
         "messageCodeSent": "We send a Code to your email to activate your account",
         "incorrectCode": "Incorrect code",
         "logoutCode": "You are about to abandon the activation of your account, if you do not activate your account you will not be able to start the section, and your account will be deleted in a few days, if you want to return the activation, you will have to recover your account.",
+        "edit": "Edit",
         "placeholder": {
             "usernamePhoneEmail": "Email, Number, Username",
             "password": "Password",

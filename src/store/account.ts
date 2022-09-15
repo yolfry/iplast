@@ -11,7 +11,7 @@ interface user {
     email: string | any;
     phone: string | any;
     code: string | any;
-    codePhone: string;
+    numberCode: string;
     newPassword: string | any;
     removeSections: boolean
 }
@@ -30,7 +30,7 @@ export const useAccountStore = defineStore('accountStore', {
                 email: undefined,
                 phone: undefined,
                 code: undefined,
-                codePhone: "+1",
+                numberCode: "+1",
                 newPassword: undefined,
                 removeSections: false
             },
@@ -46,16 +46,16 @@ export const useAccountStore = defineStore('accountStore', {
         async login(): Promise<AxiosResponse | undefined> {
             try {
                 //Detectar si el usuario es un numero, y si es un numero colocarle el codigo de pais
-                let username: string | undefined
-                if (this.user.username && /^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/.exec(this.user.username)) {
-                    username = this.user.codePhone + this.user.username
-                } else {
-                    username = this.user.username
-                }
+                // let username: string | undefined
+                // if (this.user.username && /^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/.exec(this.user.username)) {
+                //     username = this.user.numberCode + this.user.username
+                // } else {
+                //     username = this.user.username
+                // }
 
                 //Login Api
                 const data = {
-                    username,
+                    username: this.user.username,
                     password: this.user.password,
                     appConnect: this.appConnect
                 };
@@ -230,6 +230,13 @@ export const useAccountStore = defineStore('accountStore', {
                     appStore.saveDataApp('userAll', this.userAll)
                 }
 
+                //Si el usuario tiene la secion cerrada, limpiar los datos de la cuenta (usuario)
+                if (response.status === 401 || response.status === 403) {
+                    this.cleanUser()
+                }
+
+
+
                 return response
 
             } catch (error: any) {
@@ -240,6 +247,7 @@ export const useAccountStore = defineStore('accountStore', {
         },
         //Limpiar usuario de Store 
         async cleanUser() {
+
             //Datos del usuario relevante
             this.userAll = undefined
             this.user.keyUser = undefined
@@ -250,22 +258,46 @@ export const useAccountStore = defineStore('accountStore', {
             this.user.phone = undefined
             this.user.name = undefined
             this.user.username = undefined
+            this.user.newPassword = undefined
+
+            //Remover Data
+            const appStore = useAppStore()
+            appStore.removeDataApp('user')
+            appStore.removeDataApp('userAll')
         },
         //Cerrar seccion 
-        async logout(): Promise<boolean> {
+        async logout(): Promise<AxiosResponse | undefined> {
+
+
+            //Login Api
+            const data = {
+                appConnect: this.user.appConnect,
+                keyUser: this.user.keyUser
+            };
+
+
+            const config = {
+                method: 'post',
+                url: `${this.urlApi}account/logout`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+
             try {
-                const appStore = useAppStore()
-                appStore.removeDataApp('user')
-                appStore.removeDataApp('userAll')
-                this.changePassword
+                const response = await axios(config)
 
                 this.cleanUser()
 
-                return true
-            } catch (error) {
+                return response
+
+            } catch (error: any) {
                 console.log(error)
-                return false
+                return error.response || error //Axios Error
             }
+
         },
         async register(): Promise<AxiosResponse | undefined> {
 
@@ -276,7 +308,7 @@ export const useAccountStore = defineStore('accountStore', {
                 password: this.user.password,
                 name: this.user.name,
                 email: this.user.email,
-                phone: `${this.user.codePhone + this.user.phone}`
+                phone: this.user.phone
             };
 
             const config = {
@@ -372,6 +404,7 @@ export const useAccountStore = defineStore('accountStore', {
                 dateOfBirth: this.userAll.dateOfBirth,
                 // language: this.userAll.language,
                 country: this.userAll.country,
+                phone: this.userAll.phone
                 // shippingAddress: this.userAll.shippingAddress,
                 // identificationCard: this.userAll.identificationCard,
                 // accountVersion: this.userAll.accountVersion,
@@ -407,6 +440,7 @@ export const useAccountStore = defineStore('accountStore', {
 
                 //     await this.getUserData()
                 // }
+
 
                 return response
 

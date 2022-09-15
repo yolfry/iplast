@@ -48,7 +48,7 @@
                         v-if="user.username != null && /^\d{1,4}(([.-\s]?\d{1,4}[.-\s]?)?)*$/.exec(user.username)"
                         size="2">
                         <ion-input name="countryCode" :maxlength="5" inputmode="numeric" autocomplete="tel-country-code"
-                          type="text" v-model="user.codePhone" class=" ion-align-self-center" placeholder="+1">
+                          type="text" v-model="user.numberCode" class=" ion-align-self-center" placeholder="+1">
                         </ion-input>
                       </ion-col>
                       <ion-col class=" ion-align-self-auto">
@@ -147,8 +147,8 @@ async function login() {
       throw new Error(await openAlert('account.userNameError', t, alertController))
     } else if (!user.value.password || !regExps.password.exec(user.value.password)) {
       throw new Error(await openAlert('account.incorrectPassword', t, alertController))
-    } else if (!user.value.codePhone || !regExps.codePhone.exec(user.value.codePhone)) {
-      throw new Error(await openAlert('account.codePhoneError', t, alertController))
+    } else if (!user.value.numberCode || !regExps.numberCode.exec(user.value.numberCode)) {
+      throw new Error(await openAlert('account.numberCodeError', t, alertController))
     }
 
     await loading.present()

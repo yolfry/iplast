@@ -95,7 +95,7 @@
         "hiddenInputUsername": "Veuillez choisir un nom d'utilisateur.",
         "userNameError": "Nom d'utilisateur incorrect.",
         "nameError": "Nom incorrect.",
-        "codePhoneError": "Mauvais code pays, veuillez ajouter +33 ou votre code pays. ",
+        "numberCodeError": "Mauvais code pays, veuillez ajouter +33 ou votre code pays. ",
         "phoneError": "Numéro de téléphone erroné.",
         "emailError": "E-mail erroné.",
         "incorrectPassword": "Mot de passe incorrect.",
@@ -121,6 +121,7 @@
         "messageCodeSent": "Nous envoyons un code à votre adresse e-mail pour activer votre compte",
         "incorrectCode": "code incorrect",
         "logoutCode": "Vous êtes sur le point d'abandonner l'activation de votre compte, si vous n'activez pas votre compte vous ne pourrez pas démarrer la section, et votre compte sera supprimé dans quelques jours, si vous souhaitez retourner l'activation, vous devrez pour récupérer votre compte.",
+        "edit": "Éditer",
         "placeholder": {
             "usernamePhoneEmail": "Email, numéro, nom d'utilisateur",
             "password": "Mot de passe",

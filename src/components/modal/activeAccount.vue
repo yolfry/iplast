@@ -91,6 +91,7 @@ const confirm = async () => {
         }
 
         if (res.status === 404) {
+            account.user.code = undefined
             throw new Error(await openAlert('account.incorrectCode', t, alertController))
         }
 

@@ -5,7 +5,7 @@ interface iregExps {
     email: RegExp;
     phone: RegExp;
     password: RegExp;
-    codePhone: RegExp;
+    numberCode: RegExp;
     name: RegExp;
     code: RegExp;
 }
@@ -15,7 +15,7 @@ const regExps: iregExps = {
     email: /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/,
     phone: /^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/,
     password: /^\S(.|\s){7,200}$/,
-    codePhone: /^\+?\d{1,5}$/,
+    numberCode: /^\+?\d{1,5}$/,
     name: /^([a-zA-Záéíóúñ]{2,40}\s?){1,5}$/,
     code: /^\d{6}$/,
 }

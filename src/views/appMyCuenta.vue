@@ -110,7 +110,7 @@ ion-avatar {
         <ion-title slot="start">{{ $t('titles.myAccount') }}</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true" color="tertiary">
+    <ion-content :fullscreen="true">
 
       <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>

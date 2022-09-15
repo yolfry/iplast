@@ -1,3 +1,129 @@
+<script lang="ts" setup>
+import {
+    IonItemGroup, IonButtons, IonBackButton, IonIcon, IonTitle, IonToolbar, IonItem, IonHeader, IonContent, IonText, IonPage, IonLabel, IonInput, IonAvatar, IonRow, IonCol, IonDatetime,
+    IonDatetimeButton, IonModal, IonItemDivider
+} from '@ionic/vue';
+import openAlert from '@/ts/openAlert';
+import { alertController, loadingController, useIonRouter } from '@ionic/vue';
+import { useI18n } from 'vue-i18n';
+import { createOutline, settingsSharp, linkOutline } from 'ionicons/icons';
+import { computed, onMounted, ref } from 'vue';
+import { useAccountStore } from '@/store/account';
+import RegExps from '@/ts/RegExps';
+// import { useAppStore } from '@/store/app';
+
+const accountStore = useAccountStore();
+
+const { t } = useI18n()
+
+const disabled = ref(true)
+const disabledEdit = ref(true)
+
+const user = computed(
+    () => {
+        return accountStore.userAll
+    }
+)
+
+const router = useIonRouter()
+
+onMounted(() => {
+    // useAppStore().getDataApp('userAll')
+
+    userNew.value.dateOfBirth = (/^\d{1,4}/.exec(userNew.value.dateOfBirth)) ? userNew.value.dateOfBirth : undefined
+})
+
+const userNew = ref({ ...user.value })
+
+
+
+
+const saveConfig = async () => {
+    // openAlert('user.saved', t, alertController, t('user.config'));
+
+
+    //Validar
+
+    const loading = await loadingController.create({
+        message: t("account.loading"),
+        translucent: true,
+    });
+
+
+    try {
+
+        //Si el campo disabledEdit no esta desactivado, entonces no continuar con la edicion
+        if (disabledEdit.value) {
+            router.push("/tabs/mycuenta");
+            throw new Error('No edit')
+        }
+
+
+        //Validar metodo de verificacion
+        if (!userNew.value.name || !RegExps.name.exec(userNew.value.name)) {
+            throw new Error(await openAlert('account.nameError', t, alertController))
+        }
+
+        if (userNew.value.numberCode && !RegExps.numberCode.exec(userNew.value.numberCode)) {
+            throw new Error(await openAlert('account.numberCodeError', t, alertController))
+        }
+
+        if (!userNew.value.phone || !RegExps.phone.exec(userNew.value.phone)) {
+            throw new Error(await openAlert('account.phoneError', t, alertController))
+        }
+
+
+        await loading.present();
+        accountStore.userAll = { ...userNew.value }
+        const res = await accountStore.updateUser()
+
+        if (!res) {
+            throw new Error(await openAlert('account.errorApp', t, alertController))
+        }
+
+        if (res.status === 400) {
+            // account.cleanUser() //Si el usuario existe, borramos los datos del formulario
+            throw new Error(await openAlert('account.updateError', t, alertController))
+        }
+
+        if (res.status === 401) {
+            // account.cleanUser(); //Si el usuario existe, borramos los datos del formulario
+            throw new Error(await openAlert('account.updateError', t, alertController))
+        }
+
+        if (res.status === 404) {
+            accountStore.cleanUser()
+            router.push("/tabs/login");
+            throw new Error(await openAlert('account.error404', t, alertController))
+        }
+
+        if (res.status === 403) {
+            throw new Error(await openAlert('account.error403', t, alertController))
+        }
+
+        if (res.status === 500) {
+            throw new Error(await openAlert('account.errorServer', t, alertController))
+        }
+
+        if (res.status === 200 || res.status === 201) {
+            disabledEdit.value = !disabledEdit.value
+            //Ir a cuenta, Luego de que el usuario se registre
+            router.push("/tabs/mycuenta");
+            loading.dismiss();
+        } else {
+            throw new Error(await openAlert('account.errorApp', t, alertController))
+        }
+
+    } catch (error) {
+        loading.dismiss();
+    }
+
+
+}
+
+</script>
+
+
 <template>
     <ion-page>
         <ion-header translucent>
@@ -29,7 +155,7 @@
                     <ion-label @click="disabledEdit = !disabledEdit">
                         <ion-icon size="large" :icon="createOutline">
                         </ion-icon>
-                        Editar
+                        {{$t('account.edit')}}
                     </ion-label>
                 </ion-col>
             </ion-row>
@@ -61,12 +187,38 @@
 
                     <ion-modal :keep-contents-mounted="true">
                         <ion-datetime id="datetime" presentation="month-year" v-model="userNew.dateOfBirth"
-                            :prefer-wheel="true" :value="userNew.dateOfBirth">
+                            :prefer-wheel="true">
                         </ion-datetime>
+
                     </ion-modal>
-
-
                 </ion-item>
+
+
+                <ion-item :disabled="disabledEdit">
+
+                    <ion-row>
+                        <ion-col size="2">
+                            <!-- <ion-label position="fixed">{{ $t('account.placeholder.code') }}</ion-label> -->
+                            <ion-input name="countryCode" :maxlength="5" inputmode="numeric"
+                                autocomplete="tel-country-code" type="text" :value="accountStore.user.numberCode"
+                                v-model="userNew.numberCode" class=" ion-align-self-center">
+                            </ion-input>
+                        </ion-col>
+                        <ion-col size="8">
+                            <ion-label>{{ $t('account.placeholder.phone') }}</ion-label>
+                            <ion-input autocomplete="tel" v-model="userNew.phone" inputmode="tel" type="number">
+                            </ion-input>
+                        </ion-col>
+                    </ion-row>
+
+                    <!-- <ion-label position="fixed" class=" ion-text-wrap">
+    {{ $t('account.placeholder.phone') }}
+</ion-label>
+<ion-input v-if="user" v-model="userNew.phone" type="text"
+    :placeholder="$t('account.placeholder.add')">
+</ion-input> -->
+                </ion-item>
+
 
                 <ion-item :disabled="disabled">
                     <ion-label position="fixed" class=" ion-text-wrap">
@@ -77,14 +229,6 @@
                     </ion-input>
                 </ion-item>
 
-                <ion-item :disabled="disabled">
-                    <ion-label position="fixed" class=" ion-text-wrap">
-                        {{ $t('account.placeholder.phone') }}
-                    </ion-label>
-                    <ion-input v-if="user" v-model="userNew.phone" type="text"
-                        :placeholder="$t('account.placeholder.add')">
-                    </ion-input>
-                </ion-item>
 
                 <ion-item :disabled="disabled">
                     <ion-label position="fixed" class=" ion-text-wrap">
@@ -130,97 +274,3 @@
     </ion-page>
 </template>
 
-
-<script lang="ts" setup>
-import {
-    IonItemGroup, IonButtons, IonBackButton, IonIcon, IonTitle, IonToolbar, IonItem, IonHeader, IonContent, IonText, IonPage, IonLabel, IonInput, IonAvatar, IonRow, IonCol, IonDatetime,
-    IonDatetimeButton, IonModal, IonItemDivider
-} from '@ionic/vue';
-import openAlert from '@/ts/openAlert';
-import { alertController, loadingController, useIonRouter } from '@ionic/vue';
-import { useI18n } from 'vue-i18n';
-import { createOutline, settingsSharp, linkOutline } from 'ionicons/icons';
-import { computed, onMounted, ref } from 'vue';
-import { useAccountStore } from '@/store/account';
-// import { useAppStore } from '@/store/app';
-
-const accountStore = useAccountStore();
-
-const { t } = useI18n()
-
-const disabled = ref(true)
-const disabledEdit = ref(true)
-
-const user = computed(
-    () => {
-        return accountStore.userAll
-    }
-)
-
-const router = useIonRouter()
-
-const userNew = ref({ ...user.value })
-
-onMounted(() => {
-    // useAppStore().getDataApp('userAll')
-})
-
-
-const saveConfig = async () => {
-    // openAlert('user.saved', t, alertController, t('user.config'));
-
-    const loading = await loadingController.create({
-        message: t("account.loading"),
-        translucent: true,
-    });
-
-
-    try {
-
-        await loading.present();
-        accountStore.userAll = { ...userNew.value }
-        const res = await accountStore.updateUser()
-
-        if (!res) {
-            throw new Error(await openAlert('account.errorApp', t, alertController))
-        }
-
-        if (res.status === 400) {
-            // account.cleanUser() //Si el usuario existe, borramos los datos del formulario
-            throw new Error(await openAlert('account.updateError', t, alertController))
-        }
-
-        if (res.status === 401) {
-            // account.cleanUser(); //Si el usuario existe, borramos los datos del formulario
-            throw new Error(await openAlert('account.updateError', t, alertController))
-        }
-
-        if (res.status === 404) {
-            throw new Error(await openAlert('account.error404', t, alertController))
-        }
-
-        if (res.status === 403) {
-            throw new Error(await openAlert('account.error403', t, alertController))
-        }
-
-        if (res.status === 500) {
-            throw new Error(await openAlert('account.errorServer', t, alertController))
-        }
-
-        if (res.status === 200 || res.status === 201) {
-            disabledEdit.value = !disabledEdit.value
-            //Ir a cuenta, Luego de que el usuario se registre
-            router.push("/tabs/mycuenta");
-            loading.dismiss();
-        } else {
-            throw new Error(await openAlert('account.errorApp', t, alertController))
-        }
-
-    } catch (error) {
-        loading.dismiss();
-    }
-
-
-}
-
-</script>

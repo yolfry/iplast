@@ -7,7 +7,7 @@
     </ion-row>
     <ion-row>
       <ion-col v-if="posts">
-        <ion-card v-for="post in posts" :key="post.id">
+        <ion-card button mode="ios" v-for="post in posts" :key="post.id">
           <div @click="link(post.link, post)"><img :src="post._embedded['wp:featuredmedia'][0].source_url" />
 
             <ion-card-header>
