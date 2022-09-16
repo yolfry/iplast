@@ -29,23 +29,23 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
     // let pesoAltura: string = altura.type; // Tipo de Operacion IMC por Altura
 
     // Libra a Kilogramos, una libra es igual a 0.453592
-    if (typePeso.value == "LB") {
+    if (typePeso == "LB") {
         pesoKg = pesoLb * 0.453592;
     }
 
     //ST+LB Stonia a Kilogramos
-    if (typePeso.value == "ST+LB") {
+    if (typePeso == "ST+LB") {
         pesoKg = pesoSt * 6.35029 + pesoLb * 0.453592;
     }
 
 
     // Centimetros a Metros, un centimetro es igual a 0.01 metro
-    if (typeAltura.value == "CM") {
+    if (typeAltura == "CM") {
         alturaM = alturaCM * 0.01;
     }
 
     //Converte Pie mas pulgada a metro
-    if (typeAltura.value == "FT+IN") {
+    if (typeAltura == "FT+IN") {
         alturaM = alturaFt * 0.3048 + alturaIn * 0.0254;
     }
 
@@ -54,9 +54,9 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
     const formula: number = pesoKg / Math.pow(alturaM, 2);
 
     if (formula) {
-        IMC.value = await formula.toFixed(2); // Obten 2 decimal de un numero flotante
+        IMC = await formula.toFixed(2); // Obten 2 decimal de un numero flotante
     } else {
-        IMC.value = 0;
+        IMC = 0;
     }
 
     // Indice de masa Corporal
@@ -100,7 +100,7 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
     return {
         pesoKg,
         alturaM,
-        IMC: IMC.value,
+        IMC: IMC,
         pesoIdeal,
         pesoRecomendado
     }

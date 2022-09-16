@@ -13,29 +13,23 @@ import {
   IonIcon,
   IonText,
   IonCol,
-  IonAvatar,
   IonRefresher,
   IonRefresherContent,
   useIonRouter
-} from "@ionic/vue";//<ion-icon name="sparkles-outline"></ion-icon>
-import { peopleCircle, exitSharp, settingsSharp, sparklesSharp } from "ionicons/icons";
+} from "@ionic/vue";
+import { peopleCircle, exitSharp, settingsSharp, sparklesSharp, informationCircle } from "ionicons/icons";
 
 import { computed } from "vue";
 import { useAccountStore } from "@/store/account";
-// import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { alertController } from "@ionic/vue";
 
 const account = useAccountStore();
 const router = useIonRouter();
-//User Store
-const user = computed(() => {
-  return account.user;
-});
+
 
 const doRefresh = async (e: any) => {
   await account.getUserData();
-  // console.log('reload...', e)
   e.target.complete();
 }
 
@@ -169,6 +163,15 @@ ion-avatar {
                 {{ $t('user.exitAccount') }}
               </ion-label>
             </ion-item>
+
+
+            <ion-item color="tertiary" mode="ios">
+              <ion-icon slot="start" :icon="informationCircle" color="primary"></ion-icon>
+              <ion-label class="textItem">
+                {{ $t('app.version') }}
+              </ion-label>
+            </ion-item>
+
           </ion-list>
         </ion-col>
       </ion-row>

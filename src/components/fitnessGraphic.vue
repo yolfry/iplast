@@ -8,7 +8,7 @@
                         <ion-row>
                             <ion-col v-show="validateIMC()" class=" ion-align-self-auto">
                                 <ion-img class="animate__animated animate__flash malla_background"
-                                    :src="`/assets/fitness/${props.sexo}${numeroDeIamegen}.svg`"
+                                    :src="`/assets/fitness/${SexoPeople}${numeroDeIamegen}.svg`"
                                     :style="`border-bottom: 4px solid ${colorIMC}; border-bottom-style:dotted; `" />
                             </ion-col>
                             <ion-col class=" ion-align-self-auto">
@@ -139,46 +139,38 @@ const round = (value: number) => {
 
 // Use i18n
 const { t } = useI18n()
-
-
 const appStore = useAppStore()
 
 
+const imc = computed(() => {
+    return appStore.calculator.IMC
+})
 
-const props = defineProps(
-    {
-        imc: {
-            type: Number,
-            default: 0
-        },
-        sexo: {
-            type: String
-        },
-        edad: {
-            type: Number,
-            default: 0,
-        },
-        peso: {
-            type: Object,
-            default: () => ({
-                kg: 0,
-                lb: 0,
-                st: 0
-            })
-        },
-        pesoIdeal: {
-            type: Number,
-            default: 0
-        },
-        pesoRecomendado: {
-            type: Number,
-            default: 0
-        },
-        typePeso: {
-            type: String,
-            default: 'kg'
-        },
-    })
+const SexoPeople = computed(() => {
+    return appStore.calculator.SexoPeople
+})
+
+const edadPeople = computed(() => {
+    return appStore.calculator.edadPeople
+})
+
+const peso = computed(() => {
+    return appStore.calculator.peso
+})
+
+const pesoIdeal = computed(() => {
+    return appStore.calculator.pesoIdeal
+})
+
+const pesoRecomendado = computed(() => {
+    return appStore.calculator.pesoRecomendado
+})
+
+
+const typePeso = computed(() => {
+    return appStore.calculator.typePeso
+})
+
 
 
 //Propiedad Reativas Ref
@@ -199,46 +191,45 @@ const titleIMCEdad = ref()
 //Metodos
 function initGraphic() {
 
-
-    if (props.imc != null) {
+    if (imc.value != null) {
 
         //Obtener informacion por Indice de Masa Colporal
-        if (props.imc < 16 && props.imc > 8) {
+        if (imc.value < 16 && imc.value > 8) {
             numeroDeIamegen.value = 1
             appStore.calculator.colorIMC = '#b71515'
             titleIMC.value = t('text.forYourBMI')
             textIMC.value = t('text.BMIunder16')
-        } else if (props.imc >= 16 && props.imc < 17) {
+        } else if (imc.value >= 16 && imc.value < 17) {
             numeroDeIamegen.value = 2
             appStore.calculator.colorIMC = '#ff7c24'
             titleIMC.value = t('text.forYourBMI')
             textIMC.value = t('text.BMI16to16')
-        } else if (props.imc >= 17 && props.imc < 18.5) {
+        } else if (imc.value >= 17 && imc.value < 18.5) {
             numeroDeIamegen.value = 3
             appStore.calculator.colorIMC = '#eae01f'
             titleIMC.value = t('text.forYourBMI')
             textIMC.value = t('text.BMI17to18')
-        } else if (props.imc >= 18.5 && props.imc < 25) {
+        } else if (imc.value >= 18.5 && imc.value < 25) {
             numeroDeIamegen.value = 4
             appStore.calculator.colorIMC = '#80dd5e'
             titleIMC.value = t('text.forYourBMI')
             textIMC.value = t('text.BMI18to24')
-        } else if (props.imc >= 25 && props.imc < 30) {
+        } else if (imc.value >= 25 && imc.value < 30) {
             numeroDeIamegen.value = 5
             appStore.calculator.colorIMC = '#319dff'
             titleIMC.value = t('text.forYourBMI')
             textIMC.value = t('text.BMI25to29')
-        } else if (props.imc >= 30 && props.imc < 35) {
+        } else if (imc.value >= 30 && imc.value < 35) {
             numeroDeIamegen.value = 6
             appStore.calculator.colorIMC = '#eae01f'
             titleIMC.value = t('text.forYourBMI')
             textIMC.value = t('text.BMI30to34')
-        } else if (props.imc >= 35 && props.imc < 40) {
+        } else if (imc.value >= 35 && imc.value < 40) {
             numeroDeIamegen.value = 7
             appStore.calculator.colorIMC = '#ff7c24'
             titleIMC.value = t('text.forYourBMI')
             textIMC.value = t('text.BMI35to39')
-        } else if (props.imc > 40 && props.imc < 60) {
+        } else if (imc.value > 40 && imc.value < 60) {
             numeroDeIamegen.value = 8
             appStore.calculator.colorIMC = '#b71515'
             titleIMC.value = t('text.forYourBMI')
@@ -251,25 +242,27 @@ function initGraphic() {
         }
 
         //Obtener Informacion Por edad
-        if (props.edad) {
-            if (props.edad < 18 && props.edad > 0) {
+        if (edadPeople.value) {
+            if (edadPeople.value < 18 && edadPeople.value > 0) {
                 titleIMCEdad.value = t('text.forYourAge')
                 textEdad.value = t('text.under18')
-            } else if (props.edad >= 50 && props.edad < 60) {
+            } else if (edadPeople.value >= 50 && edadPeople.value < 60) {
                 titleIMCEdad.value = t('text.forYourAge')
                 textEdad.value = t('text.between50and60')
-            } else if (props.edad >= 60 && props.edad < 70) {
+            } else if (edadPeople.value >= 60 && edadPeople.value < 70) {
                 titleIMCEdad.value = t('text.forYourAge')
                 textEdad.value = t('text.between60and70')
-            } else if (props.edad >= 70 && props.edad < 80) {
+            } else if (edadPeople.value >= 70 && edadPeople.value < 80) {
                 titleIMCEdad.value = t('text.forYourAge')
                 textEdad.value = t('text.between70and80')
-            } else if (props.edad >= 80) {
+            } else if (edadPeople.value >= 80) {
                 titleIMCEdad.value = t('text.forYourAge')
                 textEdad.value = t('text.over80')
             } else {
                 textEdad.value = null
             }
+        } else {
+            textEdad.value = null
         }
     }
 
@@ -277,7 +270,7 @@ function initGraphic() {
 }
 
 function validateIMC(): boolean {
-    if (props.imc > 8 && props.imc < 60) {
+    if (imc.value > 8 && imc.value < 60) {
         return true
     }
     return false
@@ -286,8 +279,7 @@ function validateIMC(): boolean {
 
 
 //Observadores
-
-watch(props, () => {
+watch(appStore.calculator, () => {
     initGraphic()
 })
 

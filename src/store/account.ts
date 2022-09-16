@@ -323,21 +323,6 @@ export const useAccountStore = defineStore('accountStore', {
 
             try {
                 const response = await axios(config)
-
-                //Si el usuario se registro correctamente entonces guardarlo en el celular
-
-                // if (response.status === 200 || response.status === 201) {
-                //     //Agregar Datos de Registro
-                //     this.user.appConnect = response.data.res.appConnect
-                //     this.user.keyUser = response.data.res.keyUser
-
-                //     const { saveDataApp } = useAppStore()
-
-                //     await saveDataApp('user', this.user)
-
-                //     await this.getUserData()
-                // }
-
                 return response
 
             } catch (error: any) {
@@ -402,15 +387,8 @@ export const useAccountStore = defineStore('accountStore', {
 
                 name: this.userAll.name,
                 dateOfBirth: this.userAll.dateOfBirth,
-                // language: this.userAll.language,
                 country: this.userAll.country,
                 phone: this.userAll.phone
-                // shippingAddress: this.userAll.shippingAddress,
-                // identificationCard: this.userAll.identificationCard,
-                // accountVersion: this.userAll.accountVersion,
-                // timeZone: this.userAll.timeZone,
-                // accountType: this.userAll.accountType,
-                // pagWeb: this.userAll.pagWeb,
             };
 
 
@@ -426,22 +404,6 @@ export const useAccountStore = defineStore('accountStore', {
 
             try {
                 const response = await axios(config)
-
-                //Si el usuario se registro correctamente entonces guardarlo en el celular
-
-                // if (response.status === 200 || response.status === 201) {
-                //     //Agregar Datos de Registro
-                //     this.user.appConnect = response.data.res.appConnect
-                //     this.user.keyUser = response.data.res.keyUser
-
-                //     const { saveDataApp } = useAppStore()
-
-                //     await saveDataApp('user', this.user)
-
-                //     await this.getUserData()
-                // }
-
-
                 return response
 
             } catch (error: any) {
@@ -469,24 +431,8 @@ export const useAccountStore = defineStore('accountStore', {
                 data: data
             };
 
-
             try {
                 const response = await axios(config)
-
-                //Si el usuario se registro correctamente entonces guardarlo en el celular
-
-                // if (response.status === 200 || response.status === 201) {
-                //     //Agregar Datos de Registro
-                //     this.user.appConnect = response.data.res.appConnect
-                //     this.user.keyUser = response.data.res.keyUser
-
-                //     const { saveDataApp } = useAppStore()
-
-                //     await saveDataApp('user', this.user)
-
-                //     await this.getUserData()
-                // }
-
                 return response
 
             } catch (error: any) {

@@ -195,28 +195,9 @@ const saveConfig = async () => {
 
 
                 <ion-item :disabled="disabledEdit">
-
-                    <ion-row>
-                        <ion-col size="2">
-                            <!-- <ion-label position="fixed">{{ $t('account.placeholder.code') }}</ion-label> -->
-                            <ion-input name="countryCode" :maxlength="5" inputmode="numeric"
-                                autocomplete="tel-country-code" type="text" :value="accountStore.user.numberCode"
-                                v-model="userNew.numberCode" class=" ion-align-self-center">
-                            </ion-input>
-                        </ion-col>
-                        <ion-col size="8">
-                            <ion-label>{{ $t('account.placeholder.phone') }}</ion-label>
-                            <ion-input autocomplete="tel" v-model="userNew.phone" inputmode="tel" type="number">
-                            </ion-input>
-                        </ion-col>
-                    </ion-row>
-
-                    <!-- <ion-label position="fixed" class=" ion-text-wrap">
-    {{ $t('account.placeholder.phone') }}
-</ion-label>
-<ion-input v-if="user" v-model="userNew.phone" type="text"
-    :placeholder="$t('account.placeholder.add')">
-</ion-input> -->
+                    <ion-label position="fixed" class=" ion-text-wrap">{{ $t('account.placeholder.phone') }}</ion-label>
+                    <ion-input autocomplete="tel" v-model="userNew.phone" inputmode="tel" type="number">
+                    </ion-input>
                 </ion-item>
 
 

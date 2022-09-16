@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import { calIMC } from '@/ts/imc'
+
 import fitnessGraphicVue from "./fitnessGraphic.vue";
 import {
   IonRow,
@@ -11,125 +11,37 @@ import {
   IonSelect,
   IonSelectOption,
 } from "@ionic/vue";
-import { ref, watch, reactive, onMounted } from "vue";
+import { watch, computed } from "vue";
+import { useAppStore } from '@/store/app';
 
-//Reactive Global Ref
-const typePeso = ref('KG')
-const typeAltura = ref('CM')
-const edadPeople = ref()
-const pesoIdeal = ref()
-const pesoRecomendado = ref()
+
+const appStore = useAppStore()
 
 
 
-//Objetos Reactivos
-interface ipeso {
-  kg: any;
-  lb: any;
-  st: any;
-}
+const typeAltura = computed(() => {
+  return appStore.calculator.typeAltura
+})
 
-// Objeto Peso
-const peso: ipeso = reactive({
-  kg: null,
-  lb: null,
-  st: null
-});
-
-interface ialtura {
-  m: any;
-  ft: any;
-  in: any;
-  cm: any;
-}
-
-//Objeto Altura
-const altura: ialtura = reactive({
-  m: null,
-  ft: null,
-  in: null,
-  cm: null,
-});
-
-//Data Props
-const IMC = ref(); // Indice de Masa corporal
-const SexoPeople = ref('woman')
+const typePeso = computed(() => {
+  return appStore.calculator.typePeso
+})
 
 
-//Ejecutar Script CalIMC
-
-//Guardar datos Usuario
-
-
-function dataCal() {
-  // const account = useAccountStore();
-  const dataCal: any = {}
-  dataCal.IMC = IMC.value
-  dataCal.pesoKg = peso.kg
-  dataCal.alturaM = altura.m
-  // account.saveDataUser(dataCal)
-}
-
-async function calcularIMC() {
-  const resCal = await calIMC(peso, altura, typePeso, typeAltura, IMC, SexoPeople.value)
-  IMC.value = resCal.IMC;
-  peso.kg = resCal.pesoKg;
-  altura.m = resCal.alturaM;
-  pesoIdeal.value = resCal.pesoIdeal;
-  pesoRecomendado.value = resCal.pesoRecomendado;
-
-
-  if (IMC.value > 8 && IMC.value < 60) {
-    dataCal()
-  }
-}
-
-
-//Clean input data 
-function cleanInputPeso() {
-  peso.kg = null;
-  peso.lb = null;
-  peso.st = null;
-}
-
-function cleanInputAltura() {
-  altura.m = null;
-  altura.ft = null;
-  altura.in = null;
-  altura.cm = null;
-  IMC.value = null;
-}
-
-watch(typeAltura, () => {
-  cleanInputAltura()
-  calcularIMC()
+watch(appStore.calculator, () => {
+  appStore.calcularIMC()
 });
 
 watch(typePeso, () => {
-  cleanInputPeso()
-  calcularIMC()
+  appStore.cleanInputPeso()
+  appStore.calcularIMC()
 });
 
-
-watch(peso, () => {
-  calcularIMC()
+watch(typeAltura, () => {
+  appStore.cleanInputAltura()
+  appStore.calcularIMC()
 });
 
-watch(SexoPeople, () => {
-  calcularIMC()
-});
-
-watch(altura, () => {
-  calcularIMC()
-});
-
-watch(edadPeople, () => {
-  calcularIMC()
-});
-
-onMounted(() => {
-  calcularIMC()
-});
 </script>
 
 <template>
@@ -143,7 +55,7 @@ onMounted(() => {
             </ion-text>
           </ion-col>
           <ion-col size="8">
-            <ion-select interface="popover" v-model="SexoPeople" class=" ion-text-center"
+            <ion-select interface="popover" v-model="appStore.calculator.SexoPeople" class=" ion-text-center"
               :placeholder="$t('placeholder.sex')">
               <ion-select-option value="woman">
                 {{ $t('select.feminine') }}
@@ -161,8 +73,8 @@ onMounted(() => {
             </ion-text>
           </ion-col>
           <ion-col size="4">
-            <ion-input color="primary" inputmode="numeric" type="number" max="3" min="2" v-model="edadPeople"
-              :placeholder="$t('placeholder.years')" class=" ion-text-center">
+            <ion-input color="primary" inputmode="numeric" type="number" max="3" min="2"
+              v-model="appStore.calculator.edadPeople" :placeholder="$t('placeholder.years')" class=" ion-text-center">
             </ion-input>
           </ion-col>
         </ion-row>
@@ -184,23 +96,23 @@ onMounted(() => {
 
           <ion-col size="5">
 
-            <template v-if="typeAltura == 'CM'">
-              <ion-input color="primary" inputmode="decimal" type="number" v-model="altura.cm"
+            <template v-if="appStore.calculator.typeAltura == 'CM'">
+              <ion-input color="primary" inputmode="decimal" type="number" v-model="appStore.calculator.altura.cm"
                 :placeholder="$t('placeholder.centimeters')" class=" ion-text-center">
               </ion-input>
             </template>
 
-            <template v-if="typeAltura == 'FT+IN'">
+            <template v-if="appStore.calculator.typeAltura == 'FT+IN'">
               <ion-row>
                 <ion-col class=" ion-align-self-auto">
                   <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.foot')"
-                    v-model="altura.ft" class=" ion-text-center">
+                    v-model="appStore.calculator.altura.ft" class=" ion-text-center">
                   </ion-input>
                 </ion-col>
 
                 <ion-col class=" ion-align-self-auto">
                   <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.inches')"
-                    v-model="altura.in" class=" ion-text-center">
+                    v-model="appStore.calculator.altura.in" class=" ion-text-center">
                   </ion-input>
                 </ion-col>
               </ion-row>
@@ -211,7 +123,8 @@ onMounted(() => {
           </ion-col>
 
           <ion-col size="4">
-            <ion-select interface="popover" class=" ion-text-center" v-model="typeAltura" color="primary">
+            <ion-select interface="popover" class=" ion-text-center" v-model="appStore.calculator.typeAltura"
+              color="primary">
               <ion-select-option value="CM">
                 <!-- Centímetros -->
                 {{ $t('select.centimeters') }}
@@ -239,28 +152,28 @@ onMounted(() => {
 
           <ion-col size="5">
 
-            <template v-if="typePeso == 'KG'">
+            <template v-if="appStore.calculator.typePeso == 'KG'">
               <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.kilograms')"
-                v-model="peso.kg" class=" ion-text-center">
+                v-model="appStore.calculator.peso.kg" class=" ion-text-center">
               </ion-input>
             </template>
 
-            <template v-if="typePeso == 'LB'">
+            <template v-if="appStore.calculator.typePeso == 'LB'">
               <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.pounds')"
-                v-model="peso.lb" class=" ion-text-center">
+                v-model="appStore.calculator.peso.lb" class=" ion-text-center">
               </ion-input>
             </template>
 
-            <template v-if="typePeso == 'ST+LB'">
+            <template v-if="appStore.calculator.typePeso == 'ST+LB'">
               <ion-row>
                 <ion-col size="6">
                   <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.stone')"
-                    v-model="peso.st" class=" ion-text-center">
+                    v-model="appStore.calculator.peso.st" class=" ion-text-center">
                   </ion-input>
                 </ion-col>
                 <ion-col size="6">
                   <ion-input color="primary" inputmode="decimal" type="number" :placeholder="$t('placeholder.pounds')"
-                    v-model="peso.lb" class=" ion-text-center">
+                    v-model="appStore.calculator.peso.lb" class=" ion-text-center">
                   </ion-input>
                 </ion-col>
               </ion-row>
@@ -269,7 +182,7 @@ onMounted(() => {
 
           </ion-col>
           <ion-col size="4">
-            <ion-select interface="popover" v-model="typePeso" class=" ion-text-center">
+            <ion-select interface="popover" v-model="appStore.calculator.typePeso" class=" ion-text-center">
               <ion-select-option value="KG">
                 <!-- Centímetros -->
                 {{ $t('select.kilograms') }}
@@ -290,8 +203,7 @@ onMounted(() => {
 
     <ion-row>
       <ion-col size="12">
-        <fitness-graphic-vue :peso="peso" :sexo="SexoPeople" :imc="parseFloat(IMC)" :edad="parseInt(edadPeople)"
-          :pesoIdeal="pesoIdeal" :pesoRecomendado="pesoRecomendado" :typePeso="typePeso">
+        <fitness-graphic-vue>
         </fitness-graphic-vue>
       </ion-col>
     </ion-row>

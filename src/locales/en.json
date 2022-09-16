@@ -4,6 +4,9 @@
         "novelty": "News",
         "account": "Account"
     },
+    "app": {
+        "version": "Iplast App v1.2.0"
+    },
     "title": "Plastic Surgery Calculator",
     "titles": {
         "myAccount": "My Account ",
