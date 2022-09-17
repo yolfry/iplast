@@ -30,7 +30,6 @@ const doRefresh = async (e: any) => {
     lb: null,
     st: null
   }
-
   e.target.complete()
 }
 
@@ -41,7 +40,7 @@ const doRefresh = async (e: any) => {
     <ion-header translucent>
       <ion-toolbar color="primary">
 
-        <ion-avatar size=" smol" class=" ion-margin-start" slot="start">
+        <ion-avatar size=" smol" class=" ion-margin-start ion-justify-content-center" slot="start">
           <img src="@/assets/logoApp.png">
         </ion-avatar>
         <ion-text slot="start" class=" ion-text-center ion-padding-start">

@@ -53,6 +53,14 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: 'accountdata',
+        name: 'accountdata',
+        component: () => import('@/views/account/appAccountData.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: 'login',
         name: 'login',
         component: () => import('@/views/login/ypwLogin.vue')

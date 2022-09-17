@@ -125,6 +125,7 @@
         "incorrectCode": "Incorrect code",
         "logoutCode": "You are about to abandon the activation of your account, if you do not activate your account you will not be able to start the section, and your account will be deleted in a few days, if you want to return the activation, you will have to recover your account.",
         "edit": "Edit",
+        "deleteAccountError": "Your account cannot be deleted, please check your password or try again later.",
         "placeholder": {
             "usernamePhoneEmail": "Email, Number, Username",
             "password": "Password",
@@ -149,6 +150,9 @@
         "config": "Settings",
         "exitAccount": "Log out",
         "save": "Save",
-        "saved": "Saved"
+        "saved": "Saved",
+        "accountData": "Accounts and Data",
+        "deleteAccount": "Delete my account and data",
+        "delete": "Delete Account"
     }
 }

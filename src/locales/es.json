@@ -125,6 +125,7 @@
         "messageCodeSent": "Enviamos un Código a su correo para activar su cuenta",
         "logoutCode": "Estas por abandonar la activación de su cuenta, si no activa su cuenta no podrá iniciar sección, y su cuenta será eliminada en unos días, si desea retornar la activación, tendrá que recuperar su cuenta.",
         "edit": "Editar",
+        "deleteAccountError": "No se puede eliminar su cuenta, por favor verifique su contraseña o inténtelo más tarde.",
         "placeholder": {
             "usernamePhoneEmail": "Email, Número, Usuario",
             "password": "Contraseña",
@@ -149,6 +150,9 @@
         "config": "Configuración.",
         "exitAccount": "Cerrar sesión",
         "save": "Guardar",
-        "saved": "Guardado"
+        "saved": "Guardado",
+        "accountData": "Cuenta y Datos",
+        "deleteAccount": "Eliminar mi cuenta y Datos",
+        "delete": "Eliminar Cuenta"
     }
 }

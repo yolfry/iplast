@@ -46,8 +46,8 @@ watch(typeAltura, () => {
 
 <template>
   <ion-grid>
-    <ion-row class=" ion-padding">
-      <ion-col size="12">
+    <ion-row class=" ion-padding ion-justify-content-center">
+      <ion-col size="12" size-sm="7">
         <ion-row>
           <ion-col size="4">
             <ion-text color="primary">
@@ -83,11 +83,12 @@ watch(typeAltura, () => {
 
 
 
-    <ion-row class=" ion-padding">
+    <ion-row class=" ion-padding ion-justify-content-center">
 
-      <ion-col size="12">
+      <ion-col size="12" size-sm="7">
 
         <ion-row>
+
           <ion-col size="3">
             <ion-text color="primary">
               <h5>{{ $t('label.height') }}</h5>
@@ -116,10 +117,7 @@ watch(typeAltura, () => {
                   </ion-input>
                 </ion-col>
               </ion-row>
-
             </template>
-
-
           </ion-col>
 
           <ion-col size="4">
@@ -139,7 +137,7 @@ watch(typeAltura, () => {
       </ion-col>
 
 
-      <ion-col size="12">
+      <ion-col size="12" size-sm="7">
 
         <ion-row>
           <ion-col size="3">
@@ -178,7 +176,6 @@ watch(typeAltura, () => {
                 </ion-col>
               </ion-row>
             </template>
-
 
           </ion-col>
           <ion-col size="4">

@@ -125,6 +125,7 @@
         "incorrectCode": "code incorrect",
         "logoutCode": "Vous êtes sur le point d'abandonner l'activation de votre compte, si vous n'activez pas votre compte vous ne pourrez pas démarrer la section, et votre compte sera supprimé dans quelques jours, si vous souhaitez retourner l'activation, vous devrez pour récupérer votre compte.",
         "edit": "Éditer",
+        "deleteAccountError": "Votre compte ne peut être supprimé, veuillez vérifier votre mot de passe ou réessayer plus tard.",
         "placeholder": {
             "usernamePhoneEmail": "Email, numéro, nom d'utilisateur",
             "password": "Mot de passe",
@@ -149,6 +150,9 @@
         "config": "Paramètre.",
         "exitAccount": "Fermer la session",
         "save": "Sauvegarder",
-        "saved": "Sauvegarder"
+        "saved": "Sauvegarder",
+        "accountData": "Compte et données",
+        "deleteAccount": "Supprimer mon compte et mes données",
+        "delete": "Supprimer le compte"
     }
 }

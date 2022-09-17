@@ -1,9 +1,9 @@
 <template>
     <ion-grid class="fitnessGraphic">
         <ion-row class="ion-justify-content-center">
-            <ion-col class=" ion-align-self-auto">
+            <ion-col size-sm="7" size="12">
                 <ion-card class="background-page" :style="`background: #fff;
-                background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`" mode="ios">
+                background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`" mode="ios" button>
                     <ion-card-content>
                         <ion-row>
                             <ion-col v-show="validateIMC()" class=" ion-align-self-auto">
@@ -66,8 +66,8 @@
 
 
 
-            <ion-col size="12">
-                <ion-card v-show="textEdad" mode="ios">
+            <ion-col v-show="textEdad" size-sm="7" size="12">
+                <ion-card mode="ios" button>
                     <ion-card-header>
                         <ion-card-title>
                             <ion-text color="primary" class=" ion-text-center">
@@ -83,8 +83,8 @@
                 </ion-card>
             </ion-col>
 
-            <ion-col size="12">
-                <ion-card v-show="validateIMC()" mode="ios">
+            <ion-col v-show="validateIMC()" size-sm="7" size="12">
+                <ion-card mode="ios" button>
                     <ion-card-header>
                         <ion-card-title>
                             <ion-text class=" ion-text-center">
@@ -104,8 +104,8 @@
                 </ion-card>
             </ion-col>
 
-            <ion-col size="12">
-                <ion-card mode="ios">
+            <ion-col size-sm="7" size="12">
+                <ion-card mode="ios" button>
                     <ion-card-content>
                         <ion-text class=" ion-text-center">
                             <h2>{{ $t('text.BMIclassification') }}</h2>
@@ -123,7 +123,7 @@
 
 <script lang="ts" setup>
 import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCardContent, IonCardTitle } from '@ionic/vue';
-import { defineProps, ref, onMounted, watch, computed } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import 'animate.css'
 import imcGraphic from '@/components/imcGraphic.vue'
 

@@ -75,10 +75,12 @@ const openModal = async () => {
 
   if (role === 'cancel') {
     account.cleanUser();
+    router.push("/tabs/login");
     console.log(role, data)
   }
 
   if (role === 'confirm') {
+    router.push("/tabs/mycuenta");
     console.log(role, data)
   }
 
@@ -166,9 +168,12 @@ const register = async () => {
       loading.dismiss();
 
       //Activar cuenta
-      await openModal()
 
-      router.push("/tabs/mycuenta");
+      openModal()
+
+
+      //Eliminar Password
+      account.user.password = null
 
 
     } else {

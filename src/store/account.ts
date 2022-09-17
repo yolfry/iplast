@@ -79,6 +79,8 @@ export const useAccountStore = defineStore('accountStore', {
                     //App Store 
                     const appStore = useAppStore()
 
+                    //Eliminar la contrase-na
+                    this.user.password = undefined
                     //Guardar datos del usuario en local
                     await appStore.saveDataApp('user', this.user)
                     await this.getUserData()
@@ -288,6 +290,46 @@ export const useAccountStore = defineStore('accountStore', {
 
             try {
                 const response = await axios(config)
+
+                this.cleanUser()
+
+                return response
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+
+        },
+        //Eliminar Cuenta  account/deleteAccount
+        async deleteAccount(): Promise<AxiosResponse | undefined> {
+
+
+            //Login Api
+            const data = {
+                email: this.userAll.email,
+                password: this.user.password
+            };
+
+            console.log(data)
+
+            const config = {
+                method: 'post',
+                url: `${this.urlApi}account/deleteAccount`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+
+            try {
+                const response = await axios(config)
+
+                //Si se elimino la cuenta, entonces limpiamos los datos del usuario
+                if (response.status == 200 || response.status == 201) {
+                    this.cleanUser()
+                }
 
                 this.cleanUser()
 

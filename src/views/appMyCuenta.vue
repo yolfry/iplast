@@ -17,7 +17,7 @@ import {
   IonRefresherContent,
   useIonRouter
 } from "@ionic/vue";
-import { peopleCircle, exitSharp, settingsSharp, sparklesSharp, informationCircle } from "ionicons/icons";
+import { peopleCircle, exitSharp, settingsSharp, sparklesSharp, informationCircle, server } from "ionicons/icons";
 
 import { computed } from "vue";
 import { useAccountStore } from "@/store/account";
@@ -156,6 +156,16 @@ ion-avatar {
                 {{ $t('user.config') }}
               </ion-label>
             </ion-item>
+
+            <ion-item button @click="$router.push({
+              name: 'accountdata'
+            })" color="secondary">
+              <ion-icon slot="start" :icon="server"></ion-icon>
+              <ion-label class="textItem">
+                {{ $t('user.accountData') }}
+              </ion-label>
+            </ion-item>
+
 
             <ion-item button @click="logout()" color="secondary">
               <ion-icon slot="start" :icon="exitSharp"></ion-icon>

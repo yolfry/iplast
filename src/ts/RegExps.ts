@@ -16,15 +16,9 @@ const regExps: iregExps = {
     phone: /^[(]?\d{3}[)]?\s?-?[.]?\d{3}\s?-?[.]?\d{4}$/,
     password: /^\S(.|\s){7,200}$/,
     numberCode: /^\+?\d{1,5}$/,
-    name: /^([a-zA-Záéíóúñ]{2,40}\s?){1,5}$/,
+    name: /^([a-zA-Záéíóúñ. ]{1,30}\s?){1,5}$/,
     code: /^\d{6}$/,
 }
 
 export default regExps
-
-// User Name
-// Frances
-// Errores de Login Traduccion
-// Que pueda ver la contrase;a
-// Recordad la contrase;a 
 
