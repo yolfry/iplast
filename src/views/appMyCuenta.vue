@@ -23,6 +23,7 @@ import { computed } from "vue";
 import { useAccountStore } from "@/store/account";
 import { useI18n } from "vue-i18n";
 import { alertController } from "@ionic/vue";
+import paises from "@/ts/paises";
 
 const account = useAccountStore();
 const router = useIonRouter();

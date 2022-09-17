@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {
     IonItemGroup, IonButtons, IonBackButton, IonIcon, IonTitle, IonToolbar, IonItem, IonHeader, IonContent, IonText, IonPage, IonLabel, IonInput, IonAvatar, IonRow, IonCol, IonDatetime,
-    IonDatetimeButton, IonModal, IonItemDivider
+    IonDatetimeButton, IonModal, IonItemDivider, IonSelect, IonSelectOption
 } from '@ionic/vue';
 import openAlert from '@/ts/openAlert';
 import { alertController, loadingController, useIonRouter } from '@ionic/vue';
@@ -10,6 +10,7 @@ import { createOutline, settingsSharp, linkOutline } from 'ionicons/icons';
 import { computed, onMounted, ref } from 'vue';
 import { useAccountStore } from '@/store/account';
 import RegExps from '@/ts/RegExps';
+import paises from '@/ts/paises';
 // import { useAppStore } from '@/store/app';
 
 const accountStore = useAccountStore();
@@ -140,11 +141,7 @@ const saveConfig = async () => {
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
-            <!-- <ion-header collapse="condense">
-                <ion-toolbar>
-                    <ion-title size="large">{{ $t('titles.config') }}</ion-title>
-                </ion-toolbar>
-            </ion-header> -->
+
             <ion-row class=" ion-justify-content-center ion-padding">
                 <ion-col size="auto">
                     <!--slot="start"-->
@@ -173,9 +170,15 @@ const saveConfig = async () => {
                     <ion-label position="fixed" class=" ion-text-wrap">
                         {{ $t('account.placeholder.country') }}
                     </ion-label>
-                    <ion-input v-if="user" v-model="userNew.country" type="text"
+
+                    <ion-select v-if="user" :placeholder="$t('account.placeholder.country')" v-model="userNew.country">
+                        <ion-select-option v-for="pais in paises" :key="pais.countryName" :value="pais.countryName">
+                            {{pais.countryName}}</ion-select-option>
+                    </ion-select>
+
+                    <!-- <ion-input v-if="user" v-model="userNew.country" type="text"
                         :placeholder="$t('account.placeholder.add')">
-                    </ion-input>
+                    </ion-input> -->
                 </ion-item>
 
                 <ion-item :disabled="disabledEdit">
