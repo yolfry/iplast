@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
-import { Storage } from '@capacitor/storage'
+import { Preferences } from '@capacitor/preferences';
 // import { useI18n } from 'vue-i18n'
 import { calIMC } from '@/ts/imc'
-import { number } from '@intlify/core-base';
 
 interface ipeso {
     kg: any;
@@ -71,7 +70,7 @@ export const useAppStore = defineStore('appStore', {
         },
         async saveDataApp(key: string, data: any) {
             try {
-                Storage.set({
+                Preferences.set({
                     key: key,
                     value: JSON.stringify(data)
                 })
@@ -81,7 +80,7 @@ export const useAppStore = defineStore('appStore', {
         },
         async getDataApp(key: string) {
             try {
-                const dataApp: any = await Storage.get({
+                const dataApp: any = await Preferences.get({
                     key: key
                 })
                 return JSON.parse(dataApp.value)
@@ -91,7 +90,7 @@ export const useAppStore = defineStore('appStore', {
         },
         async removeDataApp(key: string) {
             try {
-                await Storage.remove({
+                await Preferences.remove({
                     key: key
                 })
                 return true
