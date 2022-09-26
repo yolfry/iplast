@@ -12,6 +12,10 @@ export const useWordpressStore = defineStore('wordpressStore', {
         async getPost(langueje = 'en') {
 
 
+            //filter Languaje 
+            if (langueje == 'fr')
+                langueje = 'en'
+
             try {
 
                 const appStore = await useAppStore()

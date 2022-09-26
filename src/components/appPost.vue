@@ -1,30 +1,3 @@
-<template>
-  <ion-grid>
-    <ion-row class="ion-justify-content-center ion-padding">
-      <ion-col v-show="!posts" size="auto">
-        <ion-spinner></ion-spinner>
-      </ion-col>
-    </ion-row>
-    <ion-row v-if="posts">
-      <ion-col v-for="post in posts" :key="post.id" size="12" size-sm="6">
-        <ion-card button mode="ios">
-          <div @click="link(post.link, post)"><img :src="post._embedded['wp:featuredmedia'][0].source_url" />
-
-            <ion-card-header>
-              <ion-card-subtitle>{{ post.date }}</ion-card-subtitle>
-              <ion-card-title>{{ post.title.rendered }}</ion-card-title>
-            </ion-card-header>
-
-            <ion-card-content v-html="post.excerpt.rendered"> </ion-card-content>
-          </div>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
-    <!--Item End -->
-  </ion-grid>
-</template>
-
 <script lang="ts" setup>
 import { onMounted, computed } from "vue";
 import {
@@ -73,9 +46,37 @@ onMounted(async () => {
 
 });
 </script>
-
+  
 <style scoped>
 .color-sub-title {
   color: var(--ion-color-primary);
 }
 </style>
+  
+
+<template>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-padding">
+      <ion-col v-show="!posts" size="auto">
+        <ion-spinner></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <ion-row v-if="posts">
+      <ion-col v-for="post in posts" :key="post.id" size="12" size-sm="6">
+        <ion-card button mode="ios">
+          <div @click="link(post.link, post)"><img :src="post._embedded['wp:featuredmedia'][0].source_url" />
+
+            <ion-card-header>
+              <ion-card-subtitle>{{ post.date }}</ion-card-subtitle>
+              <ion-card-title>{{ post.title.rendered }}</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content v-html="post.excerpt.rendered"> </ion-card-content>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!--Item End -->
+  </ion-grid>
+</template>
