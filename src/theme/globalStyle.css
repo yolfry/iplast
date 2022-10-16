@@ -1,10 +1,9 @@
 .cover-box {
-    position: fixed;
-    top: -30%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-image: url("@/views/login/assets/cover.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+  position: fixed;
+  top: -30%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

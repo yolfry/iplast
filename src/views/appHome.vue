@@ -37,20 +37,6 @@ const doRefresh = async (e: any) => {
 
 <template>
   <ion-page :isInOutlet="true">
-    <ion-header translucent>
-      <ion-toolbar color="primary">
-
-        <ion-avatar size=" smol" class=" ion-margin-start ion-justify-content-center" slot="start">
-          <img src="@/assets/logoApp.png">
-        </ion-avatar>
-        <ion-text slot="start" class=" ion-text-center ion-padding-start">
-          <ion-title>
-            {{ $t('title') }}
-          </ion-title>
-        </ion-text>
-
-      </ion-toolbar>
-    </ion-header>
     <ion-content :fullscreen="true" color="tertiary">
       <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>

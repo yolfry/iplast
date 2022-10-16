@@ -1,131 +1,8 @@
-<template>
-    <ion-grid class="fitnessGraphic">
-        <ion-row class="ion-justify-content-center">
-            <ion-col size-sm="7" size="12">
-                <ion-card class="background-page" :style="`background: #fff;
-                background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`" mode="ios" button>
-                    <ion-card-content>
-                        <ion-row>
-                            <ion-col v-show="validateIMC()" class=" ion-align-self-auto">
-                                <ion-img class="animate__animated animate__flash malla_background"
-                                    :src="`/assets/fitness/${SexoPeople}${numeroDeIamegen}.svg`"
-                                    :style="`border-bottom: 4px solid ${colorIMC}; border-bottom-style:dotted; `" />
-                            </ion-col>
-                            <ion-col class=" ion-align-self-auto">
-                                <ion-row>
-                                    <ion-col>
-                                        <ion-text class=" ion-text-center">
-                                            <h2>{{ $t('text.bmi') }}</h2>
-                                        </ion-text>
-                                        <ion-text class=" ion-text-center">
-                                            <h1 class="h1-plus" :style="`color: ${colorIMC};`">{{ (validateIMC()) ? imc
-                                            : `?`
-                                            }}</h1>
-                                        </ion-text>
-                                    </ion-col>
-                                    <ion-col>
-                                        <ion-text class=" ion-text-center">
-                                            <h3>{{ $t('text.weight') }}</h3>
-                                        </ion-text>
-                                        <ion-text class=" ion-text-center">
-                                            <h1>{{ (validateIMC()) ? Math.round(peso.kg) + ` KG` : `?` }}</h1>
-                                        </ion-text>
-                                    </ion-col>
-                                    <ion-col>
-                                        <ion-text class=" ion-text-center" color="success">
-                                            <h3>{{ $t('text.RecommendedWeight') }}</h3>
-                                        </ion-text>
-                                        <ion-text class=" ion-text-center" color="success">
-                                            <h1>{{
-                                            // Converte, convertir valor de peso ideal Kilogramo a peso del usuario
-                                            (validateIMC()) ? round(converte(pesoIdeal, typePeso).peso) + `
-                                            ${converte(pesoIdeal, typePeso).typePeso} ` : `?`
-                                            }}
-                                            </h1>
-                                        </ion-text>
-                                    </ion-col>
-
-                                    <ion-col v-show="imc > 35 && Math.round(peso.kg - pesoRecomendado) > 0">
-                                        <ion-text class=" ion-text-center">
-                                            <h3>{{ $t('text.ExcessBMI35') }}</h3>
-                                        </ion-text>
-                                        <ion-text class=" ion-text-center">
-                                            <h1 style="color:#ff7c24;">{{ (validateIMC()) ? round(converte(peso.kg -
-                                            pesoRecomendado, typePeso).peso) +
-                                            converte(peso.kg -
-                                            pesoRecomendado, typePeso).typePeso : `?`
-                                            }}</h1>
-                                        </ion-text>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-col>
-                        </ion-row>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-
-
-
-            <ion-col v-show="textEdad" size-sm="7" size="12">
-                <ion-card mode="ios" button>
-                    <ion-card-header>
-                        <ion-card-title>
-                            <ion-text color="primary" class=" ion-text-center">
-                                <h1 class=" ion-text-uppercase">
-                                    {{ titleIMCEdad }}
-                                </h1>
-                            </ion-text>
-                        </ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-                        <p v-html="textEdad"></p>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-
-            <ion-col v-show="validateIMC()" size-sm="7" size="12">
-                <ion-card mode="ios" button>
-                    <ion-card-header>
-                        <ion-card-title>
-                            <ion-text class=" ion-text-center">
-                                <h1 class=" ion-text-uppercase" :style="`color: ${colorIMC};`">
-                                    {{ titleIMC }}
-                                </h1>
-                            </ion-text>
-                        </ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-
-                        <ion-text class="ion-text-justify">
-                            <div v-html="textIMC"></div>
-                        </ion-text>
-
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-
-            <ion-col size-sm="7" size="12">
-                <ion-card mode="ios" button>
-                    <ion-card-content>
-                        <ion-text class=" ion-text-center">
-                            <h2>{{ $t('text.BMIclassification') }}</h2>
-                        </ion-text>
-                        <imc-graphic :imc="imc"></imc-graphic>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-
-
-
-    </ion-grid>
-</template>
 
 <script lang="ts" setup>
-import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCardContent, IonCardTitle } from '@ionic/vue';
+import { IonRow, IonGrid, IonCol, IonText, IonCard, IonCardContent } from '@ionic/vue';
 import { ref, onMounted, watch, computed } from 'vue';
 import 'animate.css'
-import imcGraphic from '@/components/imcGraphic.vue'
 
 import { useAppStore } from '@/store/app';
 import { useI18n } from 'vue-i18n';
@@ -146,9 +23,6 @@ const imc = computed(() => {
     return appStore.calculator.IMC
 })
 
-const SexoPeople = computed(() => {
-    return appStore.calculator.SexoPeople
-})
 
 const edadPeople = computed(() => {
     return appStore.calculator.edadPeople
@@ -292,6 +166,77 @@ onMounted(() => {
 
 </script>
 
+
+
+<template>
+    <ion-grid class="fitnessGraphic">
+        <ion-row class="ion-justify-content-center">
+            <ion-col size-sm="7" size="12">
+                <ion-card class="background-page" :style="`background: #fff;
+                background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`" mode="ios" button>
+                    <ion-card-content>
+                        <ion-row>
+                            <ion-col class=" ion-align-self-auto">
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-text class=" ion-text-center">
+                                            <h2>{{ $t('text.bmi') }}</h2>
+                                        </ion-text>
+                                        <ion-text class=" ion-text-center">
+                                            <h1 class="h1-plus" :style="`color: ${colorIMC};`">{{ (validateIMC()) ? imc
+                                            : `?`
+                                            }}</h1>
+                                        </ion-text>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-text class=" ion-text-center">
+                                            <h3>{{ $t('text.weight') }}</h3>
+                                        </ion-text>
+                                        <ion-text class=" ion-text-center">
+                                            <h1>{{ (validateIMC()) ? Math.round(peso.kg) + ` KG` : `?` }}</h1>
+                                        </ion-text>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-text class=" ion-text-center" color="success">
+                                            <h3>{{ $t('text.RecommendedWeight') }}</h3>
+                                        </ion-text>
+                                        <ion-text class=" ion-text-center" color="success">
+                                            <h1>{{
+                                            // Converte, convertir valor de peso ideal Kilogramo a peso del usuario
+                                            (validateIMC()) ? round(converte(pesoIdeal, typePeso).peso) + `
+                                            ${converte(pesoIdeal, typePeso).typePeso} ` : `?`
+                                            }}
+                                            </h1>
+                                        </ion-text>
+                                    </ion-col>
+
+                                    <ion-col v-show="imc > 35 && Math.round(peso.kg - pesoRecomendado) > 0">
+                                        <ion-text class=" ion-text-center">
+                                            <h3>{{ $t('text.ExcessBMI35') }}</h3>
+                                        </ion-text>
+                                        <ion-text class=" ion-text-center">
+                                            <h1 style="color:#ff7c24;">{{ (validateIMC()) ? round(converte(peso.kg -
+                                            pesoRecomendado, typePeso).peso) +
+                                            converte(peso.kg -
+                                            pesoRecomendado, typePeso).typePeso : `?`
+                                            }}</h1>
+                                        </ion-text>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+
+        </ion-row>
+
+
+
+    </ion-grid>
+</template>
+
+
 <style scoped>
 ion-card {
     border-radius: 20px;
@@ -299,11 +244,6 @@ ion-card {
 
 .h1-plus {
     font-size: 30px;
-}
-
-.malla_background {
-    background-image: url('@/assets/malla_background.svg');
-    background-size: cover;
 }
 
 
@@ -333,3 +273,4 @@ ion-img {
     }
 }
 </style>
+
