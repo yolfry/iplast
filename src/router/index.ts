@@ -11,6 +11,11 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/tabs/home'
   },
   {
+    name: "slide",
+    path: '/slide',
+    component: () => import('@/views/appSlideInit.vue')
+  },
+  {
     path: '/tabs/',
     component: TabsPage,
     children: [
@@ -20,13 +25,14 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'home',
+        name: 'home',
         component: () => import('@/views/appHome.vue')
       },
       {
         path: 'novedad',
         component: () => import('@/views/appNovedad.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: false
         }
       },
       {

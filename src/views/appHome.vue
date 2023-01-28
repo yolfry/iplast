@@ -52,6 +52,9 @@ const doRefresh = async (e: any) => {
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" color="tertiary">
+
+
+
       <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
