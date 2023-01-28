@@ -19,7 +19,7 @@
                                         </ion-text>
                                         <ion-text class=" ion-text-center">
                                             <h1 class="h1-plus" :style="`color: ${colorIMC};`">{{ (validateIMC()) ? imc
-                                            : `?`
+                                                : `?`
                                             }}</h1>
                                         </ion-text>
                                     </ion-col>
@@ -51,9 +51,9 @@
                                         </ion-text>
                                         <ion-text class=" ion-text-center">
                                             <h1 style="color:#ff7c24;">{{ (validateIMC()) ? round(converte(peso.kg -
-                                            pesoRecomendado, typePeso).peso) +
-                                            converte(peso.kg -
-                                            pesoRecomendado, typePeso).typePeso : `?`
+                                                pesoRecomendado, typePeso).peso) +
+                                                converte(peso.kg -
+                                                    pesoRecomendado, typePeso).typePeso : `?`
                                             }}</h1>
                                         </ion-text>
                                     </ion-col>
@@ -114,8 +114,49 @@
                     </ion-card-content>
                 </ion-card>
             </ion-col>
+
         </ion-row>
 
+        <ion-row>
+            <ion-col>
+                <ion-card mode="ios" button>
+                    <ion-card-content>
+                        <ion-text class=" ion-text-center">
+                            <h2>{{ $t('text.references') }}</h2>
+                        </ion-text>
+
+                        <ion-item button target="_blank" href="https://academic.oup.com/asj/article/36/6/718/2664472">
+                            <ion-icon slot="start" :icon="linkOutline"></ion-icon>
+                            <ion-label class="textItem">
+                                academic.oup.com
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item button target="_blank" href="https://www.cdc.gov/obesity/basics/adult-defining.html">
+                            <ion-icon slot="start" :icon="linkOutline"></ion-icon>
+                            <ion-label class="textItem">
+                                cdc.gov
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item button target="_blank" href="https://www.mdpi.com/2077-0383/10/23/5665/htm">
+                            <ion-icon slot="start" :icon="linkOutline"></ion-icon>
+                            <ion-label class="textItem">
+                                mdpi.com
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item button target="_blank" @click="$router.push('references')">
+                            <ion-icon slot="start" :icon="list"></ion-icon>
+                            <ion-label class="textItem">
+                                {{ $t('text.plusReferences') }}
+                            </ion-label>
+                        </ion-item>
+
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
 
 
     </ion-grid>
@@ -126,6 +167,7 @@ import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCa
 import { ref, onMounted, watch, computed } from 'vue';
 import 'animate.css'
 import imcGraphic from '@/components/imcGraphic.vue'
+import { linkOutline, list } from 'ionicons/icons';
 
 import { useAppStore } from '@/store/app';
 import { useI18n } from 'vue-i18n';
@@ -311,7 +353,6 @@ ion-card {
     border-radius: 10px;
     background-color: #fff;
 }
-
 
 .boxImage {
     margin-top: -40%;
