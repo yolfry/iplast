@@ -12,7 +12,6 @@ import {
 } from "@ionic/vue";
 import AppIMC from "@/components/appIMC.vue";
 import { useAppStore } from "@/store/app";
-
 const appStore = useAppStore()
 
 

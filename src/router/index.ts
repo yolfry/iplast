@@ -52,10 +52,18 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: 'references',
+        name: 'references',
+        component: () => import('@/views/appReferences.vue'),
+        meta: {
+          requiresAuth: false
+        }
+      },
+      {
         path: 'mycuenta',
         component: () => import('@/views/appMyCuenta.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: false
         }
       },
       {

@@ -16,13 +16,16 @@ export const useWordpressStore = defineStore('wordpressStore', {
             if (langueje == 'fr')
                 langueje = 'en'
 
+            if (langueje == 'es')
+                langueje = ''
+
             try {
 
                 const appStore = await useAppStore()
 
                 // isLoading.value = true;
                 const res = await axios.get(
-                    `https://manuelbelen.com/${langueje}/wp-json/wp/v2/posts?_embed`
+                    `https://iplastdr.com/${langueje}/wp-json/wp/v2/posts?_embed`
                 );
                 console.log(res.status);
                 this.posts = await res.data;

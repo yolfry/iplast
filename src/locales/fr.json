@@ -2,10 +2,11 @@
     "tabs": {
         "home": "Maison",
         "novelty": "Nouveauté",
-        "account": "Compte"
+        "account": "Compte",
+        "plus": "Plus loin"
     },
     "app": {
-        "version": "Iplast App v1.3.0"
+        "version": "Iplast App v1.5.0"
     },
     "title": "Plastic Surgery Calculator",
     "titles": {
@@ -71,7 +72,10 @@
         "textComingSoonFYD3": "Vous pouvez rencontrer les médecins les plus éminents de chaque pays.",
         "ok": "d'accord",
         "no": "Non",
-        "yes": "oui"
+        "yes": "oui",
+        "go": "Commençons!",
+        "references": "Références",
+        "plusReferences": "Plus Références"
     },
     "svgText": {
         "BMI16to16": "Sous Poids: <16",

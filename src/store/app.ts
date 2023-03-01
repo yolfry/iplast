@@ -42,7 +42,8 @@ export const useAppStore = defineStore('appStore', {
                 pesoRecomendado: 0
             },
             emailApp: "info@iplast.com",
-            appName: "Iplast"
+            appName: "Iplast",
+            start: false
         }
     },
     actions: {

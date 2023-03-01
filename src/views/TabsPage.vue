@@ -14,8 +14,8 @@
         </ion-tab-button>
 
         <ion-tab-button tab="tab4" href="/tabs/mycuenta">
-          <ion-icon :icon="personOutline" />
-          <ion-label>{{ $t('tabs.account') }}</ion-label>
+          <ion-icon :icon="informationCircleOutline" />
+          <ion-label>{{ $t('tabs.plus') }}</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -37,6 +37,7 @@ import {
   homeOutline,
   imageOutline,
   personOutline,
+  informationCircleOutline
 } from "ionicons/icons";
 </script>
 

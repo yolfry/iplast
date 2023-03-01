@@ -17,7 +17,8 @@ import {
   IonRefresherContent,
   useIonRouter
 } from "@ionic/vue";
-import { peopleCircle, exitSharp, settingsSharp, sparklesSharp, informationCircle, server } from "ionicons/icons";
+import { peopleCircle, exitSharp, settingsSharp, sparklesSharp, informationCircle, server, link, logIn } from "ionicons/icons";
+
 
 import { computed } from "vue";
 import { useAccountStore } from "@/store/account";
@@ -113,7 +114,7 @@ ion-avatar {
 
       <div class="cover-box"></div>
 
-      <ion-row class=" ion-padding">
+      <ion-row v-if="account.user.keyUser" class=" ion-padding">
         <ion-col size="12">
           <ion-text>
             <h3>{{ $t('titles.helloUser') }}, <span v-if="userAll"> {{ userAll.name }}</span></h3>
@@ -167,14 +168,32 @@ ion-avatar {
               </ion-label>
             </ion-item>
 
+            <ion-item button @click="$router.push({
+              name: 'references'
+            })" color="secondary">
+              <ion-icon slot="start" :icon="link"></ion-icon>
+              <ion-label class="textItem">
+                {{ $t('text.references') }}
+              </ion-label>
+            </ion-item>
 
-            <ion-item button @click="logout()" color="secondary">
+
+
+            <ion-item v-if="account.user.keyUser" button @click="logout()" color="secondary">
               <ion-icon slot="start" :icon="exitSharp"></ion-icon>
               <ion-label class="textItem">
                 {{ $t('user.exitAccount') }}
               </ion-label>
             </ion-item>
 
+            <ion-item v-else button @click="$router.push({
+              name: 'login'
+            })" color="secondary">
+              <ion-icon slot="start" :icon="logIn"></ion-icon>
+              <ion-label class="textItem">
+                {{ $t('titles.login') }}
+              </ion-label>
+            </ion-item>
 
             <ion-item color="tertiary" mode="ios">
               <ion-icon slot="start" :icon="informationCircle" color="primary"></ion-icon>
