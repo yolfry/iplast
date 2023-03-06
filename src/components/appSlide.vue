@@ -1,13 +1,15 @@
 <script lang="ts" setup>
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { IonContent, IonPage, IonText, IonButton, IonRow, IonCol } from '@ionic/vue';
-import { Pagination } from "swiper";
+import { IonContent, IonPage, IonText, IonButton, IonRow, IonCol, IonIcon } from '@ionic/vue';
+import { Pagination, EffectCube } from "swiper";
 import 'swiper/css';
 import '@ionic/vue/css/ionic-swiper.css';
 import "swiper/css/pagination";
+import "swiper/css/effect-cube";
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { closeCircle } from 'ionicons/icons';
 
 
 const { locale } = useI18n()
@@ -25,10 +27,18 @@ function close() {
 
 <template>
     <ion-page>
+
         <ion-content>
-            <swiper :modules="[Pagination]" :pagination="{
+            <ion-icon size="large" @click="close()" class="closeSlide" :icon="closeCircle"></ion-icon>
+            <swiper :navigation="true" :modules="[Pagination, EffectCube]" :effect="'cube'" :grabCursor="true" :pagination="{
                 clickable: true,
-            }">
+                dynamicBullets: true,
+            }" :cubeEffect="{
+    shadow: false,
+    slideShadows: true,
+    shadowOffset: 20,
+    shadowScale: 0.94,
+}">
                 <swiper-slide class="swiper-slide-content-1">
                     <IonText color="tertiary" class=" ion-padding">
                         <template v-if="locale == 'es'">
@@ -36,7 +46,6 @@ function close() {
                             <h1>Bienvenido a Iplast</h1>
                             <h3>Aplicación especializada en el cálculo del índice de masa corporal (IMC) y cirugía plástica.
                                 Vamos a descubrir si calificas.</h3>
-                            <h2>¡Comencemos!</h2>
                         </template>
 
                         <template v-if="locale == 'en'">
@@ -44,7 +53,6 @@ function close() {
                             <h1>Welcome to Iplast</h1>
                             <h3>Specialized application for calculating Body Mass Index (BMI) and plastic surgery.
                                 Let's find out if you qualify.</h3>
-                            <h2>Let's get started!</h2>
                         </template>
 
 
@@ -54,24 +62,23 @@ function close() {
                             <h3>Application spécialisée dans le calcul de l'indice de masse corporelle (IMC) et la chirurgie
                                 plastique.
                                 Découvrons si vous êtes éligible.</h3>
-                            <h2>Commençons!</h2>
                         </template>
                     </IonText>
                 </swiper-slide>
                 <swiper-slide class="swiper-slide-content-2">
                     <ion-row>
-                        <ion-col size="12">
+                    <ion-col size="12">
                             <template v-if="locale == 'es'">
                                 <IonText color="tertiary" class=" ion-padding">
                                     <h1>Usar Iplast es fácil</h1>
-                                    <p>Solo agregas tu edad y estatura</p>
+                                    <p>Solo agregas tu edad, estatura y peso</p>
                                 </IonText>
                             </template>
 
                             <template v-if="locale == 'en'">
                                 <IonText color="tertiary" class=" ion-padding">
                                     <h1>Using Iplast is easy</h1>
-                                    <p>You just add your age and height</p>
+                                    <p>You just add your age, height and peso </p>
                                 </IonText>
                             </template>
 
@@ -83,11 +90,11 @@ function close() {
                             </template>
                         </ion-col>
                         <ion-col size="12">
-                            <img style="width: 35%;" src="@/assets/arrow-bak-02.svg" class="arrow-bak">
-                            <video class="slideIntro" loop :controls="true" name="media" autoplay>
-                                <source v-if="locale == 'es'" src="@/assets/slideIntro.webm" type="video/webm">
-                                <source v-if="locale == 'en'" src="@/assets/slideIntro.webm" type="video/webm">
-                                <source v-if="locale == 'fr'" src="@/assets/slideIntro.webm" type="video/webm">
+                            <!-- <img style="width: 35%;" src="@/assets/arrow-bak-02.svg" class="arrow-bak"> -->
+                            <video class="slideIntro" name="media" loop :controls="false" autoplay muted>
+                                <source src="@/assets/slideIntro.webm" type="video/webm">
+                                <!-- <source v-if="locale == 'en'" src="@/assets/slideIntro.webm" type="video/webm">
+                                                                                                                                                                                                                            <source v-if="locale == 'fr'" src="@/assets/slideIntro.webm" type="video/webm"> -->
                             </video>
                         </ion-col>
                     </ion-row>
@@ -101,7 +108,7 @@ function close() {
                             </IonText>
                         </ion-col>
                         <ion-col size="12">
-                            <video class="slideLogoVideo" loop :controls="false" name="media" autoplay>
+                            <video class="slideLogoVideo" name="media" loop autoplay :controls="false" muted>
                                 <source src="@/assets/logoVideoSlideStart.webm" type="video/webm">
                             </video>
                         </ion-col>
@@ -117,15 +124,22 @@ function close() {
 </template>
 
 
-
 <style scoped>
+.closeSlide {
+    color: rgb(195, 217, 255);
+    position: absolute;
+    z-index: 30001;
+    top: 2%;
+    right: 2%;
+}
+
 .slideIntro {
-    width: 70%;
+    width: 85%;
     border-radius: 10%;
 }
 
 .slideLogoVideo {
-    width: 80%;
+    width: 67%;
     border-radius: 11rem;
 }
 
@@ -147,7 +161,6 @@ function close() {
     top: 8%;
     animation: float 6s ease-in-out infinite;
 }
-
 
 
 .swiper-slide-content-1 {

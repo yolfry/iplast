@@ -97,12 +97,19 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
     const pesoRecomendado = pesoIdeal + (pesoIdeal * recomendado); //0.40 //0.55
 
 
+    // Peso excedente si IMC >= 35
+    let pesoExcedente = 0 as number;
+    if (IMC >= 35) {
+        pesoExcedente = (IMC - 35) * alturaM * alturaM;
+    }
+
     return {
         pesoKg,
         alturaM,
         IMC: IMC,
         pesoIdeal,
-        pesoRecomendado
+        pesoRecomendado,
+        pesoExcedente
     }
 
 }

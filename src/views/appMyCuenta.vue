@@ -128,29 +128,6 @@ ion-avatar {
           <ion-list>
 
             <ion-item button @click="$router.push({
-              name: 'fYD'
-            })" color="secondary">
-              <ion-icon slot="start" :icon="peopleCircle"></ion-icon>
-              <ion-label>
-                <ion-text class="textItem">
-                  {{ $t('user.findYourDoctor') }}
-                </ion-text>
-              </ion-label>
-            </ion-item>
-
-            <!--Comisung-->
-
-            <ion-item button @click="$router.push({
-              name: 'sLD'
-            })" color="secondary">
-              <ion-icon slot="start" :icon="sparklesSharp"></ion-icon>
-              <ion-label class="textItem">
-                {{ $t('user.sportLightDoctor') }}
-              </ion-label>
-            </ion-item>
-
-
-            <ion-item button @click="$router.push({
               name: 'config'
             })" color="secondary">
               <ion-icon slot="start" :icon="settingsSharp"></ion-icon>
@@ -174,6 +151,28 @@ ion-avatar {
               <ion-icon slot="start" :icon="link"></ion-icon>
               <ion-label class="textItem">
                 {{ $t('text.references') }}
+              </ion-label>
+            </ion-item>
+
+            <ion-item button @click="$router.push({
+              name: 'fYD'
+            })" color="medium">
+              <ion-icon slot="start" :icon="peopleCircle"></ion-icon>
+              <ion-label>
+                <ion-text class="textItem">
+                  {{ $t('user.findYourDoctor') }}
+                </ion-text>
+              </ion-label>
+            </ion-item>
+
+            <!--Comisung-->
+
+            <ion-item button @click="$router.push({
+              name: 'sLD'
+            })" color="medium">
+              <ion-icon slot="start" :icon="sparklesSharp"></ion-icon>
+              <ion-label class="textItem">
+                {{ $t('user.sportLightDoctor') }}
               </ion-label>
             </ion-item>
 

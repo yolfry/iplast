@@ -3,7 +3,7 @@ import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCa
 import { ref, onMounted, watch, computed } from 'vue';
 import 'animate.css'
 import imcGraphic from '@/components/imcGraphic.vue'
-import { linkOutline, list, shareSocial } from 'ionicons/icons';
+import { linkOutline, list, shareSocial, arrowDown } from 'ionicons/icons';
 import { useAppStore } from '@/store/app';
 import { useI18n } from 'vue-i18n';
 import { converte } from '@/ts/imc';
@@ -41,6 +41,10 @@ const pesoIdeal = computed(() => {
 
 const pesoRecomendado = computed(() => {
     return appStore.calculator.pesoRecomendado
+})
+
+const pesoExcedente = computed(() => {
+    return appStore.calculator.pesoExcedente
 })
 
 
@@ -175,7 +179,7 @@ onMounted(() => {
             <ion-col size-sm="7" size="12">
                 <ion-card class="background-page"
                     :style="`background: #fff;
-                                                                                                                                                                                                                                                                                                                                background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`"
                     mode="ios" button>
                     <ion-card-content>
                         <ion-row>
@@ -218,27 +222,32 @@ onMounted(() => {
                                         </ion-text>
                                     </ion-col>
 
-                                    <ion-col v-show="imc > 35 && Math.round(peso.kg - pesoRecomendado) > 0">
+                                    <ion-col v-show="imc >= 35 && Math.round(peso.kg - pesoRecomendado) > 0">
                                         <ion-text class=" ion-text-center">
                                             <h3>{{ $t('text.ExcessBMI35') }}</h3>
                                         </ion-text>
                                         <ion-text class=" ion-text-center">
-                                            <h1 style="color:#ff7c24;">{{ (validateIMC()) ? round(converte(peso.kg -
-                                                pesoRecomendado, typePeso).peso) +
-                                                converte(peso.kg -
-                                                    pesoRecomendado, typePeso).typePeso : `?`
+                                            <h1 style="color:#ff7c24;">{{ round(converte(pesoExcedente, typePeso).peso) +
+                                                typePeso
                                             }}</h1>
                                         </ion-text>
                                     </ion-col>
                                 </ion-row>
                             </ion-col>
                         </ion-row>
-                        <ion-button v-if="validateIMC()" size="small" mode="ios">
-                            <ion-icon :icon="shareSocial"></ion-icon>
-                        </ion-button>
+                        <!-- <ion-button v-if="validateIMC()" size="small" mode="ios">
+                                                                <ion-icon :icon="shareSocial"></ion-icon>
+                                                            </ion-button> -->
+
                     </ion-card-content>
+
                 </ion-card>
             </ion-col>
+
+            <!-- <ion-col class=" ion-text-center">
+                    <ion-text color="primary">Mas informacion abajo</ion-text> <ion-icon color="primary"
+                        :icon="arrowDown"></ion-icon>
+                </ion-col> -->
 
 
 

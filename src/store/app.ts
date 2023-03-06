@@ -39,7 +39,8 @@ export const useAppStore = defineStore('appStore', {
                 IMC: 0,
                 SexoPeople: 'woman',
                 pesoIdeal: 0,
-                pesoRecomendado: 0
+                pesoRecomendado: 0,
+                pesoExcedente: 0
             },
             emailApp: "info@iplast.com",
             appName: "Iplast",
@@ -56,6 +57,8 @@ export const useAppStore = defineStore('appStore', {
             this.calculator.altura.m = resCal.alturaM;
             this.calculator.pesoIdeal = resCal.pesoIdeal;
             this.calculator.pesoRecomendado = resCal.pesoRecomendado;
+            this.calculator.pesoRecomendado = resCal.pesoRecomendado;
+            this.calculator.pesoExcedente = resCal.pesoExcedente;
         },
         cleanInputPeso() {
             this.calculator.peso.kg = null

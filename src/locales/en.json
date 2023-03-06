@@ -6,7 +6,7 @@
         "plus": "More"
     },
     "app": {
-        "version": "Iplast App v1.5.0"
+        "version": "Iplast App v1.6.0"
     },
     "title": "Plastic Surgery Calculator",
     "titles": {
@@ -73,9 +73,10 @@
         "ok": "Ok",
         "no": "No",
         "yes": "yes",
+        "exit": "Exit",
         "go": "Let's get started!",
         "references": "References",
-        "plusReferences": "Plus References"
+        "plusReferences": "All references"
     },
     "svgText": {
         "BMI16to16": "Severely Underweight: <16",

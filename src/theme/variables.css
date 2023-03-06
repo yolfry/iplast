@@ -1,11 +1,10 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
-
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #357FB7;
+  --ion-color-primary: #357fb7;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -62,9 +61,9 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-dark-tint: #383a3e;
 
   /** medium **/
-  --ion-color-medium: #2b2b2b;
+  --ion-color-medium: #e5e5e5;
   --ion-color-medium-rgb: 146, 148, 156;
-  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast: #5f5f5f;
   --ion-color-medium-contrast-rgb: 255, 255, 255;
   --ion-color-medium-shade: #808289;
   --ion-color-medium-tint: #9d9fa6;
@@ -79,7 +78,6 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-login-card: rgba(255, 255, 255, 0.927);
 }
 
-
 @media (prefers-color-scheme: dark_disabled) {
   /*
    * Dark Colors  = dark
@@ -87,7 +85,7 @@ http://ionicframework.com/docs/theming/ */
    */
 
   body {
-    --ion-color-primary: #357FB7;
+    --ion-color-primary: #357fb7;
     --ion-color-primary-rgb: 66, 140, 255;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -195,7 +193,6 @@ http://ionicframework.com/docs/theming/ */
     --ion-toolbar-border-color: var(--ion-color-step-250);
   }
 
-
   /*
    * Material Design Dark Theme
    * -------------------------------------------
@@ -239,6 +236,5 @@ http://ionicframework.com/docs/theming/ */
     --ion-card-background: #1e1e1e;
 
     --ion-color-login-card: #1e1e1ec6;
-
   }
 }

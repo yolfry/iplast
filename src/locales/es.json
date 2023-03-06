@@ -6,7 +6,7 @@
         "plus": "Más"
     },
     "app": {
-        "version": "Iplast App v1.5.0"
+        "version": "Iplast App v1.6.0"
     },
     "title": "Plastic Surgery Calculator",
     "titles": {
@@ -73,6 +73,7 @@
         "ok": "Ok",
         "no": "No",
         "yes": "Si",
+        "exit": "Salir",
         "go": "¡Comencemos!",
         "references": "Referencias",
         "plusReferences": "Más Referencias"
