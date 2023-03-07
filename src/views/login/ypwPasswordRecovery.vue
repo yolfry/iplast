@@ -23,7 +23,7 @@ import {
 import "animate.css";
 // import { ref } from "vue";
 
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 // import { watch } from "vue";
 
 
@@ -144,12 +144,12 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
         </ion-buttons>
 
         <!-- <ion-text slot="start" class=" ion-text-center ion-padding-start">
-          <h2>{{ $t('titles.login') }}</h2>
-        </ion-text> -->
+            <h2>{{ $t('titles.login') }}</h2>
+          </ion-text> -->
 
         <!-- <ion-avatar class=" ion-margin-end" slot="end">
-          <img src="@/assets/logoApp.png">
-        </ion-avatar> -->
+            <img src="@/assets/logoApp.png">
+          </ion-avatar> -->
 
       </ion-toolbar>
     </ion-header>
@@ -165,8 +165,8 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
             <ion-card>
               <ion-card-header>
                 <!-- <ion-card-title @click="$router.back()">
-                  <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
-                </ion-card-title> -->
+                    <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
+                  </ion-card-title> -->
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
@@ -185,14 +185,14 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
                     <ion-input v-if="!setCode" v-model="user.email" type="email" inputmode="email"
                       placeholder="Email de Recuperación" autocomplete="email">
                     </ion-input>
-                    <ion-input v-else class=" ion-padding codeText" v-model="user.code" inputmode="numeric"
-                      type="number" :placeholder="t('account.placeholder.code')"></ion-input>
+                    <ion-input v-else class=" ion-padding codeText" v-model="user.code" inputmode="numeric" type="number"
+                      :placeholder="t('account.placeholder.code')"></ion-input>
 
                     <div class="ion-padding-bottom ion-padding-top">
 
                       <ion-button v-if="setCode || setCodeNew == true" router-link="/tabs/newPassword" color="primary">
                         {{
-                        t('account.next')
+                          t('account.next')
                         }}
                       </ion-button>
 
@@ -203,7 +203,7 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
 
                     <ion-text v-show="setCodeNew == false && setCode == true" color="medium" class=" ion-text-center">
                       {{
-                      $t('account.setNewCode', { second: second })
+                        $t('account.setNewCode', { second: second })
                       }}
                     </ion-text>
 

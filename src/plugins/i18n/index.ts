@@ -1,6 +1,9 @@
 // Lang I18n
 import { createI18n } from 'vue-i18n'
 import { Device } from '@capacitor/device';
+import es from '@/locales/es.json'
+import en from '@/locales/en.json'
+import fr from '@/locales/fr.json'
 
 const installI18n = async () => {
 
@@ -28,9 +31,9 @@ const installI18n = async () => {
         legacy: false, //Correcion de error Modo heredado
         allowComposition: true,
         messages: {
-            en: require('@/locales/en.json'),
-            es: require('@/locales/es.json'),
-            fr: require('@/locales/fr.json'),
+            en,
+            es,
+            fr,
         }
     })
 

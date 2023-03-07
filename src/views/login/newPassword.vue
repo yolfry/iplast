@@ -1,65 +1,3 @@
-<template>
-  <ion-page>
-
-    <ion-header translucent>
-      <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
-
-      <div class="cover-box"></div>
-
-      <ion-grid class="ion-margin-top">
-
-        <!--animate__animated animate__zoomIn-->
-        <ion-row class="ion-justify-content-center">
-          <ion-col size-lg="6" size-sm="12">
-            <ion-card>
-              <ion-card-header>
-                <ion-row class="ion-justify-content-center ion-text-center">
-                  <ion-avatar>
-                    <img src="@/assets/logoApp.png" />
-                  </ion-avatar>
-                </ion-row>
-                <ion-card-title class="ion-text-center">
-                  {{ $t('account.changePassword') }}
-                </ion-card-title>
-              </ion-card-header>
-
-              <ion-card-content>
-                <ion-row>
-                  <ion-col size="12" class="ion-padding ion-justify-content-center">
-
-                    <ion-input v-model="user.password" type="password"
-                      :placeholder="$t('account.placeholder.newPassword')"></ion-input>
-
-
-                    <ion-input v-model="confirmePassword" type="password"
-                      :placeholder="$t('account.placeholder.confirmePassword')"></ion-input>
-
-                    <!-- <ion-input v-model="user.code" inputmode="numeric" type="number"
-                      :placeholder="t('account.placeholder.recoveryCode')"></ion-input> -->
-
-
-                    <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button @click="changePassword()" color="primary">{{ $t('account.change') }}
-                      </ion-button>
-                    </div>
-                  </ion-col>
-                </ion-row>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-content>
-  </ion-page>
-</template>
-
 <script lang="ts" setup>
 import {
   IonGrid,
@@ -84,7 +22,7 @@ import {
 import "animate.css";
 // import { ref } from "vue";
 
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 // import { watch } from "vue";
 
 //Logica
@@ -195,6 +133,69 @@ const changePassword = async (): Promise<any> => {
 
 }
 </script>
+
+<template>
+  <ion-page>
+
+    <ion-header translucent>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content :fullscreen="true">
+
+      <div class="cover-box"></div>
+
+      <ion-grid class="ion-margin-top">
+
+        <!--animate__animated animate__zoomIn-->
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-lg="6" size-sm="12">
+            <ion-card>
+              <ion-card-header>
+                <ion-row class="ion-justify-content-center ion-text-center">
+                  <ion-avatar>
+                    <img src="@/assets/logoApp.png" />
+                  </ion-avatar>
+                </ion-row>
+                <ion-card-title class="ion-text-center">
+                  {{ $t('account.changePassword') }}
+                </ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                <ion-row>
+                  <ion-col size="12" class="ion-padding ion-justify-content-center">
+
+                    <ion-input v-model="user.password" type="password"
+                      :placeholder="$t('account.placeholder.newPassword')"></ion-input>
+
+
+                    <ion-input v-model="confirmePassword" type="password"
+                      :placeholder="$t('account.placeholder.confirmePassword')"></ion-input>
+
+                    <!-- <ion-input v-model="user.code" inputmode="numeric" type="number"
+                          :placeholder="t('account.placeholder.recoveryCode')"></ion-input> -->
+
+
+                    <div class="ion-padding-bottom ion-padding-top">
+                      <ion-button @click="changePassword()" color="primary">{{ $t('account.change') }}
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-content>
+  </ion-page>
+</template>
+
 
 <style scoped>
 ion-grid {
