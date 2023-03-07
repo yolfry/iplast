@@ -1,3 +1,5 @@
+import { useAppStore } from "@/store/app";
+import { showInterstitial } from "./admob";
 
 interface peso {
     kg: number;
@@ -101,6 +103,15 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
     let pesoExcedente = 0 as number;
     if (IMC >= 35) {
         pesoExcedente = (IMC - 35) * alturaM * alturaM;
+    }
+
+    const app = useAppStore()
+
+
+    //Ads 
+    if (!app.ads && IMC > 8 && IMC < 60) {
+        showInterstitial()
+        app.ads = true
     }
 
     return {

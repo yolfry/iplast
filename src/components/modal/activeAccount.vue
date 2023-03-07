@@ -67,6 +67,9 @@ const confirm = async () => {
 
     try {
 
+        if (!account.user.code) {
+            throw new Error(await openAlert('account.incorrectCode', t, alertController));
+        }
         if (!regExps.code.exec(account.user.code)) {
             throw new Error(await openAlert('account.incorrectCode', t, alertController));
         }
@@ -123,12 +126,12 @@ const confirm = async () => {
     <ion-header :translucent="true">
         <ion-toolbar color="primary">
             <ion-buttons slot="start">
-                <ion-button color="medium" @click="cancel">{{$t('account.cancel')}}</ion-button>
+                <ion-button color="medium" @click="cancel">{{ $t('account.cancel') }}</ion-button>
             </ion-buttons>
-            <ion-title>{{$t('account.activateAccount')}}</ion-title>
+            <ion-title>{{ $t('account.activateAccount') }}</ion-title>
             <ion-buttons slot="end">
                 <ion-button color="tertiary" @click="confirm">
-                    <ion-icon :icon="lockOpenOutline"></ion-icon> {{$t('account.confirm')}}
+                    <ion-icon :icon="lockOpenOutline"></ion-icon> {{ $t('account.confirm') }}
                 </ion-button>
             </ion-buttons>
         </ion-toolbar>
@@ -139,8 +142,8 @@ const confirm = async () => {
                 <ion-card mode="ios">
                     <ion-card-content>
                         <ion-text class=" ion-text-center">
-                            <h2>{{$t('account.messageCodeSent')}}</h2>
-                            <h3>{{account.user.email}}</h3>
+                            <h2>{{ $t('account.messageCodeSent') }}</h2>
+                            <h3>{{ account.user.email }}</h3>
                         </ion-text>
                     </ion-card-content>
                     <ion-input class="ion-text-center" v-model="account.user.code" inputmode="numeric" type="number"

@@ -8,12 +8,12 @@ import {
   IonToolbar,
   IonText,
   IonContent,
-  IonAvatar
+  IonAvatar,
 } from "@ionic/vue";
 import AppIMC from "@/components/appIMC.vue";
 import { useAppStore } from "@/store/app";
+import scrollFabButton from "@/components/scrollFabButton.vue";
 const appStore = useAppStore()
-
 
 const doRefresh = async (e: any) => {
   appStore.calculator.edadPeople = undefined
@@ -31,6 +31,7 @@ const doRefresh = async (e: any) => {
   }
   e.target.complete()
 }
+
 
 </script>
 
@@ -52,12 +53,11 @@ const doRefresh = async (e: any) => {
     </ion-header>
     <ion-content :fullscreen="true" color="tertiary">
 
-
-
       <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
 
+      <scrollFabButton></scrollFabButton>
       <app-i-m-c></app-i-m-c>
     </ion-content>
   </ion-page>

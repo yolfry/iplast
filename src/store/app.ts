@@ -19,6 +19,7 @@ interface ialtura {
 export const useAppStore = defineStore('appStore', {
     state: () => {
         return {
+            version: '1.8.0',
             calculator: {
                 colorIMC: '#357FB7',
                 peso: <ipeso>{
@@ -44,7 +45,8 @@ export const useAppStore = defineStore('appStore', {
             },
             emailApp: "info@iplast.com",
             appName: "Iplast",
-            start: false
+            start: false,
+            ads: false
         }
     },
     actions: {

@@ -1,87 +1,3 @@
-<template>
-  <ion-page>
-
-    <ion-header translucent>
-      <ion-toolbar color="primary">
-
-        <ion-buttons slot="start">
-          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
-        </ion-buttons>
-
-      </ion-toolbar>
-    </ion-header>
-
-
-    <ion-content :fullscreen="true">
-
-      <div class="cover-box"></div>
-
-      <ion-grid class="ion-margin-top">
-
-        <!--animate__animated animate__zoomIn -->
-        <ion-row class="ion-justify-content-center">
-          <ion-col size-lg="6" size-sm="12">
-            <ion-card>
-
-              <ion-card-header>
-                <ion-row class="ion-justify-content-center ion-text-center">
-                  <ion-avatar>
-                    <img src="@/assets/logoApp.png" />
-                  </ion-avatar>
-                </ion-row>
-                <ion-card-title class="ion-text-center">
-                  {{ $t('account.access') }}
-                </ion-card-title>
-                <ion-row class="ion-justify-content-center">
-                  <ion-text>
-                    <span>{{ $t('account.useYourAcoount') }}</span>
-                  </ion-text>
-                </ion-row>
-              </ion-card-header>
-
-              <ion-card-content>
-                <ion-row>
-                  <ion-col size="12" class="ion-padding ion-justify-content-center">
-
-                    <ion-row>
-                      <ion-col
-                        v-if="user.username != null && /^\d{1,4}(([.-\s]?\d{1,4}[.-\s]?)?)*$/.exec(user.username)"
-                        size="2">
-                        <ion-input name="countryCode" :maxlength="5" inputmode="numeric" autocomplete="tel-country-code"
-                          type="text" v-model="user.numberCode" class=" ion-align-self-center" placeholder="+1">
-                        </ion-input>
-                      </ion-col>
-                      <ion-col class=" ion-align-self-auto">
-                        <ion-input v-model="user.username" autocomplete="email" type="email" inputmode="email"
-                          :placeholder="$t('account.placeholder.usernamePhoneEmail')"></ion-input>
-                      </ion-col>
-                      <ion-col size="12" class="ion-align-self-auto">
-                        <ion-input v-model="user.password" type="password" autocomplete="current-password"
-                          :placeholder="$t('account.placeholder.password')"></ion-input>
-                      </ion-col>
-                    </ion-row>
-
-                    <div class="ion-padding-bottom ion-padding-top">
-                      <ion-button fill="outline" router-link="/tabs/register" color="secondary">{{
-                      $t('account.createAccount')
-                      }}</ion-button>
-
-                      <ion-button @click="login()" color="primary">{{ $t('account.next') }}</ion-button>
-                    </div>
-                    <div class="ion-padding ion-text-center">
-                      <ion-text router-link="/tabs/passwordRecovery" color="secondary">{{ $t('account.forgot') }}
-                      </ion-text>
-                    </div>
-                  </ion-col>
-                </ion-row>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-content>
-  </ion-page>
-</template>
 
 <script lang="ts" setup>
 import {
@@ -217,6 +133,92 @@ onMounted(() => {
 
 
 </script>
+
+
+<template>
+  <ion-page>
+
+    <ion-header translucent>
+      <ion-toolbar color="primary">
+
+        <ion-buttons slot="start">
+          <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+
+      </ion-toolbar>
+    </ion-header>
+
+
+    <ion-content :fullscreen="true">
+
+      <div class="cover-box"></div>
+
+      <ion-grid class="ion-margin-top">
+
+        <!--animate__animated animate__zoomIn -->
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-lg="6" size-sm="12">
+            <ion-card>
+
+              <ion-card-header>
+                <ion-row class="ion-justify-content-center ion-text-center">
+                  <ion-avatar>
+                    <img src="@/assets/logoApp.png" />
+                  </ion-avatar>
+                </ion-row>
+                <ion-card-title class="ion-text-center">
+                  {{ $t('account.access') }}
+                </ion-card-title>
+                <ion-row class="ion-justify-content-center">
+                  <ion-text>
+                    <span>{{ $t('account.useYourAcoount') }}</span>
+                  </ion-text>
+                </ion-row>
+              </ion-card-header>
+
+              <ion-card-content>
+                <ion-row>
+                  <ion-col size="12" class="ion-padding ion-justify-content-center">
+
+                    <ion-row>
+                      <ion-col v-if="user.username != null && /^\d{1,4}(([.-\s]?\d{1,4}[.-\s]?)?)*$/.exec(user.username)"
+                        size="2">
+                        <ion-input name="countryCode" :maxlength="5" inputmode="numeric" autocomplete="tel-country-code"
+                          type="text" v-model="user.numberCode" class=" ion-align-self-center" placeholder="+1">
+                        </ion-input>
+                      </ion-col>
+                      <ion-col class=" ion-align-self-auto">
+                        <ion-input v-model="user.username" autocomplete="email" type="email" inputmode="email"
+                          :placeholder="$t('account.placeholder.usernamePhoneEmail')"></ion-input>
+                      </ion-col>
+                      <ion-col size="12" class="ion-align-self-auto">
+                        <ion-input v-model="user.password" type="password" autocomplete="current-password"
+                          :placeholder="$t('account.placeholder.password')"></ion-input>
+                      </ion-col>
+                    </ion-row>
+
+                    <div class="ion-padding-bottom ion-padding-top">
+                      <ion-button fill="outline" router-link="/tabs/register" color="secondary">{{
+                        $t('account.createAccount')
+                      }}</ion-button>
+
+                      <ion-button @click="login()" color="primary">{{ $t('account.next') }}</ion-button>
+                    </div>
+                    <div class="ion-padding ion-text-center">
+                      <ion-text router-link="/tabs/passwordRecovery" color="secondary">{{ $t('account.forgot') }}
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-content>
+  </ion-page>
+</template>
+
 
 <style scoped>
 ion-grid {

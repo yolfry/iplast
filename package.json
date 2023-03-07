@@ -7,6 +7,7 @@
     "cordova-res": "cordova-res ios --skip-config --copy && cordova-res android --skip-config --copy --icon-background-source #FFFFFF"
   },
   "dependencies": {
+    "@capacitor-community/admob": "^4.1.0",
     "@capacitor/android": "^4.2.0",
     "@capacitor/app": "^4.0.1",
     "@capacitor/cli": "^4.2.0",

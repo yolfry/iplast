@@ -173,7 +173,7 @@ const register = async () => {
 
 
       //Eliminar Password
-      account.user.password = null
+      account.user.password = undefined
 
 
     } else {
@@ -227,8 +227,8 @@ ion-input {
             <ion-card>
               <ion-card-header>
                 <!-- <ion-card-title @click="$router.back()">
-                  <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
-                </ion-card-title> -->
+                    <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
+                  </ion-card-title> -->
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
@@ -264,9 +264,8 @@ ion-input {
                       <ion-col size="5">
                         <ion-item>
                           <ion-label position="floating">{{ $t('account.placeholder.code') }}</ion-label>
-                          <ion-input name="countryCode" :maxlength="5" inputmode="numeric"
-                            autocomplete="tel-country-code" type="text" v-model="user.numberCode"
-                            class=" ion-align-self-center">
+                          <ion-input name="countryCode" :maxlength="5" inputmode="numeric" autocomplete="tel-country-code"
+                            type="text" v-model="user.numberCode" class=" ion-align-self-center">
                           </ion-input>
                         </ion-item>
                       </ion-col>

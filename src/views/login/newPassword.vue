@@ -59,15 +59,20 @@ const changePassword = async (): Promise<any> => {
 
   try {
 
+    if (!user.value.code) {
+      throw new Error(await openAlert('account.codeRecoveryError', t, alertController));
+    }
 
     if (!regExps.code.exec(user.value.code)) {
-
       ionRouter.back();
       account.user.code = undefined;
       throw new Error(await openAlert('account.codeRecoveryError', t, alertController));
       //Error of Password 
     }
 
+    if (!user.value.password) {
+      throw new Error(await openAlert("account.incorrectPassword", t, alertController));
+    }
 
     if (!regExps.password.exec(user.value.password)) {
       throw new Error(await openAlert("account.incorrectPassword", t, alertController));
@@ -178,7 +183,7 @@ const changePassword = async (): Promise<any> => {
                       :placeholder="$t('account.placeholder.confirmePassword')"></ion-input>
 
                     <!-- <ion-input v-model="user.code" inputmode="numeric" type="number"
-                          :placeholder="t('account.placeholder.recoveryCode')"></ion-input> -->
+                                  :placeholder="t('account.placeholder.recoveryCode')"></ion-input> -->
 
 
                     <div class="ion-padding-bottom ion-padding-top">

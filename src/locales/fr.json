@@ -6,7 +6,7 @@
         "plus": "Plus loin"
     },
     "app": {
-        "version": "Iplast App v1.6.0"
+        "version": "Iplast App"
     },
     "title": "Plastic Surgery Calculator",
     "titles": {
@@ -52,14 +52,16 @@
         "ExcessBMI35": "Surpoids pour IMC 35",
         "BMIclassification": "Classement IMC.",
         "forYourBMI": "Pour votre IMC:",
-        "BMIunder16": "Insuffisance pondérale sévère: recherchez des habitudes alimentaires pour prendre du poids. Vous n'êtes pas admissible à la chirurgie plastique, consultez votre médecin.",
-        "BMI16to16": "Poids très faible: il est temps de prendre du poids. Nous ne recommandons pas la chirurgie plastique ; consultez votre médecin. ",
-        "BMI17to18": "Sous Poids:  il est temps de prendre du poids. Vous pourriez être admissible à certaines procédures de chirurgie plastique, consultez votre médecin pour connaître les options.",
-        "BMI18to24": "En bonne santé: vous pouvez bénéficier de toute intervention chirurgicale de chirurgie plastique. Vous n'avez probablement pas assez de graisse en cas de Liposuccion (Liposculpture).",
-        "BMI25to29": "Surpoids: vous êtes le patient idéal pour toute intervention de chirurgie plastique, vous pouvez effectuer des interventions combinées avec les précautions médicales nécessaires.",
-        "BMI30to34": "Obésité type 1: bon candidat pour la chirurgie plastique de tout type, y compris les procédures combinées. Il faut faire preuve de prudence.",
-        "BMI35to39": "Obésité type 2: vous devriez mieux manger et perdre du poids. Vous pouvez être admissible à des procédures uniques et non combinées. La prudence s'impose en raison du risque élevé de complications.",
-        "BMI40to59": "Obésité type 3: vous devriez rechercher des options pour perdre du poids. Vous n'êtes pas admissible à la chirurgie plastique. Consultez votre médecin.",
+        "BMIunder16": "Poids insuffisant sévère: il est nécessaire d'avoir une attention médicale nutritionnelle spécialisée pour augmenter le poids jusqu'à la plage appropriée. La chirurgie plastique esthétique n'est pas recommandée de manière élective. Les chirurgies reconstructives et/ou d'urgence peuvent être considérées en raison du risque élevé existant. Consultez votre médecin pour voir vos options.",
+        "BMI16to16": "Très faible poids: cherchez des habitudes alimentaires pour augmenter le poids jusqu'à la plage appropriée, de préférence avec une assistance médicale. La chirurgie plastique esthétique n'est pas recommandée de manière élective. Les chirurgies reconstructives et/ou d'urgence peuvent être considérées. Consultez votre médecin pour voir vos options.",
+        "BMI17to18": "Poids insuffisant: il est temps d'augmenter un peu de poids pour atteindre votre poids idéal ou être dans la plage appropriée. Vous pourriez être éligible pour certaines procédures de chirurgie plastique, bien que vos options puissent être limitées. Consultez votre médecin pour trouver les meilleures options.",
+        "BMI18to24": "En bonne santé: excellent patient pour toutes les procédures chirurgicales de chirurgie plastique esthétique ou reconstructive, après une évaluation médicale. Vos options doivent être analysées et convenues. Il est probable que vous n'ayez pas suffisamment de graisse en cas de liposuccion (liposculturation). Consultez votre médecin pour voir vos options.",
+        "BMI25to29": "Surpoids: patient idéal pour toutes les procédures de chirurgie plastique esthétique et/ou reconstructive, y compris les procédures combinées avec les précautions médicales appropriées. La liposuccion en tant que procédure unique ou auxiliaire pour le contour du corps est indiquée. Consultez votre médecin pour voir vos options.",
+        "BMI30to34": "Obésité classe I: excellent patient pour tout type de chirurgie plastique reconstructive ou esthétique, y compris les procédures combinées. La liposuccion en tant que procédure auxiliaire est indiquée après une évaluation médicale. La liposculturation en tant que procédure unique doit être gérée avec beaucoup de prudence. Consultez votre médecin.",
+        "BMI35to39": "Obésité classe II: il est recommandé de chercher des habitudes alimentaires pour perdre du poids. Vous pouvez être qualifié pour des procédures uniques ou combinées en fonction de la zone anatomique. Vos options de silhouette peuvent être limitées. Après une évaluation médicale adéquate, vous découvrirez vos options. Consultez votre médecin.",
+        "BMI40to45": "Obésité classe III: il est recommandé de rechercher des options pour perdre du poids en plus de soins médicaux nutritionnels ou chirurgicaux. Vos options chirurgicales peuvent être très limitées. Des procédures uniques pourraient être indiquées sous évaluation médicale. La liposuccion n'est pas recommandée pour la silhouette. Consultez votre médecin. ",
+        "BMI45to50": "Obésité classe III: il est recommandé de rechercher des soins médicaux nutritionnels ou chirurgicaux comme options pour perdre du poids. Très faible probabilité de se qualifier pour un procedure de chirurgie esthétique. Des chirurgies reconstructives et/ou d'urgence pourraient être effectuées après une évaluation médicale pour évaluer les risques. Consultez votre médecin.",
+        "BMI50to59": "Obésité classe III: il est recommandé de rechercher des soins médicaux nutritionnels ou chirurgicaux comme options pour perdre du poids. Les procédures de chirurgie plastique ne sont pas recommandées, sauf pour les chirurgies reconstructives d'urgence et seulement après avoir évalué tous les risques présents. Consultez votre médecin.",
         "forYourAge": "Pour votre âge:",
         "under18": "Ce n'est pas encore l'heure de la chirurgie esthétique. Parlez-en à vos parents et votre médecin pour la bonne option.",
         "between50and60": "Un bilan médical général est recommandé avant de consulter pour une chirurgie plastique. ",

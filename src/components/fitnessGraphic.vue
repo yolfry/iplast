@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonButton, IonIcon } from '@ionic/vue';
+import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonIcon, IonLabel, IonItem } from '@ionic/vue';
 import { ref, onMounted, watch, computed } from 'vue';
 import 'animate.css'
 import imcGraphic from '@/components/imcGraphic.vue'
-import { linkOutline, list, shareSocial, arrowDown } from 'ionicons/icons';
+import { linkOutline, list } from 'ionicons/icons';
 import { useAppStore } from '@/store/app';
 import { useI18n } from 'vue-i18n';
 import { converte } from '@/ts/imc';
@@ -109,12 +109,22 @@ function initGraphic() {
             numeroDeIamegen.value = 7
             appStore.calculator.colorIMC = '#ff7c24'
             titleIMC.value = t('text.forYourBMI')
-            textIMC.value = t('text.BMI35to39')
-        } else if (imc.value > 40 && imc.value < 60) {
+            textIMC.value = t('text.BMI40to45')
+        } else if (imc.value >= 40 && imc.value < 45) {
             numeroDeIamegen.value = 8
             appStore.calculator.colorIMC = '#b71515'
             titleIMC.value = t('text.forYourBMI')
-            textIMC.value = t('text.BMI40to59')
+            textIMC.value = t('text.BMI40to45')
+        } else if (imc.value >= 45 && imc.value < 50) {
+            numeroDeIamegen.value = 8
+            appStore.calculator.colorIMC = '#b71515'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI45to50')
+        } else if (imc.value >= 50 && imc.value < 59) {
+            numeroDeIamegen.value = 8
+            appStore.calculator.colorIMC = '#b71515'
+            titleIMC.value = t('text.forYourBMI')
+            textIMC.value = t('text.BMI50to59')
         } else {
             numeroDeIamegen.value = 0
             appStore.calculator.colorIMC = '#357FB7'
@@ -179,7 +189,7 @@ onMounted(() => {
             <ion-col size-sm="7" size="12">
                 <ion-card class="background-page"
                     :style="`background: #fff;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`"
                     mode="ios" button>
                     <ion-card-content>
                         <ion-row>
@@ -236,8 +246,8 @@ onMounted(() => {
                             </ion-col>
                         </ion-row>
                         <!-- <ion-button v-if="validateIMC()" size="small" mode="ios">
-                                                                <ion-icon :icon="shareSocial"></ion-icon>
-                                                            </ion-button> -->
+                                                                                                <ion-icon :icon="shareSocial"></ion-icon>
+                                                                                            </ion-button> -->
 
                     </ion-card-content>
 
@@ -245,9 +255,9 @@ onMounted(() => {
             </ion-col>
 
             <!-- <ion-col class=" ion-text-center">
-                    <ion-text color="primary">Mas informacion abajo</ion-text> <ion-icon color="primary"
-                        :icon="arrowDown"></ion-icon>
-                </ion-col> -->
+                                                    <ion-text color="primary">Mas informacion abajo</ion-text> <ion-icon color="primary"
+                                                        :icon="arrowDown"></ion-icon>
+                                                </ion-col> -->
 
 
 

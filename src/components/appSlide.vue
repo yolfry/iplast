@@ -67,7 +67,7 @@ function close() {
                 </swiper-slide>
                 <swiper-slide class="swiper-slide-content-2">
                     <ion-row>
-                    <ion-col size="12">
+                        <ion-col size="12">
                             <template v-if="locale == 'es'">
                                 <IonText color="tertiary" class=" ion-padding">
                                     <h1>Usar Iplast es fácil</h1>
@@ -91,10 +91,8 @@ function close() {
                         </ion-col>
                         <ion-col size="12">
                             <!-- <img style="width: 35%;" src="@/assets/arrow-bak-02.svg" class="arrow-bak"> -->
-                            <video class="slideIntro" name="media" loop :controls="false" autoplay muted>
-                                <source src="@/assets/slideIntro.webm" type="video/webm">
-                                <!-- <source v-if="locale == 'en'" src="@/assets/slideIntro.webm" type="video/webm">
-                                                                                                                                                                                                                            <source v-if="locale == 'fr'" src="@/assets/slideIntro.webm" type="video/webm"> -->
+                            <video src="@/assets/slideIntro.webm" type="video/webm" class="slideIntro" name="media" loop
+                                :controls="false" autoplay muted>
                             </video>
                         </ion-col>
                     </ion-row>
@@ -108,9 +106,8 @@ function close() {
                             </IonText>
                         </ion-col>
                         <ion-col size="12">
-                            <video class="slideLogoVideo" name="media" loop autoplay :controls="false" muted>
-                                <source src="@/assets/logoVideoSlideStart.webm" type="video/webm">
-                            </video>
+                            <video src="@/assets/logoVideoSlideStart.webm" type="video/webm" class="slideLogoVideo"
+                                name="media" loop :controls="false" autoplay muted></video>
                         </ion-col>
                         <ion-col size="12">
                             <IonButton @click="close()" fill="outline" mode="ios"> {{ $t('text.ok') }} </IonButton>

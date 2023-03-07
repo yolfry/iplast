@@ -1,39 +1,16 @@
 import { defineStore } from "pinia";
 import { useAppStore } from "./app";
 import axios, { AxiosResponse } from 'axios'
+import iUser from "@/interfaces/iUser";
 
-interface user {
-    username: string | any;
-    password: string | any;
-    appConnect: string | any;
-    keyUser: string | any;
-    name: string | any;
-    email: string | any;
-    phone: string | any;
-    code: string | any;
-    numberCode: string;
-    newPassword: string | any;
-    removeSections: boolean
-}
+
 
 
 
 export const useAccountStore = defineStore('accountStore', {
     state: () => {
         return {
-            user: <user>{
-                username: undefined,
-                password: undefined,
-                appConnect: undefined,
-                keyUser: undefined,
-                name: undefined,
-                email: undefined,
-                phone: undefined,
-                code: undefined,
-                numberCode: "+1",
-                newPassword: undefined,
-                removeSections: false
-            },
+            user: {} as iUser,
             userAll: undefined as any,
             chargePasswordResult: false,
             $i18n: {},

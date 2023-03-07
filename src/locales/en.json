@@ -6,7 +6,7 @@
         "plus": "More"
     },
     "app": {
-        "version": "Iplast App v1.6.0"
+        "version": "Iplast App"
     },
     "title": "Plastic Surgery Calculator",
     "titles": {
@@ -52,14 +52,16 @@
         "ExcessBMI35": "Excess weight BMI 35",
         "BMIclassification": "BMI Classification",
         "forYourBMI": "Based on your BMI Results",
-        "BMIunder16": "Severely Underweight: You do not currently qualify for plastic surgery. Look towards changing your eating habits to gain weight. Please consult your general physician/doctor.",
-        "BMI16to16": "Very Low Weight: We do not recommend plastic surgery. It is recommended to put on some weight to be considered for qualification. Please consult your general physician/doctor.",
-        "BMI17to18": "Underweight: You may qualify for certain plastic surgery procedures. It is recommended to put on some weight to be considered for qualification. Please consult your doctor for know your options.",
-        "BMI18to24": "Healthy: You currently qualify for most plastic surgery procedures. However, you probably do not have enough fat specifically required for a Liposuction (Liposculpture) procedure.",
-        "BMI25to29": "Overweight: You are the ideal patient for a plastic surgery procedure. You are able to undergo combined procedures with due medical consultation and precautions.",
-        "BMI30to34": "Obesity Type 1: You are good candidate for plastic surgery of any kind. You are able to undergo combined procedures with due medical consultation and precautions.",
-        "BMI35to39": "Obesity Type 2: You may qualify for single, non-combination surgical procedures, though caution must be exercised due to high risk of complications. Please consider losing additional weight and consulting your general physician/doctor in order to qualify for additional surgery procedures.",
-        "BMI40to59": "Obesity Type 3: You don't qualify for plastic surgery. Please consider losing additional weight and consulting your general physician/doctor in order to qualify for plastic surgery procedures.",
+        "BMIunder16": "Severe Underweight: specialized nutritional medical attention is needed to gain weight to a healthy range. Elective plastic surgery is not recommended. Reconstructive and/or emergency surgeries may be considered due to high risk. Consult your doctor for your options.",
+        "BMI16to16": "Very Underweight: seek out healthy eating habits to gain weight to a healthy range, preferably with medical assistance. Elective plastic surgery is not recommended. Reconstructive and/or emergency surgeries may be considered. Consult your doctor for your options.",
+        "BMI17to18": "Underweight: it is time to gain a little weight to reach your ideal weight or be within a healthy range. You may qualify for some plastic surgery procedures, although your options may be limited. Consult your doctor to find your best options.",
+        "BMI18to24": "Healthy: excellent candidate for any plastic or reconstructive surgery procedures after a medical evaluation. Your options should be analyzed and agreed upon. You may not have enough fat for Liposuction (Liposculpture). Consult your doctor for your options.",
+        "BMI25to29": "Overweight: ideal candidate for any plastic, cosmetic and/or reconstructive surgery procedures, including combined procedures with the proper medical precautions. Liposuction as a sole or body contouring auxiliary procedure is indicated. Consult your doctor for your options.",
+        "BMI30to34": "Obesity Class I: excellent candidate for any type of reconstructive or cosmetic surgery, including combined procedures. Liposuction as an auxiliary procedure is indicated after a medical evaluation. Liposculpture as a sole procedure should be handled with caution. Consult your doctor.",
+        "BMI35to39": "Obesity Class II: it is recommended to seek out healthy eating habits to lose weight. You may qualify for single or combined procedures depending on the anatomical area. Your body contouring options may be limited. After a proper medical evaluation, discover your options. Consult your doctor.",
+        "BMI40to45": "Obesity Class III: it is recommended to seek out options to lose weight, besides nutritional or surgical medical attention. Your surgical options may be very limited. Single procedures may be indicated after a medical evaluation. Body contouring liposuction is not recommended. Consult your doctor.",
+        "BMI45to50": "Obesity Class III: it is recommended to seek out nutritional or surgical medical attention as options to lose weight. Very low likelihood of qualifying for any cosmetic plastic surgery procedure. Reconstructive and/or emergency surgeries may be performed after a medical evaluation to analyze risks. Consult your doctor.",
+        "BMI50to59": "Obesity Class III: it is recommended to seek out nutritional or surgical medical attention as options to lose weight. Plastic surgery procedures are not recommended, except for emergency reconstructive surgeries, and only after evaluating all present risks. Consult your doctor.",
         "forYourAge": "Based on your Age ",
         "under18": "It is not recommended you undergo plastic surgery. Please talk to your parents and your general physician/doctor to discuss the right alternative options available to you.",
         "between50and60": "A general medical check-up is recommended before seeking consulting for plastic surgery.",

@@ -6,7 +6,7 @@
         "plus": "Más"
     },
     "app": {
-        "version": "Iplast App v1.6.0"
+        "version": "Iplast App"
     },
     "title": "Plastic Surgery Calculator",
     "titles": {
@@ -52,14 +52,16 @@
         "ExcessBMI35": "Peso Excedente para IMC 35",
         "BMIclassification": "Clasificación IMC",
         "forYourBMI": "Por tu IMC",
-        "BMIunder16": "Bajo Peso Severo: Busca hábitos de alimentación para subir de peso. Aun no calificas para cirugía plástica, consulta a tu médico para ver tus opciones.",
-        "BMI16to16": "Muy Bajo Peso: es tiempo de subir un poco de peso. No recomendamos cirugía plástica; consulta a tu médico para ver las mejores opciones.",
-        "BMI17to18": "Bajo Peso: es tiempo de subir un poco de peso. Podrías calificar para algunos procedimientos de cirugía plástica, consulta a tu médico para ver las opciones disponibles para ti.",
-        "BMI18to24": "Saludable: puedes calificar para cualquier procedimiento quirúrgico de cirugía plástica. Probablemente no tengas suficiente grasa en caso de Liposucción (Lipoescultura).",
-        "BMI25to29": "Sobrepeso: eres el paciente ideal para cualquier procedimiento de cirugía plástica, puedes realizarte procedimientos combinados con las debidas precauciones médicas.",
-        "BMI30to34": "Obesidad Tipo 1: buen candidato para cirugía plástica de cualquier tipo, incluyendo procedimientos combinados. Se debe actuar con Cautela.",
-        "BMI35to39": "Obesidad Tipo 2: debes  alimentarte mejor y bajar de peso. Puedes calificar para procedimientos únicos no combinados. Se debe actuar con mucha Cautela por el alto riesgo de complicaciones que pueden presentarse.",
-        "BMI40to59": "Obesidad Tipo 3: debes buscar opciones para bajar de peso.  No calificas para cirugía plástica por el momento. Consulta a tu médico para encontrar las mejores opciones.",
+        "BMIunder16": "Bajo Peso Severo: es necesario atención medica nutricional especializada para subir de peso hasta el rango adecuado. No se recomienda cirugía plástica estética de manera electiva. Cirugías reconstructivas y/o emergencias, pueden ser consideradas, por el alto riesgo existente. Consulta a tu medico para ver tus opciones.",
+        "BMI16to16": "Muy Bajo Peso: busca hábitos de alimentación para subir de peso hasta el rango adecuado, preferiblemente con asistencia médica. No se recomienda cirugía plástica estética de manera electiva. Cirugías reconstructivas y/o emergencias, pueden ser consideradas. Consulta a tu medico para ver tus opciones.",
+        "BMI17to18": "Bajo Peso: es tiempo de subir un poco de peso, para alcanzar tu peso ideal o estar en el rango adecuado. Podrías calificar para algunos procedimientos de cirugía plástica, aunque tus opciones pueden verse limitadas. Consulta a tu médico para encontrar tus mejores opciones.",
+        "BMI18to24": "Saludable: excelente paciente para cualquier procedimiento quirúrgico de cirugía plástica estética o reconstructiva, previa evaluación médica. Tus opciones deben ser analizadas y acordadas. Probablemente no tengas suficiente grasa en caso de Liposucción (Lipoescultura). Consulta a tu médico para ver tus opciones.",
+        "BMI25to29": "Sobrepeso: paciente ideal para cualquier procedimiento de cirugía plástica, estética y/o reconstructivas, incluyendo procedimientos combinados con las debidas precauciones médicas. Liposucción como procedimiento único o auxiliar de contorno corporal están indicado.  Consulta a tu médico para ver tus opciones.",
+        "BMI30to34": "Obesidad clase I: excelente paciente para cualquier tipo de cirugía plasta reconstructiva o estética, incluyendo procedimientos combinados. Liposucción como procedimiento auxiliar está indicado previa evaluación médica. Lipoescultura como procedimiento único debe manejarse con mucha cautela. Consulta a tu médico.",
+        "BMI35to39": "Obesidad clase II: se recomienda buscar hábitos alimenticios para bajar de peso. Puedes calificar para procedimientos únicos o combinados dependiendo el ara anatómica. Tus opciones en el contorno corporal pueden verse limitadas. Luego de una evaluación medica adecuada, descubrir cuales son tus opciones. Consulta a tu médico.",
+        "BMI40to45": "Obesidad clase III: se recomienda buscar opciones para bajar de peso además de atención medica nutricional o quirúrgica. Tus opciones quirúrgicas pueden verse muy limitadas. Procedimientos únicos podrían estar indicados bajo evaluación médica. No se recomienda liposucción para el contorno corporal. Consulta a tu médico.",
+        "BMI45to50": "Obesidad clase III: se recomienda buscar atención médica nutricional o quirúrgica como opciones para bajar de peso. Probabilidad muy baja de calificar para algún procedimiento de cirugía plástica estética. Cirugías reconstructivas y/o emergencias podrían ser realizadas previa evaluación medicas para analizar los riesgos. Consulta a tu médico.",
+        "BMI50to59": "Obesidad clase III: se recomienda buscar atención médica nutricional o quirúrgica como opciones para bajar de peso. No se recomienda procedimientos de cirugía plástica, salvo cirugías reconstructivas de emergencia y solo después de evaluar todos los riesgos presentes. Consulta tu médico.",
         "forYourAge": "Por tu Edad",
         "under18": "Aún no es tiempo para cirugía plástica. Habla con tus padres y tu médico, así encontrar la opción correcta para ti.",
         "between50and60": "Se recomienda un chequeo médico general antes de consultar para cirugía plástica.",

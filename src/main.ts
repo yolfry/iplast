@@ -27,6 +27,10 @@ import '@/theme/variables.css';
 import '@/theme/globalStyle.css'
 
 
+/* Admob*/
+import { createAdmob } from '@/plugins/admob/admob'
+createAdmob()
+
 const pinia = createPinia()
 
 

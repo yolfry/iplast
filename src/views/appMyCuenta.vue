@@ -24,9 +24,10 @@ import { computed } from "vue";
 import { useAccountStore } from "@/store/account";
 import { useI18n } from "vue-i18n";
 import { alertController } from "@ionic/vue";
-import paises from "@/ts/paises";
+import { useAppStore } from "@/store/app";
 
 const account = useAccountStore();
+const appStore = useAppStore()
 const router = useIonRouter();
 
 
@@ -197,7 +198,7 @@ ion-avatar {
             <ion-item color="tertiary" mode="ios">
               <ion-icon slot="start" :icon="informationCircle" color="primary"></ion-icon>
               <ion-label class="textItem">
-                {{ $t('app.version') }}
+                {{ $t('app.version') }} v{{ appStore.version }}
               </ion-label>
             </ion-item>
 

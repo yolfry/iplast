@@ -36,6 +36,8 @@ import {
 
 import { useWordpressStore } from "@/store/wordpress";
 import { useI18n } from "vue-i18n";
+import { onActivated, onDeactivated, onMounted, onUnmounted } from "vue";
+import { admobBannerShow, admobBannerHidden, showInterstitial } from "@/ts/admob.js";
 const wordpressStore = useWordpressStore();
 const i18n = useI18n();
 
@@ -44,6 +46,22 @@ const doRefresh = async (e: any) => {
   // console.log('reload...', e)
   e.target.complete();
 }
+
+onMounted(async () => {
+  await showInterstitial()
+})
+
+onActivated(async () => {
+  await showInterstitial()
+})
+
+// onDeactivated(async () => {
+//   await admobBannerHidden()
+// })
+
+// onUnmounted(async () => {
+//   await admobBannerHidden()
+// })
 
 </script>
 

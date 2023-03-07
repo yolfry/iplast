@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@capacitor-community/admob': ^4.1.0
   '@capacitor/android': ^4.2.0
   '@capacitor/app': ^4.0.1
   '@capacitor/cli': ^4.2.0
@@ -33,6 +34,7 @@ specifiers:
   vue-tsc: ^1.0.9
 
 dependencies:
+  '@capacitor-community/admob': 4.1.0
   '@capacitor/android': 4.7.0_@capacitor+core@4.7.0
   '@capacitor/app': 4.1.1_@capacitor+core@4.7.0
   '@capacitor/cli': 4.7.0
@@ -85,6 +87,12 @@ packages:
     dependencies:
       '@babel/helper-validator-identifier': 7.16.7
       to-fast-properties: 2.0.0
+
+  /@capacitor-community/admob/4.1.0:
+    resolution: {integrity: sha512-sLBx5JaYGKTnZUjnzjARRjpRj2pELf2kuTgOEYmrTqoAJLEv+rXu0etkOYiPWe10zBvicJq38ObbMGKHima/Yw==}
+    dependencies:
+      '@capacitor/core': 4.7.0
+    dev: false
 
   /@capacitor/android/4.7.0_@capacitor+core@4.7.0:
     resolution: {integrity: sha512-hyglxuzY2mktY0ST+6Y9IpZjSKxBLsG2xtnKWsIqDvXKKBjy5xRjHJMueP4P3u5z+bpLrdY6YlyR9JMIV/Pwcg==}
