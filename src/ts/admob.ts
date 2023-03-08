@@ -12,20 +12,19 @@ const admobBannerShow = async () => {
   //     // Subscribe Change Banner Size
   //   });
 
-  const adId = isPlatform('ios') ? 'ios-ad' : 'ca-app-pub-3777306841672305/4641445799'
+  const adId = isPlatform('ios') ? 'ca-app-pub-3777306841672305/9690075570' : 'ca-app-pub-3777306841672305/4641445799'
 
   const options: BannerAdOptions = {
     adId,
     adSize: BannerAdSize.ADAPTIVE_BANNER,
     position: BannerAdPosition.BOTTOM_CENTER,
-    margin: 80,
-    isTesting: true
+    margin: 70,
+    // isTesting: true
     // npa: true
   };
 
   try {
     const res = await AdMob.showBanner(options);
-    console.log(res)
   } catch (error) {
     console.log(error)
   }
@@ -35,13 +34,14 @@ const admobBannerShow = async () => {
 
 const admobBannerHidden = async () => {
   AdMob.hideBanner()
+  AdMob.removeBanner()
 }
 
 
 const showInterstitial = async () => {
 
   setTimeout(async () => {
-    const adId = isPlatform('ios') ? 'ios-ad' : 'ca-app-pub-3777306841672305/1438366257'
+    const adId = isPlatform('ios') ? 'ca-app-pub-3777306841672305/8672792781' : 'ca-app-pub-3777306841672305/1438366257'
 
     AdMob.addListener(InterstitialAdPluginEvents.Loaded, (info: AdLoadInfo) => {
       // Subscribe prepared interstitial
@@ -49,7 +49,7 @@ const showInterstitial = async () => {
 
     const options: AdOptions = {
       adId,
-      isTesting: true
+      // isTesting: true
       // npa: true
     };
     await AdMob.prepareInterstitial(options);

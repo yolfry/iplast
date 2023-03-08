@@ -19,7 +19,7 @@ interface ialtura {
 export const useAppStore = defineStore('appStore', {
     state: () => {
         return {
-            version: '1.8.0',
+            version: '1.9.3',
             calculator: {
                 colorIMC: '#357FB7',
                 peso: <ipeso>{

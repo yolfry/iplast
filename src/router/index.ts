@@ -3,6 +3,8 @@ import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '@/views/TabsPage.vue'
 import { useAccountStore } from '@/store/account';
 import { useAppStore } from '@/store/app';
+import { admobBannerShow } from '@/ts/admob';
+import { admobBannerHidden } from '@/ts/admob';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -61,6 +63,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'mycuenta',
+        name: 'mycuenta',
         component: () => import('@/views/appMyCuenta.vue'),
         meta: {
           requiresAuth: false
@@ -136,6 +139,12 @@ router.beforeEach(async (to, from, next) => {
     account.userAll = await appStore.getDataApp('userAll')
   }
 
+  //Ads Router
+  if (to.name == 'mycuenta') {
+    admobBannerShow()
+  }
+
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (account.user.keyUser && account.user.keyUser) {
       next()
@@ -147,6 +156,12 @@ router.beforeEach(async (to, from, next) => {
   } else {
     next()
   }
+
+  //Ads Router
+  if (to.name != 'mycuenta') {
+    admobBannerHidden()
+  }
+
 
 })
 

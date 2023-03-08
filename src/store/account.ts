@@ -10,7 +10,9 @@ import iUser from "@/interfaces/iUser";
 export const useAccountStore = defineStore('accountStore', {
     state: () => {
         return {
-            user: {} as iUser,
+            user: {
+                numberCode: '+1'
+            } as iUser,
             userAll: undefined as any,
             chargePasswordResult: false,
             $i18n: {},

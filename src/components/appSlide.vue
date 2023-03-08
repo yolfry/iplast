@@ -10,6 +10,7 @@ import "swiper/css/effect-cube";
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { closeCircle } from 'ionicons/icons';
+import { onMounted } from 'vue';
 
 
 const { locale } = useI18n()
@@ -21,19 +22,29 @@ function close() {
     router.push('/tabs/home')
 }
 
+const play = () => {
+    const tutorial = <HTMLMediaElement>document.querySelector("#tutorial")
+    const logo = <HTMLMediaElement>document.querySelector('#logo')
+    if (tutorial) {
+        tutorial?.play()
+    }
+    if (logo) {
+        logo?.play()
+    }
+}
 
 </script>
-
 
 <template>
     <ion-page>
 
         <ion-content>
             <ion-icon size="large" @click="close()" class="closeSlide" :icon="closeCircle"></ion-icon>
-            <swiper :navigation="true" :modules="[Pagination, EffectCube]" :effect="'cube'" :grabCursor="true" :pagination="{
-                clickable: true,
-                dynamicBullets: true,
-            }" :cubeEffect="{
+            <swiper class="swiper-slide-content-2" @slideChange="play()" :navigation="true"
+                :modules="[Pagination, EffectCube]" :effect="'cube'" :grabCursor="true" :pagination="{
+                    clickable: true,
+                    dynamicBullets: true,
+                }" :cubeEffect="{
     shadow: false,
     slideShadows: true,
     shadowOffset: 20,
@@ -78,21 +89,21 @@ function close() {
                             <template v-if="locale == 'en'">
                                 <IonText color="tertiary" class=" ion-padding">
                                     <h1>Using Iplast is easy</h1>
-                                    <p>You just add your age, height and peso </p>
+                                    <p>Just add your age, height and weight</p>
                                 </IonText>
                             </template>
 
                             <template v-if="locale == 'fr'">
                                 <IonText color="tertiary" class=" ion-padding">
                                     <h1>Utiliser Iplast est facile</h1>
-                                    <p>Vous ajoutez simplement votre âge et votre taille</p>
+                                    <p>Vous ajoutez simplement votre âge, votre taille et votre poids</p>
                                 </IonText>
                             </template>
                         </ion-col>
                         <ion-col size="12">
                             <!-- <img style="width: 35%;" src="@/assets/arrow-bak-02.svg" class="arrow-bak"> -->
-                            <video src="@/assets/slideIntro.webm" type="video/webm" class="slideIntro" name="media" loop
-                                :controls="false" autoplay muted>
+                            <video id="tutorial" src="@/assets/tutorial.webm" type="video/webm" class="slideIntro"
+                                name="tutorial" autoplay="false" loop :controls="false" muted>
                             </video>
                         </ion-col>
                     </ion-row>
@@ -106,8 +117,8 @@ function close() {
                             </IonText>
                         </ion-col>
                         <ion-col size="12">
-                            <video src="@/assets/logoVideoSlideStart.webm" type="video/webm" class="slideLogoVideo"
-                                name="media" loop :controls="false" autoplay muted></video>
+                            <video id="logo" src="@/assets/logo.webm" type="video/webm" class="slideLogoVideo" name="logo"
+                                autoplay="false" loop :controls="false" muted></video>
                         </ion-col>
                         <ion-col size="12">
                             <IonButton @click="close()" fill="outline" mode="ios"> {{ $t('text.ok') }} </IonButton>
@@ -123,7 +134,7 @@ function close() {
 
 <style scoped>
 .closeSlide {
-    color: rgb(195, 217, 255);
+    color: rgb(145, 166, 202);
     position: absolute;
     z-index: 30001;
     top: 2%;
@@ -175,7 +186,7 @@ function close() {
 }
 
 .swiper-slide-content-3 {
-    background-color: #e7effeea;
+    background-color: #ebf2fd;
 }
 
 

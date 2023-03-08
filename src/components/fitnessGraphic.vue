@@ -120,7 +120,7 @@ function initGraphic() {
             appStore.calculator.colorIMC = '#b71515'
             titleIMC.value = t('text.forYourBMI')
             textIMC.value = t('text.BMI45to50')
-        } else if (imc.value >= 50 && imc.value < 59) {
+        } else if (imc.value >= 50 && imc.value < 60) {
             numeroDeIamegen.value = 8
             appStore.calculator.colorIMC = '#b71515'
             titleIMC.value = t('text.forYourBMI')
@@ -189,7 +189,7 @@ onMounted(() => {
             <ion-col size-sm="7" size="12">
                 <ion-card class="background-page"
                     :style="`background: #fff;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`"
                     mode="ios" button>
                     <ion-card-content>
                         <ion-row>
@@ -246,8 +246,8 @@ onMounted(() => {
                             </ion-col>
                         </ion-row>
                         <!-- <ion-button v-if="validateIMC()" size="small" mode="ios">
-                                                                                                <ion-icon :icon="shareSocial"></ion-icon>
-                                                                                            </ion-button> -->
+                                                                                                        <ion-icon :icon="shareSocial"></ion-icon>
+                                                                                                    </ion-button> -->
 
                     </ion-card-content>
 
@@ -255,9 +255,9 @@ onMounted(() => {
             </ion-col>
 
             <!-- <ion-col class=" ion-text-center">
-                                                    <ion-text color="primary">Mas informacion abajo</ion-text> <ion-icon color="primary"
-                                                        :icon="arrowDown"></ion-icon>
-                                                </ion-col> -->
+                                                            <ion-text color="primary">Mas informacion abajo</ion-text> <ion-icon color="primary"
+                                                                :icon="arrowDown"></ion-icon>
+                                                        </ion-col> -->
 
 
 
