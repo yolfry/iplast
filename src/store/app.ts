@@ -20,6 +20,7 @@ export const useAppStore = defineStore('appStore', {
     state: () => {
         return {
             version: '1.9.3',
+            versionIos: '2.2.1',
             calculator: {
                 colorIMC: '#357FB7',
                 peso: <ipeso>{

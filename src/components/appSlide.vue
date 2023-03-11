@@ -53,7 +53,8 @@ const play = () => {
                 <swiper-slide class="swiper-slide-content-1">
                     <IonText color="tertiary" class=" ion-padding">
                         <template v-if="locale == 'es'">
-                            <div class="_logoSlide"><img class="logoSlide" src="@/assets/iconIplast.png" /></div>
+                            <div class="_logoSlide"><img style="width:25%;" class="logoSlide"
+                                    src="@/assets/iconIplast.png" /></div>
                             <h1>Bienvenido a Iplast</h1>
                             <h3>Aplicación especializada en el cálculo del índice de masa corporal (IMC) y cirugía plástica.
                                 Vamos a descubrir si calificas.</h3>
@@ -102,8 +103,8 @@ const play = () => {
                         </ion-col>
                         <ion-col size="12">
                             <!-- <img style="width: 35%;" src="@/assets/arrow-bak-02.svg" class="arrow-bak"> -->
-                            <video id="tutorial" src="@/assets/tutorial.webm" type="video/webm" class="slideIntro"
-                                name="tutorial" autoplay="false" loop :controls="false" muted>
+                            <video id="tutorial" src="@/assets/tutorial.mp4" preload="auto" type="video/mp4"
+                                class="slideIntro" name="tutorial" playsinline autoplay="true" loop :controls="false" muted>
                             </video>
                         </ion-col>
                     </ion-row>
@@ -117,8 +118,8 @@ const play = () => {
                             </IonText>
                         </ion-col>
                         <ion-col size="12">
-                            <video id="logo" src="@/assets/logo.webm" type="video/webm" class="slideLogoVideo" name="logo"
-                                autoplay="false" loop :controls="false" muted></video>
+                            <video id="logo" playsinline src="@/assets/logo.mp4" type="video/mp4" class="slideLogoVideo"
+                                name="logo" autoplay="true" preload="auto" loop :controls="false" muted></video>
                         </ion-col>
                         <ion-col size="12">
                             <IonButton @click="close()" fill="outline" mode="ios"> {{ $t('text.ok') }} </IonButton>
@@ -137,8 +138,8 @@ const play = () => {
     color: rgb(145, 166, 202);
     position: absolute;
     z-index: 30001;
-    top: 2%;
-    right: 2%;
+    top: 8%;
+    right: 4%;
 }
 
 .slideIntro {
@@ -165,6 +166,7 @@ const play = () => {
 }
 
 .logoSlide {
+    width: 25%;
     position: absolute;
     top: 8%;
     animation: float 6s ease-in-out infinite;

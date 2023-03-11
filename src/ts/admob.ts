@@ -1,4 +1,4 @@
-import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize, InterstitialAdPluginEvents, AdLoadInfo, AdOptions } from '@capacitor-community/admob';
+import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, BannerAdPluginEvents, AdMobBannerSize, InterstitialAdPluginEvents, AdLoadInfo, AdOptions, RewardAdOptions } from '@capacitor-community/admob';
 import { isPlatform } from '@ionic/core';
 
 
@@ -18,7 +18,7 @@ const admobBannerShow = async () => {
     adId,
     adSize: BannerAdSize.ADAPTIVE_BANNER,
     position: BannerAdPosition.BOTTOM_CENTER,
-    margin: 70,
+    margin: 60,
     // isTesting: true
     // npa: true
   };
@@ -60,4 +60,22 @@ const showInterstitial = async () => {
 
 }
 
-export { admobBannerShow, admobBannerHidden, showInterstitial }
+const showRewardVideo = async () => {
+
+  const adId = isPlatform('ios') ? 'ca-app-pub-3777306841672305/8060233477' : 'ca-app-pub-3777306841672305/3084358520'
+
+  const options: RewardAdOptions = {
+    adId,
+    // isTesting: true
+    // npa: true
+    // ssv: {
+    //   userId: "A user ID to send to your SSV"
+    //   customData: JSON.stringify({ ...MyCustomData })
+    //}
+  };
+  await AdMob.prepareRewardVideoAd(options);
+  const rewardItem = await AdMob.showRewardVideoAd();
+  console.log(rewardItem)
+}
+
+export { admobBannerShow, admobBannerHidden, showInterstitial, showRewardVideo }

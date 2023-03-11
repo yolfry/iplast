@@ -15,7 +15,8 @@ import {
   IonCol,
   IonRefresher,
   IonRefresherContent,
-  useIonRouter
+  useIonRouter,
+  isPlatform
 } from "@ionic/vue";
 import { peopleCircle, exitSharp, settingsSharp, sparklesSharp, informationCircle, server, link, logIn } from "ionicons/icons";
 
@@ -198,7 +199,7 @@ ion-avatar {
             <ion-item color="tertiary" mode="ios">
               <ion-icon slot="start" :icon="informationCircle" color="primary"></ion-icon>
               <ion-label class="textItem">
-                {{ $t('app.version') }} v{{ appStore.version }}
+                {{ $t('app.version') }} v{{ isPlatform('ios') ? appStore.versionIos : appStore.version }}
               </ion-label>
             </ion-item>
 

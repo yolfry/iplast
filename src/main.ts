@@ -27,9 +27,8 @@ import '@/theme/variables.css';
 import '@/theme/globalStyle.css'
 
 
-/* Admob*/
-import { createAdmob } from '@/plugins/admob/admob'
-createAdmob()
+
+
 
 const pinia = createPinia()
 
@@ -57,8 +56,6 @@ const app = createApp(App)
 
 
 router.isReady().then(async () => {
-  // const appStore = useAppStore();
-
   const i18n = await installI18n()
   app.use(i18n)
 
