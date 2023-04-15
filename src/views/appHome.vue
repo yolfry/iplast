@@ -13,7 +13,6 @@ import {
 import AppIMC from "@/components/appIMC.vue";
 import { useAppStore } from "@/store/app";
 import scrollFabButton from "@/components/scrollFabButton.vue";
-import { createAdmob } from "@/plugins/admob/admob";
 import { onMounted } from "vue";
 const appStore = useAppStore()
 
@@ -35,7 +34,6 @@ const doRefresh = async (e: any) => {
 }
 
 onMounted(async () => {
-  createAdmob()
 })
 
 

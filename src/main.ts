@@ -26,7 +26,7 @@ import '@ionic/vue/css/display.css';
 import '@/theme/variables.css';
 import '@/theme/globalStyle.css'
 
-
+import { createAdmob } from './plugins/admob/admob';
 
 
 
@@ -58,7 +58,8 @@ const app = createApp(App)
 router.isReady().then(async () => {
   const i18n = await installI18n()
   app.use(i18n)
-
   app.mount('#app');
+
+  await createAdmob()
 
 });
