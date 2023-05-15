@@ -1,53 +1,4 @@
-<template>
-    <ion-page>
-        <ion-header translucent>
-            <ion-toolbar color="primary">
-                <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/"></ion-back-button>
-                </ion-buttons>
-                <ion-title>{{ $t('account.changePassword') }}</ion-title>
-                <ion-buttons slot="primary">
-                    <ion-text class="ion-padding-end" @click="changePassword()">
-                        <h5>{{ $t('user.save') }}</h5>
-                    </ion-text>
-                </ion-buttons>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content :fullscreen="true" color="tertiary">
 
-            <ion-item-group class=" ion-padding">
-                <ion-item>
-                    <ion-label position="fixed" class=" ion-text-wrap">
-                        {{ $t('account.placeholder.newPassword') }}
-                    </ion-label>
-                    <ion-input v-model="userPassword.newPassword" type="password"
-                        :placeholder="$t('account.placeholder.newPassword')">
-                    </ion-input>
-                </ion-item>
-
-                <ion-item>
-                    <ion-label position="fixed" class=" ion-text-wrap">
-                        {{ $t('account.placeholder.confirmePassword') }}
-                    </ion-label>
-                    <ion-input v-model="userPassword.confirmeNewPassword" type="password"
-                        :placeholder="$t('account.placeholder.confirmePassword')">
-                    </ion-input>
-                </ion-item>
-
-                <ion-item>
-                    <ion-label position="fixed" class=" ion-text-wrap">
-                        {{ $t('account.placeholder.removeSections') }}
-                    </ion-label>
-                    <ion-toggle v-model="accountStore.user.removeSections"></ion-toggle>
-                </ion-item>
-
-
-            </ion-item-group>
-
-        </ion-content>
-
-    </ion-page>
-</template>
 
 
 <script lang="ts" setup>
@@ -60,9 +11,11 @@ import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import { useAccountStore } from '@/store/account';
 import RegExps from "@/ts/RegExps";
+import { useAppStore } from '@/store/app';
 // import { useAppStore } from '@/store/app';
 
 const accountStore = useAccountStore();
+const appStore = useAppStore()
 
 const { t } = useI18n()
 
@@ -153,3 +106,54 @@ const changePassword = async () => {
 }
 
 </script>
+
+<template>
+    <ion-page>
+        <ion-header translucent>
+            <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
+                <ion-buttons slot="start">
+                    <ion-back-button defaultHref="/"></ion-back-button>
+                </ion-buttons>
+                <ion-title>{{ $t('account.changePassword') }}</ion-title>
+                <ion-buttons slot="primary">
+                    <ion-text class="ion-padding-end" @click="changePassword()">
+                        <h5>{{ $t('user.save') }}</h5>
+                    </ion-text>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content :fullscreen="true" color="tertiary">
+
+            <ion-item-group class=" ion-padding">
+                <ion-item>
+                    <ion-label position="fixed" class=" ion-text-wrap">
+                        {{ $t('account.placeholder.newPassword') }}
+                    </ion-label>
+                    <ion-input v-model="userPassword.newPassword" type="password"
+                        :placeholder="$t('account.placeholder.newPassword')">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="fixed" class=" ion-text-wrap">
+                        {{ $t('account.placeholder.confirmePassword') }}
+                    </ion-label>
+                    <ion-input v-model="userPassword.confirmeNewPassword" type="password"
+                        :placeholder="$t('account.placeholder.confirmePassword')">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="fixed" class=" ion-text-wrap">
+                        {{ $t('account.placeholder.removeSections') }}
+                    </ion-label>
+                    <ion-toggle v-model="accountStore.user.removeSections"></ion-toggle>
+                </ion-item>
+
+
+            </ion-item-group>
+
+        </ion-content>
+
+    </ion-page>
+</template>

@@ -1,7 +1,21 @@
+
+
+
+<script lang="ts" setup>
+import { IonRow, IonCol, IonButtons, IonBackButton, IonToolbar, IonHeader, IonContent, IonText, IonPage, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonTitle } from '@ionic/vue';
+import { useAppStore } from '@/store/app';
+
+
+const appStore = useAppStore()
+</script>
+
+
+
+
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar color="primary">
+      <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
@@ -13,7 +27,7 @@
       <div class="cover-box"></div>
 
       <!-- <ion-header collapse="condense">
-        <ion-toolbar>
+        <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
           <ion-title size="large">{{ $t('titles.findYourDoctor') }}</ion-title>
         </ion-toolbar>
       </ion-header> -->
@@ -54,12 +68,6 @@
 
   </ion-page>
 </template>
-
-
-<script lang="ts" setup>
-import { IonRow, IonCol, IonButtons, IonBackButton, IonToolbar, IonHeader, IonContent, IonText, IonPage, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonTitle } from '@ionic/vue';
-import "animate.css";
-</script>
 
 <style scoped>
 ion-row {

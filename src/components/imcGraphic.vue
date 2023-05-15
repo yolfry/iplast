@@ -1,5 +1,4 @@
 <template>
-
     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
         y="0px" viewBox="0 0 1110 1097" style="enable-background:new 0 0 1110 1097;" xml:space="preserve">
         <g>
@@ -139,14 +138,9 @@
             <path class="st13" d="M121.1,941.5l54.6,33.7l-54.6,33.7 M168.1,975.2H57.4" />
         </g>
     </svg>
-
-
-
-
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 
 defineProps({
     imc: {

@@ -1,5 +1,6 @@
 
 <script lang="ts" setup>
+import { useAppStore } from "@/store/app";
 import {
   IonPage,
   IonHeader,
@@ -16,6 +17,9 @@ import {
   IonBackButton
 } from "@ionic/vue";
 import { link } from "ionicons/icons";
+
+
+const appStore = useAppStore()
 </script>
   
 
@@ -24,7 +28,7 @@ import { link } from "ionicons/icons";
 <template>
   <ion-page>
     <ion-header translucent>
-      <ion-toolbar color="primary">
+      <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>

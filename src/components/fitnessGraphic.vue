@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonIcon, IonLabel, IonItem } from '@ionic/vue';
+import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonIcon, IonLabel, IonItem, IonSelect, IonSelectOption } from '@ionic/vue';
 import { ref, onMounted, watch, computed } from 'vue';
 import 'animate.css'
 import imcGraphic from '@/components/imcGraphic.vue'
@@ -7,7 +7,9 @@ import { linkOutline, list } from 'ionicons/icons';
 import { useAppStore } from '@/store/app';
 import { useI18n } from 'vue-i18n';
 import { converte } from '@/ts/imc';
+import { useIonRouter } from '@ionic/vue';
 
+const router = useIonRouter()
 
 const round = (value: number) => {
     return Math.round(value);
@@ -187,9 +189,8 @@ onMounted(() => {
     <ion-grid class="fitnessGraphic">
         <ion-row class="ion-justify-content-center">
             <ion-col size-sm="7" size="12">
-                <ion-card class="background-page"
-                    :style="`background: #fff;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        background: linear-gradient(255deg, #fff 75%, ${colorIMC} 100%);`"
+                <ion-card
+                    :style="`background: var(--ion-item-background); background: linear-gradient(255deg, var(--ion-item-background) 75%, ${colorIMC} 100%);`"
                     mode="ios" button>
                     <ion-card-content>
                         <ion-row>
@@ -226,17 +227,26 @@ onMounted(() => {
                                             <h1>{{
                                                 // Converte, convertir valor de peso ideal Kilogramo a peso del usuario
                                                 (validateIMC()) ? round(converte(pesoIdeal, typePeso).peso) + `
-                                                                                            ${converte(pesoIdeal, typePeso).typePeso} ` : `?`
+                                                ${converte(pesoIdeal, typePeso).typePeso} ` : `?`
                                             }}
                                             </h1>
                                         </ion-text>
                                     </ion-col>
 
-                                    <ion-col v-show="imc >= 35 && Math.round(peso.kg - pesoRecomendado) > 0">
+
+                                    <ion-col>
                                         <ion-text class=" ion-text-center">
                                             <h3>{{ $t('text.ExcessBMI35') }}</h3>
+                                            <ion-select :value="appStore.calculator.excedenteIMC"
+                                                @ion-change="(e) => { appStore.calculator.excedenteIMC = e.target.value }"
+                                                interface="action-sheet">
+                                                <ion-select-option v-for="imc in appStore.calculator.listIMC" :key="imc"
+                                                    :value="imc">{{ $t('text.bmi') + ` ` + imc }}</ion-select-option>
+                                            </ion-select>
                                         </ion-text>
-                                        <ion-text class=" ion-text-center">
+
+                                        <!--<ion-text class=" ion-text-center" v-show="imc >= appStore.calculator.excedenteIMC && Math.round(peso.kg - pesoRecomendado) > 0"> -->
+                                        <ion-text class=" ion-text-center" v-show="imc >= appStore.calculator.excedenteIMC">
                                             <h1 style="color:#ff7c24;">{{ round(converte(pesoExcedente, typePeso).peso) +
                                                 typePeso
                                             }}</h1>
@@ -245,19 +255,11 @@ onMounted(() => {
                                 </ion-row>
                             </ion-col>
                         </ion-row>
-                        <!-- <ion-button v-if="validateIMC()" size="small" mode="ios">
-                                                                                                        <ion-icon :icon="shareSocial"></ion-icon>
-                                                                                                    </ion-button> -->
 
                     </ion-card-content>
 
                 </ion-card>
             </ion-col>
-
-            <!-- <ion-col class=" ion-text-center">
-                                                            <ion-text color="primary">Mas informacion abajo</ion-text> <ion-icon color="primary"
-                                                                :icon="arrowDown"></ion-icon>
-                                                        </ion-col> -->
 
 
 
@@ -341,7 +343,7 @@ onMounted(() => {
                             </ion-label>
                         </ion-item>
 
-                        <ion-item button target="_blank" @click="$router.push('references')">
+                        <ion-item button target="_blank" @click="router.push('references')">
                             <ion-icon slot="start" :icon="list"></ion-icon>
                             <ion-label class="textItem">
                                 {{ $t('text.plusReferences') }}

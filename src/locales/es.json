@@ -45,11 +45,13 @@
         "stone": "St"
     },
     "text": {
+        "alarme": "Alarma",
+        "or": "O",
         "bmi": "IMC",
         "weight": "Peso",
         "back": "Atras",
         "RecommendedWeight": "Peso ideal",
-        "ExcessBMI35": "Peso Excedente para IMC 35",
+        "ExcessBMI35": "Peso Excedente para ",
         "BMIclassification": "Clasificación IMC",
         "forYourBMI": "Por tu IMC",
         "BMIunder16": "Bajo Peso Severo: es necesario atención medica nutricional especializada para subir de peso hasta el rango adecuado. No se recomienda cirugía plástica estética de manera electiva. Cirugías reconstructivas y/o emergencias, pueden ser consideradas, por el alto riesgo existente. Consulta a tu medico para ver tus opciones.",

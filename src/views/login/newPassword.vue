@@ -33,6 +33,7 @@ import openAlert from "@/ts/openAlert";
 import { useI18n } from "vue-i18n";
 import { alertController, loadingController } from "@ionic/vue";
 import { ref } from "vue";
+import { useAppStore } from "@/store/app";
 
 const ionRouter = useIonRouter();
 
@@ -44,6 +45,7 @@ const { t } = useI18n();
 // const router = useRouter()
 
 const account = useAccountStore();
+const appStore = useAppStore()
 
 const user = computed(() => {
   return account.user;
@@ -143,7 +145,7 @@ const changePassword = async (): Promise<any> => {
   <ion-page>
 
     <ion-header translucent>
-      <ion-toolbar color="primary">
+      <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
         <ion-buttons slot="start">
           <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
         </ion-buttons>
@@ -151,8 +153,6 @@ const changePassword = async (): Promise<any> => {
     </ion-header>
 
     <ion-content :fullscreen="true">
-
-      <div class="cover-box"></div>
 
       <ion-grid class="ion-margin-top">
 

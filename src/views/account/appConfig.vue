@@ -11,6 +11,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useAccountStore } from '@/store/account';
 import RegExps from '@/ts/RegExps';
 import paises from '@/ts/paises';
+import { useAppStore } from '@/store/app';
 // import { useAppStore } from '@/store/app';
 
 const accountStore = useAccountStore();
@@ -19,6 +20,7 @@ const { t } = useI18n()
 
 const disabled = ref(true)
 const disabledEdit = ref(true)
+const appStore = useAppStore()
 
 const user = computed(
     () => {
@@ -128,7 +130,7 @@ const saveConfig = async () => {
 <template>
     <ion-page>
         <ion-header translucent>
-            <ion-toolbar color="primary">
+            <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
                 <ion-buttons slot="start">
                     <ion-back-button defaultHref="/"></ion-back-button>
                 </ion-buttons>
@@ -152,7 +154,7 @@ const saveConfig = async () => {
                     <ion-label @click="disabledEdit = !disabledEdit">
                         <ion-icon size="large" :icon="createOutline">
                         </ion-icon>
-                        {{$t('account.edit')}}
+                        {{ $t('account.edit') }}
                     </ion-label>
                 </ion-col>
             </ion-row>
@@ -161,8 +163,7 @@ const saveConfig = async () => {
                     <ion-label position="fixed" class=" ion-text-wrap">
                         {{ $t('account.placeholder.name') }}
                     </ion-label>
-                    <ion-input v-if="user" v-model="userNew.name" type="text"
-                        :placeholder="$t('account.placeholder.add')">
+                    <ion-input v-if="user" v-model="userNew.name" type="text" :placeholder="$t('account.placeholder.add')">
                     </ion-input>
                 </ion-item>
 
@@ -172,8 +173,8 @@ const saveConfig = async () => {
                     </ion-label>
 
                     <ion-select v-if="user" :placeholder="$t('account.placeholder.country')" v-model="userNew.country">
-                        <ion-select-option v-for="pais in paises" :key="pais.countryName" :value="pais.countryName">
-                            {{pais.countryName}}</ion-select-option>
+                        <ion-select-option v-for=" pais  in  paises " :key="pais.countryName" :value="pais.countryName">
+                            {{ pais.countryName }}</ion-select-option>
                     </ion-select>
 
                     <!-- <ion-input v-if="user" v-model="userNew.country" type="text"
@@ -208,8 +209,7 @@ const saveConfig = async () => {
                     <ion-label position="fixed" class=" ion-text-wrap">
                         {{ $t('account.placeholder.email') }}
                     </ion-label>
-                    <ion-input v-if="user" v-model="userNew.email" type="text"
-                        :placeholder="$t('account.placeholder.add')">
+                    <ion-input v-if="user" v-model="userNew.email" type="text" :placeholder="$t('account.placeholder.add')">
                     </ion-input>
                 </ion-item>
 
@@ -227,8 +227,8 @@ const saveConfig = async () => {
                     <ion-label>{{ $t('account.placeholder.segurity') }}</ion-label>
                 </ion-item-divider>
 
-                <ion-item button @click="$router.replace({
-                  name: 'changePassword'
+                <ion-item button @click="router.replace({
+                    name: 'changePassword'
                 })">
                     <ion-icon slot="start" :icon="settingsSharp"></ion-icon>
                     <ion-label class="textItem">

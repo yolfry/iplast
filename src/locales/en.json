@@ -45,11 +45,13 @@
         "stone": "St"
     },
     "text": {
+        "alarme": "Alarme",
+        "or": "Or",
         "bmi": "BMI",
         "weight": "Weight",
         "back": "Back",
         "RecommendedWeight": "Ideal Weight",
-        "ExcessBMI35": "Excess weight BMI 35",
+        "ExcessBMI35": "Excess weight ",
         "BMIclassification": "BMI Classification",
         "forYourBMI": "Based on your BMI Results",
         "BMIunder16": "Severe Underweight: specialized nutritional medical attention is needed to gain weight to a healthy range. Elective plastic surgery is not recommended. Reconstructive and/or emergency surgeries may be considered due to high risk. Consult your doctor for your options.",

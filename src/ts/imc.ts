@@ -15,7 +15,7 @@ interface altura {
 }
 
 //Functions o methodos
-async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any, IMC: any, sexo: string) {
+async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any, IMC: any, sexo: string, excedenteIMC: number) {
     //Algoridmo de Calcular IMC
 
     //Var Input Operathor
@@ -99,10 +99,10 @@ async function calIMC(peso: peso, altura: altura, typePeso: any, typeAltura: any
     const pesoRecomendado = pesoIdeal + (pesoIdeal * recomendado); //0.40 //0.55
 
 
-    // Peso excedente si IMC >= 35
+    // Peso excedente si IMC >= excedenteIMC = 35
     let pesoExcedente = 0 as number;
-    if (IMC >= 35) {
-        pesoExcedente = (IMC - 35) * alturaM * alturaM;
+    if (IMC >= excedenteIMC) {
+        pesoExcedente = (IMC - excedenteIMC) * alturaM * alturaM;
     }
 
     const app = useAppStore()

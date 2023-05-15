@@ -45,11 +45,13 @@
         "stone": "St"
     },
     "text": {
+        "alarme": "Alarme",
+        "or": "Ou",
         "bmi": "IMC",
         "weight": "Poids",
         "back": "Retour",
         "RecommendedWeight": "Poids idéal",
-        "ExcessBMI35": "Surpoids pour IMC 35",
+        "ExcessBMI35": "Surpoids pour ",
         "BMIclassification": "Classement IMC.",
         "forYourBMI": "Pour votre IMC:",
         "BMIunder16": "Poids insuffisant sévère: il est nécessaire d'avoir une attention médicale nutritionnelle spécialisée pour augmenter le poids jusqu'à la plage appropriée. La chirurgie plastique esthétique n'est pas recommandée de manière élective. Les chirurgies reconstructives et/ou d'urgence peuvent être considérées en raison du risque élevé existant. Consultez votre médecin pour voir vos options.",

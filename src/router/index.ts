@@ -3,8 +3,6 @@ import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '@/views/TabsPage.vue'
 import { useAccountStore } from '@/store/account';
 import { useAppStore } from '@/store/app';
-import { admobBannerShow } from '@/ts/admob';
-import { admobBannerHidden } from '@/ts/admob';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -78,6 +76,14 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: 'alarme',
+        name: 'alarme',
+        component: () => import('@/views/appAlarme.vue'),
+        meta: {
+          requiresAuth: false
+        }
+      },
+      {
         path: 'login',
         name: 'login',
         component: () => import('@/views/login/ypwLogin.vue')
@@ -139,10 +145,6 @@ router.beforeEach(async (to, from, next) => {
     account.userAll = await appStore.getDataApp('userAll')
   }
 
-  //Ads Router
-  if (to.name == 'mycuenta') {
-    admobBannerShow()
-  }
 
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
@@ -157,10 +159,6 @@ router.beforeEach(async (to, from, next) => {
     next()
   }
 
-  //Ads Router
-  if (to.name != 'mycuenta') {
-    admobBannerHidden()
-  }
 
 
 })

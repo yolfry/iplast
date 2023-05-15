@@ -28,23 +28,21 @@ import '@/theme/globalStyle.css'
 
 import { createAdmob } from './plugins/admob/admob';
 
+//Thema Dart
+import { autoChangeTheme } from './ts/dark';
+
+
+
+// const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+// prefersDark.addEventListener('change', (e)=>)
 
 
 const pinia = createPinia()
 
 
-//Stores App
-// import { useAppStore } from './store/app';
-
-
-//Agregar Router a la aplicación pinia, plugin pinia 
-// pinia.use(({ store }) => {
-//   store.$router = markRaw(router)
-// });
-
-
 
 import installI18n from '@/plugins/i18n'
+
 
 
 
@@ -54,12 +52,12 @@ const app = createApp(App)
   .use(pinia)
 
 
-
 router.isReady().then(async () => {
   const i18n = await installI18n()
   app.use(i18n)
   app.mount('#app');
-
   await createAdmob()
+
+  await autoChangeTheme()
 
 });

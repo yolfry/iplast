@@ -38,6 +38,7 @@ import { IonRefresherCustomEvent, RefresherEventDetail } from "@ionic/core";
 
 //Modal Import
 import activeAccountVue from "@/components/modal/activeAccount.vue";
+import { useAppStore } from "@/store/app";
 
 
 
@@ -46,6 +47,7 @@ import activeAccountVue from "@/components/modal/activeAccount.vue";
 const { t } = useI18n();
 const router = useIonRouter()
 const account = useAccountStore();
+const appStore = useAppStore()
 
 
 //Refresh
@@ -203,7 +205,7 @@ ion-input {
   <ion-page>
 
     <ion-header translucent>
-      <ion-toolbar color="primary">
+      <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
 
         <ion-buttons slot="start">
           <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
@@ -212,7 +214,7 @@ ion-input {
       </ion-toolbar>
     </ion-header>
 
-    <ion-content :fullscreen="true" color="tertiary">
+    <ion-content :fullscreen="true">
 
       <!-- <div class="cover-box"></div> -->
 
@@ -226,9 +228,6 @@ ion-input {
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
               <ion-card-header>
-                <!-- <ion-card-title @click="$router.back()">
-                    <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
-                  </ion-card-title> -->
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />

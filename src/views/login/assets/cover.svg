@@ -1,27 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 1242 2208" enable-background="new 0 0 1242 2208" xml:space="preserve">
-<g>
-	<defs>
-		<rect id="SVGID_1_" width="1242" height="2208"/>
+
+<svg
+   version="1.1"
+   id="Capa_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 1242 2208"
+   enable-background="new 0 0 1242 2208"
+   xml:space="preserve"
+   sodipodi:docname="cover.svg"
+   inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs164" /><sodipodi:namedview
+   id="namedview162"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="0.25395638"
+   inkscape:cx="360.2981"
+   inkscape:cy="2882.3848"
+   inkscape:window-width="1920"
+   inkscape:window-height="1080"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="Capa_1" />
+<g
+   id="g159">
+	<defs
+   id="defs133">
+		<rect
+   id="SVGID_1_"
+   width="1242"
+   height="2208" />
 	</defs>
-	<clipPath id="SVGID_2_">
-		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	<clipPath
+   id="SVGID_2_">
+		<use
+   xlink:href="#SVGID_1_"
+   overflow="visible"
+   id="use135" />
 	</clipPath>
-	<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="597.5978" y1="3272.1101" x2="716.1334" y2="1451.9252">
-		<stop  offset="0" style="stop-color:#272D34"/>
-		<stop  offset="0.1747" style="stop-color:#262E36"/>
-		<stop  offset="0.2722" style="stop-color:#24323E"/>
-		<stop  offset="0.3508" style="stop-color:#1F394C"/>
-		<stop  offset="0.4191" style="stop-color:#194460"/>
-		<stop  offset="0.4809" style="stop-color:#105179"/>
-		<stop  offset="0.5371" style="stop-color:#066098"/>
-		<stop  offset="0.5659" style="stop-color:#006AAB"/>
-		<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.4"/>
+	<linearGradient
+   id="SVGID_3_"
+   gradientUnits="userSpaceOnUse"
+   x1="-116.5886"
+   y1="3499.7188"
+   x2="708.81824"
+   y2="1552.3374">
+		<stop
+   offset="0"
+   style="stop-color:#272D34"
+   id="stop138" />
+		<stop
+   offset="0.1747"
+   style="stop-color:#262E36"
+   id="stop140" />
+		<stop
+   offset="0.2722"
+   style="stop-color:#24323E"
+   id="stop142" />
+		<stop
+   offset="0.3508"
+   style="stop-color:#1F394C"
+   id="stop144" />
+		<stop
+   offset="0.4191"
+   style="stop-color:#194460"
+   id="stop146" />
+		<stop
+   offset="0.58540338"
+   style="stop-color:#105179"
+   id="stop148" />
+		<stop
+   offset="0.66331065"
+   style="stop-color:#d40000;stop-opacity:1"
+   id="stop150" />
+		<stop
+   offset="0.8529222"
+   style="stop-color:#d38d5f;stop-opacity:1"
+   id="stop152" />
+		<stop
+   offset="1"
+   style="stop-color:#ffaaaa;stop-opacity:1"
+   id="stop154" />
 	</linearGradient>
-	<path clip-path="url(#SVGID_2_)" fill="url(#SVGID_3_)" d="M-354.5,1930.5c29.9-294.9,542.2-566.2,908-458
-		c178.8,52.9,193,158.2,327,160c319.3,4.3,445.9-591.1,635-563c171.7,25.5,343.3,557.4,131,890c-51.8,81.1-127.8,152.7-291,236
-		c-534.4,272.9-1378,352.9-1641-33C-305.7,2132.9-365.8,2042.1-354.5,1930.5z"/>
+	<path
+   clip-path="url(#SVGID_2_)"
+   fill="url(#SVGID_3_)"
+   d="M-354.5,1930.5c29.9-294.9,542.2-566.2,908-458   c178.8,52.9,193,158.2,327,160c319.3,4.3,445.9-591.1,635-563c171.7,25.5,343.3,557.4,131,890c-51.8,81.1-127.8,152.7-291,236   c-534.4,272.9-1378,352.9-1641-33C-305.7,2132.9-365.8,2042.1-354.5,1930.5z"
+   id="path157"
+   style="fill:url(#SVGID_3_);fill-opacity:1" />
 </g>
 </svg>

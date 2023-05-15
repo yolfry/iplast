@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 
+import { useAppStore } from '@/store/app';
 import {
     IonContent,
     IonHeader,
@@ -16,7 +17,9 @@ import {
 } from '@ionic/vue';
 
 import { useI18n } from "vue-i18n";
-const { locale } = useI18n();
+const { locale } = useI18n()
+
+const appStore = useAppStore()
 
 
 
@@ -33,7 +36,7 @@ const confirm = async () => {
 
 <template>
     <ion-header :translucent="true">
-        <ion-toolbar color="primary">
+        <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
             <ion-buttons slot="start">
                 <ion-button color="medium" @click="cancel">{{ $t('account.cancel') }}</ion-button>
             </ion-buttons>

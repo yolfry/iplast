@@ -19,8 +19,8 @@ interface ialtura {
 export const useAppStore = defineStore('appStore', {
     state: () => {
         return {
-            version: '1.9.3',
-            versionIos: '2.2.1',
+            version: '2.4.0',
+            versionIos: '2.4.0',
             calculator: {
                 colorIMC: '#357FB7',
                 peso: <ipeso>{
@@ -42,19 +42,24 @@ export const useAppStore = defineStore('appStore', {
                 SexoPeople: 'woman',
                 pesoIdeal: 0,
                 pesoRecomendado: 0,
-                pesoExcedente: 0
+                pesoExcedente: 0,
+                excedenteIMC: 35,
+                listIMC: [16, 17, 18.5, 25, 30, 35, 40]
             },
             emailApp: "info@iplast.com",
             appName: "Iplast",
             start: false,
-            ads: false
+            ads: false,
+            isDark: false,
+            isDarkSystem: false,
+            isBannerPublic: false
         }
     },
     actions: {
 
         async calcularIMC() {
             //Modulo Calculador
-            const resCal = await calIMC(this.calculator.peso, this.calculator.altura, this.calculator.typePeso, this.calculator.typeAltura, this.calculator.IMC, this.calculator.SexoPeople)
+            const resCal = await calIMC(this.calculator.peso, this.calculator.altura, this.calculator.typePeso, this.calculator.typeAltura, this.calculator.IMC, this.calculator.SexoPeople, this.calculator.excedenteIMC)
             this.calculator.IMC = resCal.IMC;
             this.calculator.peso.kg = resCal.pesoKg;
             this.calculator.altura.m = resCal.alturaM;

@@ -1,10 +1,15 @@
-.cover-box {
-  position: fixed;
-  top: -30%;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-image: url("@/views/login/assets/cover.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
+body.dark .gradient-primary {
+  --ion-background-color: linear-gradient(
+    90deg,
+    rgba(0, 22, 36, 0.9920343137254902) 0%,
+    rgba(9, 56, 121, 1) 20%,
+    rgba(0, 185, 255, 1) 100%
+  );
+}
+
+.y-translucent {
+  background-color: #ffffff30;
+  box-shadow: 0 10px 15px rgb(0 0 0 / 20%);
+  backdrop-filter: blur(33px);
+  background-blend-mode: overlay;
 }

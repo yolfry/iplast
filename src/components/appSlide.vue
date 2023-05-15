@@ -10,7 +10,6 @@ import "swiper/css/effect-cube";
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { closeCircle } from 'ionicons/icons';
-import { onMounted } from 'vue';
 
 
 const { locale } = useI18n()
@@ -51,7 +50,7 @@ const play = () => {
     shadowScale: 0.94,
 }">
                 <swiper-slide class="swiper-slide-content-1">
-                    <IonText color="tertiary" class=" ion-padding">
+                    <IonText class=" ion-padding">
                         <template v-if="locale == 'es'">
                             <div class="_logoSlide"><img style="width:25%;" class="logoSlide"
                                     src="@/assets/iconIplast.png" /></div>
@@ -81,21 +80,21 @@ const play = () => {
                     <ion-row>
                         <ion-col size="12">
                             <template v-if="locale == 'es'">
-                                <IonText color="tertiary" class=" ion-padding">
+                                <IonText class=" ion-padding">
                                     <h1>Usar Iplast es fácil</h1>
                                     <p>Solo agregas tu edad, estatura y peso</p>
                                 </IonText>
                             </template>
 
                             <template v-if="locale == 'en'">
-                                <IonText color="tertiary" class=" ion-padding">
+                                <IonText class=" ion-padding">
                                     <h1>Using Iplast is easy</h1>
                                     <p>Just add your age, height and weight</p>
                                 </IonText>
                             </template>
 
                             <template v-if="locale == 'fr'">
-                                <IonText color="tertiary" class=" ion-padding">
+                                <IonText class=" ion-padding">
                                     <h1>Utiliser Iplast est facile</h1>
                                     <p>Vous ajoutez simplement votre âge, votre taille et votre poids</p>
                                 </IonText>
@@ -122,7 +121,8 @@ const play = () => {
                                 name="logo" autoplay="true" preload="auto" loop :controls="false" muted></video>
                         </ion-col>
                         <ion-col size="12">
-                            <IonButton @click="close()" fill="outline" mode="ios"> {{ $t('text.ok') }} </IonButton>
+                            <IonButton @click="close()" fill="outline" mode="ios" size="large"> {{ $t('text.ok') }}
+                            </IonButton>
                         </ion-col>
                     </ion-row>
 
@@ -134,6 +134,10 @@ const play = () => {
 
 
 <style scoped>
+ion-text {
+    --ion-color: var(--ion-color-slide);
+}
+
 .closeSlide {
     color: rgb(145, 166, 202);
     position: absolute;

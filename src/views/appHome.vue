@@ -42,7 +42,7 @@ onMounted(async () => {
 <template>
   <ion-page :isInOutlet="true">
     <ion-header translucent>
-      <ion-toolbar color="primary">
+      <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
 
         <ion-avatar size=" smol" class=" ion-margin-start ion-justify-content-center" slot="start">
           <img src="@/assets/logoApp.png">
@@ -55,7 +55,7 @@ onMounted(async () => {
 
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true" color="tertiary">
+    <ion-content :fullscreen="true">
 
       <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Iplast</string>
+    <string name="title_activity_main">Iplast</string>
+    <string name="package_name">con.iplast.app</string>
+    <string name="custom_url_scheme">con.iplast.app</string>
+    <string name="admob_app_id">ca-app-pub-3777306841672305~1857793377</string>
+    <string name="facebook_app_id">935267257712945</string>
+    <string name="facebook_client_token">8101e180ebf717506874c86dbc4478a6</string>
+    <string name="server_client_id">569850281847-oegqmae7f302knrurcera5avfjsdmgv3.apps.googleusercontent.com</string>
+</resources>

@@ -24,7 +24,7 @@ const admobBannerShow = async () => {
   };
 
   try {
-    const res = await AdMob.showBanner(options);
+    await AdMob.showBanner(options);
   } catch (error) {
     console.log(error)
   }
@@ -33,8 +33,8 @@ const admobBannerShow = async () => {
 }
 
 const admobBannerHidden = async () => {
-  AdMob.hideBanner()
-  AdMob.removeBanner()
+  await AdMob.hideBanner()
+  await AdMob.removeBanner()
 }
 
 

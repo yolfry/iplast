@@ -27,14 +27,15 @@ import { alertController, loadingController } from "@ionic/vue";
 import { useI18n } from "vue-i18n";
 import openAlert from "@/ts/openAlert";
 
-
 //Logica
 import { useAccountStore } from "@/store/account";
 import regExps from "@/ts/RegExps";
-
+import { useAppStore } from "@/store/app";
+import appSocialLogin from '@/components/appSocialLogin.vue'
 
 const ionRouter = useIonRouter();
 const account = useAccountStore();
+const appStore = useAppStore()
 
 const user = computed(() => {
   return account.user;
@@ -139,7 +140,7 @@ onMounted(() => {
   <ion-page>
 
     <ion-header translucent>
-      <ion-toolbar color="primary">
+      <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
 
         <ion-buttons slot="start">
           <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
@@ -209,6 +210,15 @@ onMounted(() => {
                       </ion-text>
                     </div>
                   </ion-col>
+
+                  <ion-col size="12" class=" ion-text-center">
+                    <ion-text>
+                      <h3>{{ $t('text.or') }}</h3>
+                    </ion-text>
+                  </ion-col>
+                  <ion-col>
+                    <appSocialLogin></appSocialLogin>
+                  </ion-col>
                 </ion-row>
               </ion-card-content>
             </ion-card>
@@ -222,7 +232,7 @@ onMounted(() => {
 
 <style scoped>
 ion-grid {
-  margin-top: 20%;
+  margin-top: 7%;
 }
 
 ion-input {

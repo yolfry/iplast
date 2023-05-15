@@ -6,7 +6,6 @@ import iUser from "@/interfaces/iUser";
 
 
 
-
 export const useAccountStore = defineStore('accountStore', {
     state: () => {
         return {
@@ -42,6 +41,94 @@ export const useAccountStore = defineStore('accountStore', {
                 const config = {
                     method: 'post',
                     url: `${this.urlApi}account/login`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data
+                };
+
+                const response = await axios(config)
+
+                if (response.status === 200 || response.status === 201) {
+                    //Agregar Datos de Login
+                    this.user.appConnect = data.appConnect
+                    this.user.keyUser = response.data.res.keyUser
+
+                    //App Store 
+                    const appStore = useAppStore()
+
+                    //Eliminar la contrase-na
+                    this.user.password = undefined
+                    //Guardar datos del usuario en local
+                    await appStore.saveDataApp('user', this.user)
+                    await this.getUserData()
+                }
+
+                //Login sin Problema True
+                return response
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+
+
+        },
+        async googleLogin(access_token: string): Promise<AxiosResponse | undefined> {
+            try {
+                //Login Api
+                const data = {
+                    access_token: access_token,
+                    appConnect: this.appConnect
+                };
+
+                const config = {
+                    method: 'post',
+                    url: `${this.urlApi}account/login/google`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data
+                };
+
+                const response = await axios(config)
+
+                if (response.status === 200 || response.status === 201) {
+                    //Agregar Datos de Login
+                    this.user.appConnect = data.appConnect
+                    this.user.keyUser = response.data.res.keyUser
+
+                    //App Store 
+                    const appStore = useAppStore()
+
+                    //Eliminar la contrase-na
+                    this.user.password = undefined
+                    //Guardar datos del usuario en local
+                    await appStore.saveDataApp('user', this.user)
+                    await this.getUserData()
+                }
+
+                //Login sin Problema True
+                return response
+
+            } catch (error: any) {
+                console.log(error)
+                return error.response || error //Axios Error
+            }
+
+
+        },
+        async facebookLogin(token: string): Promise<AxiosResponse | undefined> {
+            try {
+                //Login Api
+                const data = {
+                    token: token,
+                    appConnect: this.appConnect
+                };
+
+                const config = {
+                    method: 'post',
+                    url: `${this.urlApi}account/login/facebook`,
                     headers: {
                         'Content-Type': 'application/json'
                     },

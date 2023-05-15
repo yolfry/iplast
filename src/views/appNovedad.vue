@@ -1,29 +1,4 @@
-<template>
-  <ion-page>
-    <ion-header translucent>
-      <ion-toolbar color="primary">
-        <!-- <ion-avatar class=" ion-margin-start" slot="start">
-          <img src="@/assets/logoApp.png">
-        </ion-avatar> -->
-        <ion-title>{{ $t('titles.news') }}</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true" color="tertiary">
-      <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
 
-      <!-- <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">{{ $t('titles.news') }}</ion-title>
-        </ion-toolbar>
-      </ion-header> -->
-
-
-      <app-post-vue></app-post-vue>
-    </ion-content>
-  </ion-page>
-</template>
 
 <script lang="ts" setup>
 import appPostVue from "@/components/appPost.vue";
@@ -38,6 +13,9 @@ import { useWordpressStore } from "@/store/wordpress";
 import { useI18n } from "vue-i18n";
 import { onActivated, onMounted } from "vue";
 import { showRewardVideo } from "@/ts/admob.js";
+import { useAppStore } from "@/store/app";
+
+const appStore = useAppStore()
 const wordpressStore = useWordpressStore();
 const i18n = useI18n();
 
@@ -58,4 +36,24 @@ onActivated(async () => {
 
 </script>
 
+
+<template>
+  <ion-page>
+    <ion-header translucent>
+      <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
+        <!-- < ion - avatar class=" ion-margin-start" slot="start">
+        <img src="@/assets/logoApp.png">
+        </ion-avatar> -->
+        <ion-title>{{ $t('titles.news') }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content :fullscreen="true">
+      <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
+      <app-post-vue></app-post-vue>
+    </ion-content>
+  </ion-page>
+</template>
 

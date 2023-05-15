@@ -29,7 +29,9 @@ import { useI18n } from "vue-i18n";
 import { alertController, loadingController } from "@ionic/vue";
 import openAlert from "@/ts/openAlert";
 import regExps from "@/ts/RegExps";
+import { useAppStore } from "@/store/app";
 
+const appStore = useAppStore()
 const account = useAccountStore();
 const router = useIonRouter();
 const dataSize = ref()
@@ -170,7 +172,7 @@ account.getUserData()
 <template>
     <ion-page>
         <ion-header translucent>
-            <ion-toolbar color="primary">
+            <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
                 <ion-buttons slot="start">
                     <ion-back-button defaultHref="/"></ion-back-button>
                 </ion-buttons>
@@ -198,11 +200,11 @@ account.getUserData()
                         <ion-item color="tertiary">
                             <ion-icon slot="start" :icon="serverOutline" color="primary"></ion-icon>
                             <ion-label class="textItem">
-                                {{Math.round(dataSize)}} {{ (isMB==true)? ` MB`: `KB` }}
+                                {{ Math.round(dataSize) }} {{ (isMB == true) ? ` MB` : `KB` }}
                             </ion-label>
                         </ion-item>
 
-                        <ion-item button @click="isDeleteAccount=!isDeleteAccount" color="danger">
+                        <ion-item button @click="isDeleteAccount = !isDeleteAccount" color="danger">
                             <ion-icon slot="start" :icon="trash"></ion-icon>
                             <ion-label class="textItem">
                                 {{ $t('user.deleteAccount') }}
@@ -211,12 +213,12 @@ account.getUserData()
                         <ion-item-divider v-show="isDeleteAccount"></ion-item-divider>
 
                         <ion-item color="tertiary" v-show="isDeleteAccount">
-                            <ion-label position="fixed" class=" ion-text-wrap">{{$t('account.placeholder.password')}}
+                            <ion-label position="fixed" class=" ion-text-wrap">{{ $t('account.placeholder.password') }}
                             </ion-label>
                             <ion-input v-model="account.user.password" type="password"
                                 :placeholder="$t('account.placeholder.password')"></ion-input>
                             <ion-button @click="deleteAccount()" color="danger">
-                                {{$t('user.delete')}}
+                                {{ $t('user.delete') }}
                             </ion-button>
                         </ion-item>
 

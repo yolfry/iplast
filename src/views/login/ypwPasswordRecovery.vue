@@ -36,10 +36,12 @@ import { useI18n } from "vue-i18n";
 import { alertController, loadingController } from "@ionic/vue";
 import { ref } from "vue";
 import regExps from "@/ts/RegExps";
+import { useAppStore } from "@/store/app";
 
 const { t } = useI18n();
 
 const account = useAccountStore();
+const appStore = useAppStore();
 
 const setCode = ref(false)
 const setCodeNew = ref(false)
@@ -137,7 +139,7 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
   <ion-page>
 
     <ion-header translucent>
-      <ion-toolbar color="primary">
+      <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
 
         <ion-buttons slot="start">
           <ion-back-button :text="$t('text.back')" defaultHref="/"></ion-back-button>
@@ -155,18 +157,13 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <div class="cover"></div>
 
       <ion-grid class="ion-margin-top">
 
-        <!--animate__animated animate__zoomIn ion-justify-content-center-->
         <ion-row>
           <ion-col size-lg="6" size-sm="12">
             <ion-card>
               <ion-card-header>
-                <!-- <ion-card-title @click="$router.back()">
-                    <ion-icon :icon="chevronBackOutline"></ion-icon> {{ $t('text.back') }}
-                  </ion-card-title> -->
                 <ion-row class="ion-justify-content-center ion-text-center">
                   <ion-avatar>
                     <img src="@/assets/logoApp.png" />
@@ -222,17 +219,6 @@ const setCodeRecoveryEmail = async (): Promise<any> => {
 
 
 <style scoped>
-.cover {
-  position: fixed;
-  top: -30%;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-image: url("@/views/login/assets/cover.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .codeText {
   font-size: 30px;
   border: 1px solid rgb(166, 166, 166);

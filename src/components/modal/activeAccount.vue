@@ -25,12 +25,14 @@ import { useAccountStore } from '@/store/account';
 import { useI18n } from "vue-i18n";
 import openAlert from "@/ts/openAlert";
 import regExps from "@/ts/RegExps";
+import { useAppStore } from '@/store/app';
 const { t } = useI18n();
 
 
 
 
 const account = useAccountStore()
+const appStore = useAppStore()
 
 
 const cancel = async () => {
@@ -124,7 +126,7 @@ const confirm = async () => {
 
 <template>
     <ion-header :translucent="true">
-        <ion-toolbar color="primary">
+        <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
             <ion-buttons slot="start">
                 <ion-button color="medium" @click="cancel">{{ $t('account.cancel') }}</ion-button>
             </ion-buttons>
