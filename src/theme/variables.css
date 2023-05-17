@@ -84,6 +84,9 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --ion-icon-background-color: rgb(13, 42, 82);
+  --ion-time-background-color: rgb(21, 84, 113);
 }
 
 /*
@@ -155,6 +158,9 @@ body.dark {
   --ion-color-light-shade: #1e2023;
   --ion-color-light-tint: #383a3e;
   --ion-color-login-card: rgba(0, 0, 0, 0.893);
+
+  --ion-icon-background-color: rgb(13, 42, 82);
+  --ion-time-background-color: rgb(6, 53, 115);
 }
 
 /*

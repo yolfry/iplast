@@ -45,7 +45,18 @@
         "stone": "St"
     },
     "text": {
+        "addAlarm": "Add alarm",
+        "hour": "Hour",
+        "repeatAlarm": "Repeat alarm",
+        "alarmeCategory": {
+            "medicine": "Medicine",
+            "reminder": "Reminder",
+            "cita": "Appointment"
+        },
+        "specific": "Add Alarm for a Specific Day and Time",
+        "frequency": "Add Alarm by Time Period",
         "alarme": "Alarme",
+        "alarmeName": "Alarm name",
         "or": "Or",
         "bmi": "BMI",
         "weight": "Weight",

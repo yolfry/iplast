@@ -28,6 +28,9 @@ const config: CapacitorConfig = {
             clientId: '569850281847-7ibc3mppdklt0dia1hpksojt6bae17k5.apps.googleusercontent.com',
             iosClientId: '569850281847-6fsj7vkjohgl9kpcqbqa8mvuam5fsm9j.apps.googleusercontent.com'
         },
+        LocalNotifications: {
+            "iconColor": "#488AFF",
+        }
     },
     server: { "allowNavigation": ["https://manuelbelen.com/dev/wp-json/wp/v2/posts"] }
 };
