@@ -27,7 +27,6 @@ export const useWordpressStore = defineStore('wordpressStore', {
                 const res = await axios.get(
                     `https://iplastdr.com/${langueje}/wp-json/wp/v2/posts?_embed`
                 );
-                console.log(res.status);
                 this.posts = await res.data;
 
                 appStore.saveDataApp('posts', res.data)

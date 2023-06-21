@@ -45,6 +45,40 @@
         "stone": "St"
     },
     "text": {
+        "delete": {
+            "yes": "Yes",
+            "no": "No",
+            "delete": "Delete",
+            "message": "Are you sure you want to delete?"
+        },
+        "frequencyC": "Every: ",
+        "cada": {
+            "year": "Year",
+            "month": "Month",
+            "two-weeks": "Two-weeks",
+            "week": "Week",
+            "day": "Day",
+            "hour": "Hour",
+            "minute": "Minute",
+            "second": "Second"
+        },
+        "weekday": {
+            "Sunday": "Sunday",
+            "Monday": "Monday",
+            "Tuesday": "Tuesday",
+            "Wednesday": "Wednesday",
+            "Thursday": "Thursday",
+            "Friday": "Friday",
+            "Saturday": "Saturday"
+        },
+        "filterType": {
+            "month": "Filter by Month",
+            "day": "Filter by Day"
+        },
+        "sigGoogle": "Sign in with Google",
+        "sigFacebook": "Sign in with Facebook",
+        "color": "Alarm color",
+        "noAlarmes": "You don't have any alarms added. Add an alarm.",
         "addAlarm": "Add alarm",
         "hour": "Hour",
         "repeatAlarm": "Repeat alarm",
@@ -55,7 +89,7 @@
         },
         "specific": "Add Alarm for a Specific Day and Time",
         "frequency": "Add Alarm by Time Period",
-        "alarme": "Alarme",
+        "alarme": "Agenda",
         "alarmeName": "Alarm name",
         "or": "Or",
         "bmi": "BMI",

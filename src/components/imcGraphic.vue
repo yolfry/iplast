@@ -204,7 +204,7 @@ defineProps({
 
 .st13 {
     fill: none;
-    stroke: #101010;
+    stroke: var(--ion-color-dark);
     stroke-width: 9;
     stroke-linecap: round;
     stroke-linejoin: round;

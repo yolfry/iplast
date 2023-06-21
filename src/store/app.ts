@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { Preferences } from '@capacitor/preferences';
 // import { useI18n } from 'vue-i18n'
 import { calIMC } from '@/ts/imc'
+import { PickerColumn, PickerColumnOption } from '@ionic/core';
 
 interface ipeso {
     kg: any;
@@ -19,8 +20,8 @@ interface ialtura {
 export const useAppStore = defineStore('appStore', {
     state: () => {
         return {
-            version: '2.4.0',
-            versionIos: '2.4.0',
+            version: '2.5.5',
+            versionIos: '2.5.5',
             calculator: {
                 colorIMC: '#357FB7',
                 peso: <ipeso>{
@@ -44,7 +45,11 @@ export const useAppStore = defineStore('appStore', {
                 pesoRecomendado: 0,
                 pesoExcedente: 0,
                 excedenteIMC: 35,
-                listIMC: [16, 17, 18.5, 25, 30, 35, 40]
+                listIMC: [{
+                    name: 'listIMC',
+                    options: [
+                    ] as PickerColumnOption[]
+                }] as PickerColumn[]
             },
             emailApp: "info@iplast.com",
             appName: "Iplast",

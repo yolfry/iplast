@@ -55,8 +55,7 @@ watch(typeAltura, () => {
             </ion-text>
           </ion-col>
           <ion-col size="8">
-            <ion-select interface="popover" v-model="appStore.calculator.SexoPeople" class=" ion-text-center"
-              :placeholder="$t('placeholder.sex')">
+            <ion-select interface="popover" v-model="appStore.calculator.SexoPeople">
               <ion-select-option value="woman">
                 {{ $t('select.feminine') }}
               </ion-select-option>
@@ -179,7 +178,7 @@ watch(typeAltura, () => {
 
           </ion-col>
           <ion-col size="4">
-            <ion-select interface="popover" v-model="appStore.calculator.typePeso" class=" ion-text-center">
+            <ion-select interface="popover" v-model="appStore.calculator.typePeso" class=" ion-text-center ">
               <ion-select-option value="KG">
                 <!-- Centímetros -->
                 {{ $t('select.kilograms') }}
@@ -212,34 +211,30 @@ watch(typeAltura, () => {
 
 <style scoped>
 ion-select {
-  font-size: 20px;
+  font-size: 1.4rem;
   color: rgb(255, 255, 255);
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 200px;
 
+
+  border-radius: 1.5rem;
+
+  padding: 0.3rem;
   background: #347fb6;
   background: linear-gradient(90deg, #347fb6 0%, #2f6095 37%, #204368 100%);
+
 }
 
-ion-select .select-icon-inner {
-  left: -15px;
-  top: 50%;
-  margin-top: -5px;
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  border-top: 10px solid;
-  border-right: 10px solid transparent;
-  border-left: 10px solid transparent;
-  color: currentcolor;
-  pointer-events: none;
+ion-select::part(icon) {
+  color: #ffffff;
+  opacity: 1;
 }
 
-.select-icon {
-  width: 40px;
-  height: 40px;
-  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, -webkit-transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+
+ion-select::part(text) {
+  text-align: center;
+  margin: auto;
+  color: rgb(255, 255, 255);
 }
+
 
 ion-input {
   font-size: 21px;

@@ -1,10 +1,25 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+body:is(.isCamera) {
+  --ion-background-color: #ffffff00;
+  --ion-background-color-rgb: 0, 0, 0;
+}
+
+.ios body:is(.isCamera) {
+  --ion-background-color: #ffffff00;
+  --ion-background-color-rgb: 0, 0, 0;
+}
+
+.md body:is(.isCamera) {
+  --ion-background-color: #ffffff00;
+  --ion-background-color-rgb: 0, 0, 0;
+}
+
 /** Ionic CSS Variables **/
 :root {
   --ion-background-color: #f8f8f8;
-  --ion-background-color-rgb: 0, 0, 0;
+  --ion-background-color-rgb: rgba(255, 255, 255, 0.431);
 
   --ion-item-background: #fdfdfd;
   --ion-card-background: #fcfcfc;
@@ -94,6 +109,11 @@ http://ionicframework.com/docs/theming/ */
    * -------------------------------------------
    */
 
+body.dark:is(.isCamera) {
+  --ion-background-color: #00000000;
+  --ion-background-color-rgb: 0, 0, 0;
+}
+
 body.dark {
   --ion-color-primary: #50c8ff;
   --ion-color-primary-rgb: 66, 140, 255;
@@ -168,6 +188,11 @@ body.dark {
    * -------------------------------------------
    */
 
+.ios body.dark:is(.isCamera) {
+  --ion-background-color: #00000000;
+  --ion-background-color-rgb: 0, 0, 0;
+}
+
 .ios body.dark {
   --ion-background-color: #000000;
   --ion-background-color-rgb: 0, 0, 0;
@@ -209,6 +234,11 @@ body.dark {
    * Material Design Dark Theme
    * -------------------------------------------
    */
+
+.md body.dark:is(.isCamera) {
+  --ion-background-color: #00000000;
+  --ion-background-color-rgb: 0, 0, 0;
+}
 
 .md body.dark {
   --ion-background-color: #121212;

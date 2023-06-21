@@ -1,19 +1,21 @@
 <script lang="ts" setup>
-import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonIcon, IonLabel, IonItem, IonSelect, IonSelectOption } from '@ionic/vue';
+import { IonImg, IonRow, IonGrid, IonCol, IonText, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonIcon, IonLabel, IonItem, IonSelect, IonSelectOption, IonPicker, IonButton } from '@ionic/vue';
 import { ref, onMounted, watch, computed } from 'vue';
 import 'animate.css'
 import imcGraphic from '@/components/imcGraphic.vue'
-import { linkOutline, list } from 'ionicons/icons';
+import { linkOutline, list, chevronExpandOutline, chevronUpOutline, chevronDownOutline } from 'ionicons/icons';
 import { useAppStore } from '@/store/app';
 import { useI18n } from 'vue-i18n';
 import { converte } from '@/ts/imc';
 import { useIonRouter } from '@ionic/vue';
+
 
 const router = useIonRouter()
 
 const round = (value: number) => {
     return Math.round(value);
 }
+
 
 
 // Use i18n
@@ -179,8 +181,15 @@ watch(appStore.calculator, () => {
 //Cuando se crea el componente
 onMounted(() => {
     initGraphic()
-})
 
+    for (let i = 24; i <= 40; i++) {
+        appStore.calculator.listIMC[0].options.push({
+            text: `${i}`,
+            value: `${i}`
+        })
+    }
+
+})
 
 
 </script>
@@ -189,6 +198,7 @@ onMounted(() => {
     <ion-grid class="fitnessGraphic">
         <ion-row class="ion-justify-content-center">
             <ion-col size-sm="7" size="12">
+
                 <ion-card
                     :style="`background: var(--ion-item-background); background: linear-gradient(255deg, var(--ion-item-background) 75%, ${colorIMC} 100%);`"
                     mode="ios" button>
@@ -235,14 +245,39 @@ onMounted(() => {
 
 
                                     <ion-col>
-                                        <ion-text class=" ion-text-center">
+                                        <ion-text class=" ion-text-center ion-align-items-center">
                                             <h3>{{ $t('text.ExcessBMI35') }}</h3>
-                                            <ion-select :value="appStore.calculator.excedenteIMC"
+
+                                            <!-- <ion-select :value="appStore.calculator.excedenteIMC"
                                                 @ion-change="(e) => { appStore.calculator.excedenteIMC = e.target.value }"
-                                                interface="action-sheet">
+                                                interface="popover">
                                                 <ion-select-option v-for="imc in appStore.calculator.listIMC" :key="imc"
                                                     :value="imc">{{ $t('text.bmi') + ` ` + imc }}</ion-select-option>
-                                            </ion-select>
+                                            </ion-select> -->
+
+
+                                            <div>
+                                                <a
+                                                    @click="(appStore.calculator.excedenteIMC < 40) ? appStore.calculator.excedenteIMC++ : null"><ion-icon
+                                                        size="large" :icon="chevronUpOutline" /></a>
+                                            </div>
+                                            <div> <a id="open-picker">{{
+                                                appStore.calculator.excedenteIMC
+                                            }}</a></div>
+                                            <div>
+                                                <ion-icon size="large"
+                                                    @click="(appStore.calculator.excedenteIMC > 24) ? appStore.calculator.excedenteIMC-- : null"
+                                                    :icon="chevronDownOutline" />
+                                            </div>
+
+                                            <ion-picker :backdrop-dismiss="false" :buttons="[{
+                                                text: $t('text.ok'),
+                                                handler: (value) => {
+                                                    appStore.calculator.excedenteIMC = value.listIMC.value
+                                                },
+                                            }]" trigger="open-picker"
+                                                :columns="appStore.calculator.listIMC"></ion-picker>
+
                                         </ion-text>
 
                                         <!--<ion-text class=" ion-text-center" v-show="imc >= appStore.calculator.excedenteIMC && Math.round(peso.kg - pesoRecomendado) > 0"> -->
@@ -359,6 +394,7 @@ onMounted(() => {
     </ion-grid>
 </template>
 
+
 <style scoped>
 ion-card {
     border-radius: 20px;
@@ -397,5 +433,10 @@ ion-img {
     100% {
         background-position: 10% 0%;
     }
+}
+
+ion-picker {
+    --width: 70%;
+    --border-radius: 10px;
 }
 </style>

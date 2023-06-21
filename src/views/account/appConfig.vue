@@ -6,7 +6,7 @@ import {
 import openAlert from '@/ts/openAlert';
 import { alertController, loadingController, useIonRouter } from '@ionic/vue';
 import { useI18n } from 'vue-i18n';
-import { createOutline, settingsSharp, linkOutline } from 'ionicons/icons';
+import { createOutline, settingsSharp, linkOutline, server } from 'ionicons/icons';
 import { computed, onMounted, ref } from 'vue';
 import { useAccountStore } from '@/store/account';
 import RegExps from '@/ts/RegExps';
@@ -235,6 +235,15 @@ const saveConfig = async () => {
                         {{ $t('account.placeholder.password') }}
                     </ion-label>
 
+                </ion-item>
+
+                <ion-item button @click="router.push({
+                    name: 'accountdata'
+                })">
+                    <ion-icon slot="start" :icon="server"></ion-icon>
+                    <ion-label class="textItem">
+                        {{ $t('user.accountData') }}
+                    </ion-label>
                 </ion-item>
 
                 <ion-item-divider>

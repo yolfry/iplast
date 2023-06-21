@@ -16,28 +16,23 @@ import {
   IonRefresherContent,
   useIonRouter,
   isPlatform,
-  IonToggle,
   IonCard,
-  IonCardHeader
+  IonCardContent
 } from "@ionic/vue";
-import { peopleCircle, exitSharp, settingsSharp, sparklesSharp, informationCircle, server, link, logIn, sunny, moon, alarm } from "ionicons/icons";
+import { peopleCircle, exitSharp, settingsSharp, sparklesSharp, informationCircle, link, logIn, alarm, calendarOutline } from "ionicons/icons";
 
-import { computed, onBeforeUpdate } from "vue";
+import { computed } from "vue";
 import { useAccountStore } from "@/store/account";
 import { useI18n } from "vue-i18n";
 import { alertController } from "@ionic/vue";
 import { useAppStore } from "@/store/app";
-import { changeTheme } from "@/ts/dark";
+// import { changeTheme } from "@/ts/dark";
 
 
 const account = useAccountStore();
 const appStore = useAppStore()
 const router = useIonRouter();
 
-
-onBeforeUpdate(() => {
-  console.log('Update')
-})
 
 const doRefresh = async (e: any) => {
   await account.getUserData();
@@ -117,76 +112,6 @@ account.getUserData()
       </ion-row>
 
 
-      <ion-row>
-        <ion-col size="6">
-
-          <ion-card mode="ios" @click="router.push({
-            name: 'config'
-          })" button class="y-translucent">
-            <ion-card-header>
-              <ion-icon color="dark" size="large" :icon="settingsSharp"></ion-icon>
-              <ion-text color="dark">
-                <h6>{{ $t('user.config')
-                }}</h6>
-              </ion-text>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size="6">
-          <ion-card mode="ios" @click="router.push({
-              name: 'accountdata'
-            })" button class="y-translucent">
-            <ion-card-header>
-              <ion-icon color="dark" size="large" :icon="server"></ion-icon>
-              <ion-text color="dark">
-                <h6>{{ $t('user.accountData')
-                }}</h6>
-              </ion-text>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size="6">
-          <ion-card mode="ios" @click="router.push({
-              name: 'alarme'
-            })" button class="y-translucent">
-            <ion-card-header>
-              <ion-icon color="dark" size="large" :icon="alarm"></ion-icon>
-              <ion-text color="dark">
-                <h6>{{ $t('text.alarme') }}</h6>
-              </ion-text>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size="6">
-          <ion-card mode="ios" @click="router.push({
-            name: 'references'
-          })" button class="y-translucent">
-            <ion-card-header>
-              <ion-icon color="dark" size="large" :icon="link"></ion-icon>
-              <ion-text color="dark">
-                <h6>{{ $t('text.references')
-                }}</h6>
-              </ion-text>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-
-
-        <ion-col mode="ios" size="6">
-          <ion-card button class="y-translucent" @click="changeTheme(!appStore.isDark, true)">
-            <ion-card-header class=" ion-text-center">
-              <ion-icon size="large" :icon="appStore.isDark ? moon : sunny"
-                style="color: var(--ion-color-dark);"></ion-icon>
-              <ion-toggle class=" ion-padding-start" color="tertiary" :checked="appStore.isDark"></ion-toggle>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-
-
       <!--Items Opcion Menu-->
 
       <ion-item button @click="router.push({
@@ -211,7 +136,23 @@ account.getUserData()
         </ion-label>
       </ion-item>
 
+      <ion-item button @click="router.push({
+        name: 'references'
+      })" color="secondary">
+        <ion-icon slot="start" :icon="link"></ion-icon>
+        <ion-label class="textItem">
+          {{ $t('text.references') }}
+        </ion-label>
+      </ion-item>
 
+      <ion-item button @click="router.push({
+        name: 'config'
+      })" color="secondary">
+        <ion-icon slot="start" :icon="settingsSharp"></ion-icon>
+        <ion-label class="textItem">
+          {{ $t('user.config') }}
+        </ion-label>
+      </ion-item>
 
       <ion-item v-if="account.user.keyUser" button @click="logout()" color="secondary">
         <ion-icon slot="start" :icon="exitSharp"></ion-icon>
@@ -219,6 +160,9 @@ account.getUserData()
           {{ $t('user.exitAccount') }}
         </ion-label>
       </ion-item>
+
+
+
 
       <ion-item v-else button @click="router.push({
         name: 'login'
@@ -238,6 +182,34 @@ account.getUserData()
         </ion-label>
       </ion-item>
 
+      <!-- Fin Iten Opcion-->
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-card mode="ios" @click="router.push({
+            name: 'alarme'
+          })" button class="y-translucent">
+            <ion-card-content>
+              <ion-icon color="dark" size="large" :icon="calendarOutline"></ion-icon>
+              <!-- <ion-icon color="dark" size="large" :icon="calendarOutline"></ion-icon> -->
+
+              <ion-text color="dark">
+                <h6>{{ $t('text.alarme') }}</h6>
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <!-- <ion-col mode="ios" size="6">
+          <ion-card button class="y-translucent" @click="changeTheme(!appStore.isDark, true)">
+            <ion-card-content>
+              <ion-label position="fixed"><ion-icon size="large" :icon="appStore.isDark ? moon : sunny"
+                  style="color: var(--ion-color-dark);"></ion-icon></ion-label>
+              <ion-toggle class=" ion-padding-start" color="tertiary" :checked="appStore.isDark"></ion-toggle>
+            </ion-card-content>
+          </ion-card>
+        </ion-col> -->
+      </ion-row>
 
 
     </ion-content>

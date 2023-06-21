@@ -1,11 +1,11 @@
 
 <script lang="ts" setup>
+import { onMounted, ref, watch } from "vue";
 import { useAppStore } from "@/store/app";
 import {
     IonPage,
     IonHeader,
     IonToolbar,
-    IonTitle,
     IonContent,
     IonRow,
     IonCol,
@@ -16,243 +16,358 @@ import {
     IonList,
     IonItem,
     IonLabel,
-    IonToggle,
-    IonModal,
-    IonRadioGroup,
-    IonRadio,
-    IonDatetime,
-    IonTextarea,
-    IonChip,
     IonAvatar,
-    IonCard,
     IonItemSliding,
     IonItemOptions,
-    IonCardContent,
     IonItemOption,
-    loadingController,
-    IonProgressBar
+    IonText,
+    IonRefresher,
+    IonRefresherContent,
+    IonDatetime,
+    IonCard,
+    DatetimeChangeEventDetail,
+    IonFab,
+    IonFabButton,
+    alertController
 } from "@ionic/vue";
-import { ref, onMounted } from "vue";
-import { add, trash } from "ionicons/icons";
-import alarmeType from '@/enums/alarmeType'
-import { useI18n } from "vue-i18n";
+import { add, trash, alarm, qrCodeOutline, filterOutline } from "ionicons/icons";
 import { useAlarmeStore } from "@/store/alarme";
-import alarmeCategory from "@/enums/alarmeCategory";
+import addAlrmeModal from '@/components/modal/addAlarme.vue'
+import { loadingController } from "@ionic/vue";
+import { useI18n } from "vue-i18n";
+import shareEdit from "@/components/modal/shareEdit.vue";
+import { startCodeScan } from "@/ts/codeScan";
 import { iAlarme } from "@/interfaces/iAlarme";
+import { IonDatetimeCustomEvent } from "@ionic/core";
 
 const { t } = useI18n()
+
+const appStore = useAppStore()
 const alarmeStore = useAlarmeStore()
 
+const datatime = ref()
 
-
-const isLoading = ref(false)
-
-
+const isFilterDay = ref(true)
+const isFilterMonth = ref(false)
 
 
 onMounted(async () => {
+
+    const loading = await loadingController.create({
+        message: t('account.loading')
+    })
+
     try {
-        isLoading.value = true
-        await alarmeStore.initializeNotification()
-        isLoading.value = false
+        loading.present()
+        await alarmeStore.getAlarmes()
+        loading.dismiss()
+        searchDate()
     } catch (error) {
-        isLoading.value = false
+        loading.dismiss()
     }
+
 })
 
+//Option Date
+const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h12'
+};
 
-
-const isOpenModal = ref<boolean>(false)
-
-
-const date = new Date()
-
-
-//Open Modal Action
-const openModal = () => {
-    isOpenModal.value = true
-}
-
-
-
-//Guardar Alarma
-const saveAlarme = async () => {
-
-
-
-    try {
-        isLoading.value = true
-        await alarmeStore.setAlarme()
-        isOpenModal.value = false
-        isLoading.value = false
-
-    } catch (error: any) {
-        console.log(error.message)
-        isLoading.value = false
-    }
-}
 
 const removeAlarme = async (idAlarme: number) => {
 
-    try {
-        isLoading.value = true
-        await alarmeStore.delete(idAlarme)
-        isLoading.value = false
-    } catch (error) {
-        isLoading.value = false
-    }
+
+    const alert = await alertController.create({
+        header: t('text.delete.delete') + ' Alarm',
+        message: t('text.delete.message'),
+        buttons: [{
+            text: t('text.delete.yes'),
+            handler: async () => {
+
+                const loading = await loadingController.create({
+                    message: t('account.loading')
+                })
+
+                try {
+                    loading.present()
+                    await alarmeStore.delete(idAlarme)
+                    loading.dismiss()
+                } catch (error) {
+                    loading.dismiss()
+                }
+
+            },
+        }, {
+            text: t('text.delete.no'),
+            role: 'cancel'
+        }],
+    });
+
+    await alert.present();
+
+
 
 }
 
-const repeatAlarme = async (alarme: iAlarme) => {
 
+const addAlarmeCodeScan = async () => {
 
+    const loading = await loadingController.create({
+        message: t('account.loading')
+    })
     try {
-        isLoading.value = true
-        await alarmeStore.repeatAlarme(alarme)
-        isLoading.value = false
+        const res = await startCodeScan()
+        if (res) {
+            loading.present()
+            const alarme = JSON.parse(res) as iAlarme
+            await alarmeStore.setAlarme(alarme)
+            await alarmeStore.getAlarmes()
+            loading.dismiss()
+        }
     } catch (error) {
-        isLoading.value = false
+        loading.dismiss()
+    }
+}
+
+const doRefresh = async (e: any) => {
+    try {
+        await alarmeStore.getAlarmes()
+        e.target.complete()
+
+
+        //Reset Alrmes Filters
+        datatime.value.$el.reset()
+        dateSelectSearch.value = alarmeStore.alarmes[0].at
+        filterType.value = EfilterType.month
+
+
+        isFilterDay.value = true
+        isFilterMonth.value = false
+
+    } catch (error) {
+        e.target.complete()
+    }
+}
+
+//Search Calender
+enum EfilterType {
+    day = 'day',
+    month = 'month'
+}
+
+const dateSelectSearch = ref()
+const filterType = ref<EfilterType>(EfilterType.day)
+
+watch(alarmeStore.alarmes, () => {
+    searchDate()
+})
+
+//Si cambia la fecha, agragar la fecha de calendario a la referencia de la fecha que se desea buscar
+const searchDate = async (e?: IonDatetimeCustomEvent<DatetimeChangeEventDetail>) => {
+    if (e?.target.value) {
+        dateSelectSearch.value = e.target.value
+    } else {
+        dateSelectSearch.value = alarmeStore.alarmes[0].at
     }
 }
 
 
-const appStore = useAppStore()
+//Formatear date string a Objeto Date
+const stringDateFormat = (date: string) => {
+    return new Date(date)
+}
+
+
+
+//Filtrar Fecha de calendario
+const filterSearch = (al: iAlarme, iFilter: EfilterType | null = null): iAlarme | undefined => {
+    switch (iFilter ?? filterType.value) {
+        case 'month':
+            if (`${stringDateFormat(al.at).getFullYear()}-${stringDateFormat(al.at).getMonth()}` == `${stringDateFormat(dateSelectSearch.value).getFullYear()}-${stringDateFormat(dateSelectSearch.value).getMonth()}`) {
+                return al
+            }
+            break;
+
+        case 'day':
+            if (`${stringDateFormat(al.at).getFullYear()}-${stringDateFormat(al.at).getMonth()}-${stringDateFormat(al.at).getDate()}` === `${stringDateFormat(dateSelectSearch.value).getFullYear()}-${stringDateFormat(dateSelectSearch.value).getMonth()}-${stringDateFormat(dateSelectSearch.value).getDate()}`) {
+                return al
+            }
+            break;
+    }
+}
+
+
+//Delete alarme
+
+
+
+const getHighlighted = () => {
+    return alarmeStore.alarmes.map(al => {
+        const dateAt = new Date(al.at)
+        return {
+            date: `${dateAt.getFullYear()}-${(dateAt.getMonth() + 1).toString().padStart(2, '0')}-${dateAt.getDate().toString().padStart(2, '0')}`,
+            textColor: '#fff',
+            backgroundColor: (al.color) ? al.color : ''
+        }
+    })
+}
+
 </script>
-  
-
   
 
 <template>
     <ion-page>
         <ion-header translucent>
-            <ion-progress-bar v-show="isLoading" type="indeterminate"></ion-progress-bar>
             <ion-toolbar :color="!appStore.isDark ? `primary` : ``">
                 <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/"></ion-back-button>
+                    <ion-back-button ref="/tabs/mycuenta" defaultHref="/tabs/mycuenta"></ion-back-button>
                 </ion-buttons>
-                <ion-title slot="start">{{ $t('text.alarme') }}</ion-title>
 
-                <ion-button slot="end" color="dark" size="large" @click=" openModal()" mode="ios">
-                    <ion-icon size="large" :icon="add"></ion-icon> {{ $t('text.addAlarm') }}
+                <ion-button class=" ion-margin-end" color="dark" mode="ios" slot="end" @click="addAlarmeCodeScan()">
+                    <ion-icon :icon="qrCodeOutline"></ion-icon>
                 </ion-button>
+
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
 
-            <ion-row>
-                <ion-col>
-                    <ion-list mode="ios" class=" ion-margin">
-                        <ion-item-sliding v-for="alarme in alarmeStore.alarmes.reverse()">
-                            <ion-item button :detail="false">
-                                <ion-avatar slot="start">
-                                    <img style="background-color:var(--ion-icon-background-color);"
-                                        :src="`/assets/icon_${alarme.alarmeCategory}.png`" />
-                                </ion-avatar>
-
-                                <ion-label class="ion-text-wrap">
-                                    <h1>{{ alarme.body }}</h1>
-                                    <h2>{{ (alarme.at) ? `${(new Date(alarme.at)).getFullYear()}-${(new
-                                        Date(alarme.at)).getMonth() + 1}-${(new Date(alarme.at)).getDate()}` : null }}</h2>
-                                </ion-label>
+            <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+                <ion-fab-button mode="ios" color="dark" @click="alarmeStore.addModalAlame = true">
+                    <ion-icon :icon="add"></ion-icon>
+                    <!-- {{ $t('text.addAlarm') }} -->
+                </ion-fab-button>
+            </ion-fab>
 
 
-                                <ion-toggle @click="repeatAlarme(alarme)" :checked="alarme.repeat" slot="end"></ion-toggle>
-                            </ion-item>
+            <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
+                <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
 
-                            <ion-item-options side="end">
-                                <ion-item-option color="danger">
-                                    <ion-icon @click="removeAlarme(alarme.id)" size="large" slot="start"
-                                        :icon="trash"></ion-icon>
-                                </ion-item-option>
-                            </ion-item-options>
-                        </ion-item-sliding>
+            <ion-card>
+                <ion-datetime ref="datatime" @click="searchDate" presentation="date" size="cover"
+                    :highlighted-dates="getHighlighted()" @ion-change="searchDate">
+                </ion-datetime>
+            </ion-card>
 
-                    </ion-list>
+            <!-- <ion-select class=" ion-margin" v-model="filterType">
+                <ion-select-option :key="fty" v-for="fty in EfilterType" :value="fty">{{ $t(`text.filterType.${fty}`)
+                }}</ion-select-option>
+            </ion-select> -->
 
+            <!--Dia-->
 
-                    <!--Modal add edit calender-->
-                    <ion-modal :is-open="isOpenModal">
-                        <ion-header>
-                            <ion-toolbar>
-                                <ion-buttons slot="start">
-                                    <ion-button @click="isOpenModal = !isOpenModal">{{ $t('account.cancel')
-                                    }}</ion-button>
-                                </ion-buttons>
-                                <ion-title class=" ion-text-center">{{ $t('text.alarme') }}</ion-title>
-                                <ion-buttons slot="end">
-                                    <ion-button :strong="true" @click="saveAlarme()">{{ $t('account.confirm')
-                                    }}</ion-button>
-                                </ion-buttons>
-                            </ion-toolbar>
-                        </ion-header>
-                        <ion-content :fullscreen="true">
+            <ion-list mode="ios" class=" ion-margin">
+                <ion-item @click="isFilterDay = !isFilterDay">
+                    <ion-label>
+                        {{ $t(`text.filterType.day`)
+                        }}
+                    </ion-label>
+                    <ion-icon slot="start" :icon="filterOutline"></ion-icon>
+                </ion-item>
 
-                            <ion-row>
-                                <ion-col class=" ion-padding">
-                                    <ion-chip
-                                        :class="alarmeStore.alarme.alarmeCategory == category ? 'select' : 'no-select'"
-                                        @click="alarmeStore.alarme.alarmeCategory = category"
-                                        v-for="category in alarmeCategory">
-                                        <ion-avatar>
-                                            <img style="background-color:var(--ion-icon-background-color);"
-                                                :src="`/assets/icon_${category}.png`" />
-                                        </ion-avatar>
+                <ion-item-sliding v-if="isFilterDay"
+                    v-for=" alarme  in  alarmeStore.alarmes.filter(al => filterSearch(al, EfilterType.day)) ">
+                    <ion-item @contextmenu="removeAlarme(alarme.id)" button :detail="false">
+                        <ion-avatar slot="start">
+                            <img :style="`background-color:${alarme.color};`"
+                                :src="`/assets/icon_${alarme.alarmeCategory}.png`" />
+                        </ion-avatar>
 
-                                        <ion-label class="ion-text-wrap">{{ t(`text.alarmeCategory.${category}`) }}
-                                        </ion-label>
-                                    </ion-chip>
-                                </ion-col>
-                            </ion-row>
+                        <ion-label class="ion-text-wrap">
+                            <h1>{{ alarme.body }}</h1>
 
-                            <ion-card mode="ios">
-                                <ion-card-content>
-                                    <ion-label>
-                                        <h2>{{ $t('text.alarmeName') }}</h2>
-                                    </ion-label>
-                                    <ion-textarea v-model="alarmeStore.alarme.body"
-                                        :placeholder="$t(`text.alarme`)"></ion-textarea>
-                                </ion-card-content>
-                            </ion-card>
+                            <h4 v-if="alarme.repeat">{{ $t('text.repeatAlarm') }}</h4>
 
-                            <template v-if="alarmeStore.alarme.type == alarmeType.specific">
-                                <ion-card mode="ios">
-                                    <ion-datetime size="cover"
-                                        :min="`${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate()}`"
-                                        hourCycle="h12" :value="(new Date()).toISOString()" v-model="alarmeStore.alarme.at">
-                                        <span slot="time-label">{{ t('text.hour') }}</span>
-                                    </ion-datetime>
-                                </ion-card>
+                            <h2 v-if="!alarme.repeat">{{ (new Date(alarme.at)).toLocaleString(undefined, options) }}
+                            </h2>
 
-                                <ion-item class="ion-margin ion-padding-vertical" mode="ios">
-                                    <ion-label>
-                                        <h2>{{ t('text.repeatAlarm') }}</h2>
-                                    </ion-label>
-                                    <ion-toggle mode="ios" v-model="alarmeStore.alarme.repeat"
-                                        :checked="alarmeStore.alarme.repeat"></ion-toggle>
-                                </ion-item>
+                            <h2 v-else> {{ $t('text.frequencyC') }} ({{ alarme.count }}) {{ $t('text.cada.' +
+                                alarme.every) }}
+                            </h2>
 
-                            </template>
+                        </ion-label>
 
-                            <template v-else>
-                                Frecuencia
-                            </template>
+                        <share-edit :text-share="alarme"></share-edit>
+                    </ion-item>
+
+                    <ion-item-options side="end">
+                        <ion-item-option @click="removeAlarme(alarme.id)" color="danger">
+                            <ion-icon size="large" slot="start" :icon="trash"></ion-icon>
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
 
 
-                        </ion-content>
-                    </ion-modal>
+            <!--Mes-->
+            <ion-list mode="ios" class=" ion-margin">
+
+                <ion-item @click="isFilterMonth = !isFilterMonth">
+                    <ion-label>
+                        {{ $t(`text.filterType.month`)
+                        }}
+                    </ion-label>
+                    <ion-icon slot="start" :icon="filterOutline">
+
+                    </ion-icon>
+                </ion-item>
+
+                <ion-item-sliding v-if="isFilterMonth"
+                    v-for=" alarme  in  alarmeStore.alarmes.filter(al => filterSearch(al, EfilterType.month)) ">
+                    <ion-item @contextmenu="removeAlarme(alarme.id)" button :detail="false">
+                        <ion-avatar slot="start">
+                            <img :style="`background-color:${alarme.color};`"
+                                :src="`/assets/icon_${alarme.alarmeCategory}.png`" />
+                        </ion-avatar>
+
+                        <ion-label class="ion-text-wrap">
+                            <h1>{{ alarme.body }}</h1>
+
+                            <h4 v-if="alarme.repeat">{{ $t('text.repeatAlarm') }}</h4>
+
+
+                            <h2 v-if="!alarme.repeat">{{ (new
+                                Date(alarme.at)).toLocaleString(undefined,
+                                    options) }}
+                            </h2>
+
+                            <h2 v-else> {{ $t('text.frequencyC') }} ({{ alarme.count }}) {{ $t('text.cada.' +
+                                alarme.every) }}
+                            </h2>
+                        </ion-label>
+
+                        <share-edit :text-share="alarme"></share-edit>
+                    </ion-item>
+
+                    <ion-item-options side="end">
+                        <ion-item-option @click="removeAlarme(alarme.id)" color="danger">
+                            <ion-icon size="large" slot="start" :icon="trash"></ion-icon>
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
+
+
+            <ion-row v-show="!alarmeStore.alarmes.length">
+                <ion-col class=" ion-padding" size="12">
+                    <ion-text>
+                        <h1>{{ $t('text.noAlarmes') }} <ion-icon color="primary" size="large" :icon="alarm"></ion-icon>
+                        </h1>
+                    </ion-text>
                 </ion-col>
             </ion-row>
+
+            <add-alrme-modal />
 
         </ion-content>
     </ion-page>
 </template>
 
 
-<style scoped>
-.select {
-    --background: #00213f;
-    --color: #adefd1;
-}
-</style>
+<style scoped></style>
 

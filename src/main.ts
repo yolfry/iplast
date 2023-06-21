@@ -30,7 +30,7 @@ import { createAdmob } from './plugins/admob/admob';
 
 //Thema Dart
 import { autoChangeTheme } from './ts/dark';
-
+import { createCodeScan } from './ts/codeScan';
 
 
 // const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -43,7 +43,7 @@ const pinia = createPinia()
 
 import installI18n from '@/plugins/i18n'
 
-
+new createCodeScan()
 
 
 const app = createApp(App)

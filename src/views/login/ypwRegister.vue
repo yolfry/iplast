@@ -78,12 +78,10 @@ const openModal = async () => {
   if (role === 'cancel') {
     account.cleanUser();
     router.push("/tabs/login");
-    console.log(role, data)
   }
 
   if (role === 'confirm') {
     router.push("/tabs/mycuenta");
-    console.log(role, data)
   }
 
 }

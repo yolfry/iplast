@@ -103,7 +103,7 @@ async function login() {
 
 
     if (res.status === 200 || res.status === 201) {
-      ionRouter.push('/home')
+      ionRouter.push('/tabs/mycuenta')
 
     } else {
       throw new Error(await openAlert('account.errorApp', t, alertController))

@@ -45,6 +45,40 @@
         "stone": "St"
     },
     "text": {
+        "delete": {
+            "yes": "Oui",
+            "no": "Non",
+            "delete": "Supprimer",
+            "message": "Êtes-vous sûr de vouloir supprimer?"
+        },
+        "frequencyC": "Chaque: ",
+        "cada": {
+            "year": "Année",
+            "month": "Mois",
+            "two-weeks": "Deux semaines",
+            "week": "Semaine",
+            "day": "Jour",
+            "hour": "Heure",
+            "minute": "Minute",
+            "second": "Seconde"
+        },
+        "weekday": {
+            "Sunday": "Dimanche",
+            "Monday": "Lundi",
+            "Tuesday": "Mardi",
+            "Wednesday": "Mercredi",
+            "Thursday": "Jeudi",
+            "Friday": "Vendredi",
+            "Saturday": "Samedi"
+        },
+        "filterType": {
+            "month": "Filtrer par Mois",
+            "day": "Filtrer par Jour"
+        },
+        "sigGoogle": "Connexion avec Google",
+        "sigFacebook": "Connexion avec Facebook",
+        "color": "Couleur de l'alarme",
+        "noAlarmes": "Vous n'avez pas d'alarmes ajoutées. Ajoutez une alarme.",
         "addAlarm": "Ajouter une alarme",
         "hour": "Heure",
         "repeatAlarm": "Répéter l'alarme",
@@ -55,7 +89,7 @@
         },
         "specific": "Ajouter une alarme pour un jour et une heure spécifiques",
         "frequency": "Ajouter une alarme par période de temps",
-        "alarme": "Alarme",
+        "alarme": "Agenda",
         "alarmeName": "Nom de l'alarme",
         "or": "Ou",
         "bmi": "IMC",

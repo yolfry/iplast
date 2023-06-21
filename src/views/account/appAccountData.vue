@@ -48,14 +48,9 @@ const doRefresh = async (e: any) => {
 const { t } = useI18n();
 
 
-const userAll = computed(() => {
-    return account.userAll;
-});
-
 const calDataSize = () => {
-    //Calcular Tamaño de la cuenta en datos
-    console.log(userAll.value)
-    const size = new TextEncoder().encode(JSON.stringify(userAll.value)).length
+
+    const size = new TextEncoder().encode(JSON.stringify(account.$state)).length
     dataSize.value = (size / 1024)
 
     //Converte MB
@@ -66,8 +61,6 @@ const calDataSize = () => {
 }
 
 onMounted(async () => {
-
-
     //No password
     account.user.password = undefined
     calDataSize()
@@ -193,7 +186,7 @@ account.getUserData()
                         <ion-item color="tertiary">
                             <ion-icon slot="start" :icon="personCircleOutline" color="primary"></ion-icon>
                             <ion-label class="textItem">
-                                {{ userAll.name }}
+                                {{ account.userAll.name }}
                             </ion-label>
                         </ion-item>
 
@@ -213,11 +206,9 @@ account.getUserData()
                         <ion-item-divider v-show="isDeleteAccount"></ion-item-divider>
 
                         <ion-item color="tertiary" v-show="isDeleteAccount">
-                            <ion-label position="fixed" class=" ion-text-wrap">{{ $t('account.placeholder.password') }}
-                            </ion-label>
                             <ion-input v-model="account.user.password" type="password"
                                 :placeholder="$t('account.placeholder.password')"></ion-input>
-                            <ion-button @click="deleteAccount()" color="danger">
+                            <ion-button mode="ios" size="default" @click="deleteAccount()" color="danger">
                                 {{ $t('user.delete') }}
                             </ion-button>
                         </ion-item>
@@ -226,7 +217,6 @@ account.getUserData()
                     </ion-list>
                 </ion-col>
             </ion-row>
-
 
         </ion-content>
     </ion-page>

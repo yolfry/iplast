@@ -43,7 +43,7 @@ const validate = async (res: any) => {
     }
 
     if (res.status === 200 || res.status === 201) {
-        ionRouter.push('/home')
+        ionRouter.push('/tabs/mycuenta')
 
     } else {
         throw new Error(await openAlert('account.errorApp', t, alertController))
@@ -155,12 +155,11 @@ const facebookAuth = async () => {
         <ion-col class="ion-text-center">
 
             <ion-button @click="googleAuth()" shape="round" style="--background:#db3236;" size="default">
-                <ion-icon :icon="logoGoogle" size="large"></ion-icon> Sig in with
-                Google
+                <ion-icon slot="start" :icon="logoGoogle" size="large"></ion-icon> {{ $t('text.sigGoogle') }}
             </ion-button>
 
             <ion-button @click="facebookAuth()" shape="round" style="--background: #4267B2;" size="default">
-                <ion-icon :icon="logoFacebook" size="large"></ion-icon> Sig in with Facebook
+                <ion-icon slot="start" :icon="logoFacebook" size="large"></ion-icon>{{ $t('text.sigFacebook') }}
             </ion-button>
 
         </ion-col>

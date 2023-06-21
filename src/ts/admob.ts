@@ -75,7 +75,6 @@ const showRewardVideo = async () => {
   };
   await AdMob.prepareRewardVideoAd(options);
   const rewardItem = await AdMob.showRewardVideoAd();
-  console.log(rewardItem)
 }
 
 export { admobBannerShow, admobBannerHidden, showInterstitial, showRewardVideo }

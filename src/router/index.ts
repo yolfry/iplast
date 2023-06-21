@@ -56,7 +56,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'references',
         component: () => import('@/views/appReferences.vue'),
         meta: {
-          requiresAuth: false
+          requiresAuth: true
         }
       },
       {
@@ -80,7 +80,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'alarme',
         component: () => import('@/views/appAlarme.vue'),
         meta: {
-          requiresAuth: false
+          requiresAuth: true
         }
       },
       {

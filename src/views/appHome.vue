@@ -25,6 +25,10 @@ const doRefresh = async (e: any) => {
     cm: null
   }
 
+
+  appStore.calculator.excedenteIMC = 35 //default 35
+
+
   appStore.calculator.peso = {
     kg: null,
     lb: null,
