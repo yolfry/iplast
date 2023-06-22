@@ -2,7 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import { IonModal, IonContent, IonImg, IonButton, IonIcon, IonDatetime, IonItem, IonToggle, IonLabel, IonHeader, IonToolbar, IonButtons, IonTextarea, IonChip, IonAvatar, IonRow, IonCol, IonBackButton } from '@ionic/vue';
 import { save, arrowRedoOutline } from 'ionicons/icons';
-import { getDate } from '@/ts/gatDate';
+import { parseISOString } from '@/ts/parseISOString';
 import qrcode from 'qrcode'
 import { iAlarme } from '@/interfaces/iAlarme';
 import { useAlarmeStore } from '@/store/alarme';

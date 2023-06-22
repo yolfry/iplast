@@ -4,14 +4,14 @@ import { useAppStore } from "./app";
 import { LocalNotifications, PermissionStatus, Schedule, ScheduleOptions } from "@capacitor/local-notifications";
 //capacitor-alarm-notification
 import { clockAlarm } from 'capacitor-clock-alarm'
+import { parseISOString } from '@/ts/parseISOString'
 
 
 
 export const useAlarmeStore = defineStore(`alarmeStore`, {
     state: () => {
         return {
-            alarmes: [] as iAlarme[],
-            addModalAlame: false
+            alarmes: [] as iAlarme[]
         }
     },
     actions: {
@@ -95,22 +95,70 @@ export const useAlarmeStore = defineStore(`alarmeStore`, {
 
 
 
-                //Alarme Repeat Cada x dia
-                if (alarme.repeat && alarme.count && alarme.every) {
-                    schedule.every = alarme.every
-                    schedule.count = alarme.count
+                //No repetir
+                if (!alarme.repeat) {
+
+                    //Alarme por fecha directa
+                    if (alarme.at) {
+                        const at = new Date(alarme.at)
+                        schedule.at = at
+
+                        //Clock Alarme
+                        await clockAlarm.setAlarm({
+                            at: parseISOString(at),
+                            id: alarme.id,
+                            message: alarme.body
+                        })
+
+                    }
 
 
-                    //Clock Alarme
-                    await clockAlarm.setAlarm({
-                        id: alarme.id,
-                        message: alarme.body,
-                        repeats: alarme.repeat,
-                        every: alarme.every,
-                        count: alarme.count
-                    })
+                } else { //Repetir
+
+                    //Alarme Repeat Cada x dia
+                    if (alarme.count && alarme.every && alarme.weekday == undefined) {
+                        schedule.every = alarme.every
+                        schedule.count = alarme.count
+
+                        //Clock Alarme
+                        await clockAlarm.setAlarm({
+                            id: alarme.id,
+                            message: alarme.body,
+                            repeats: alarme.repeat,
+                            every: alarme.every,
+                            count: alarme.count,
+                        })
+
+                    }
+
+                    if (alarme.weekday) {
+
+                        const at = new Date(alarme.at)
+
+                        const hour = at.getHours()
+                        const minute = at.getMinutes()
+
+                        schedule.on = {}
+                        schedule.on.weekday = alarme.weekday
+                        schedule.on.hour = hour
+                        schedule.on.minute = minute
+
+                        await clockAlarm.setAlarm({
+                            id: alarme.id,
+                            message: alarme.body,
+                            repeats: alarme.repeat,
+                            Weekday: alarme.weekday,
+                            hour: hour,
+                            minute: minute
+                        })
+
+                    }
+
 
                 }
+
+
+
 
                 //Alarma Repetir el dia y la fecha y hora espesifico
                 if (alarme.repeat && !alarme.count) {
@@ -124,24 +172,11 @@ export const useAlarmeStore = defineStore(`alarmeStore`, {
                         at: alarme.at,
                         id: alarme.id,
                         message: alarme.body,
-                        repeats: alarme.repeat,
                     })
 
                 }
 
-                //Alarme por fecha directa
-                if (!alarme.repeat) {
-                    const at = new Date(alarme.at)
-                    schedule.at = at
 
-                    //Clock Alarme
-                    await clockAlarm.setAlarm({
-                        at: alarme.at,
-                        id: alarme.id,
-                        message: alarme.body
-                    })
-
-                }
 
 
 

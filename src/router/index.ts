@@ -84,6 +84,14 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: 'addAlarm',
+        name: 'addAlarm',
+        component: () => import('@/views/appAddAlarm.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: 'login',
         name: 'login',
         component: () => import('@/views/login/ypwLogin.vue')

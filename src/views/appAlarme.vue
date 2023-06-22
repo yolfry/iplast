@@ -28,11 +28,11 @@ import {
     DatetimeChangeEventDetail,
     IonFab,
     IonFabButton,
-    alertController
+    alertController,
+    useIonRouter
 } from "@ionic/vue";
 import { add, trash, alarm, qrCodeOutline, filterOutline } from "ionicons/icons";
 import { useAlarmeStore } from "@/store/alarme";
-import addAlrmeModal from '@/components/modal/addAlarme.vue'
 import { loadingController } from "@ionic/vue";
 import { useI18n } from "vue-i18n";
 import shareEdit from "@/components/modal/shareEdit.vue";
@@ -41,6 +41,8 @@ import { iAlarme } from "@/interfaces/iAlarme";
 import { IonDatetimeCustomEvent } from "@ionic/core";
 
 const { t } = useI18n()
+
+const router = useIonRouter()
 
 const appStore = useAppStore()
 const alarmeStore = useAlarmeStore()
@@ -79,6 +81,7 @@ const options: Intl.DateTimeFormatOptions = {
 };
 
 
+//Delete alarma
 const removeAlarme = async (idAlarme: number) => {
 
 
@@ -137,8 +140,6 @@ const addAlarmeCodeScan = async () => {
 const doRefresh = async (e: any) => {
     try {
         await alarmeStore.getAlarmes()
-        e.target.complete()
-
 
         //Reset Alrmes Filters
         datatime.value.$el.reset()
@@ -148,6 +149,8 @@ const doRefresh = async (e: any) => {
 
         isFilterDay.value = true
         isFilterMonth.value = false
+
+        e.target.complete()
 
     } catch (error) {
         e.target.complete()
@@ -201,11 +204,6 @@ const filterSearch = (al: iAlarme, iFilter: EfilterType | null = null): iAlarme 
     }
 }
 
-
-//Delete alarme
-
-
-
 const getHighlighted = () => {
     return alarmeStore.alarmes.map(al => {
         const dateAt = new Date(al.at)
@@ -215,6 +213,13 @@ const getHighlighted = () => {
             backgroundColor: (al.color) ? al.color : ''
         }
     })
+}
+
+
+//Add alarma
+
+const addAlarm = async () => {
+    router.push('/tabs/addAlarm')
 }
 
 </script>
@@ -237,9 +242,8 @@ const getHighlighted = () => {
         <ion-content :fullscreen="true">
 
             <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-                <ion-fab-button mode="ios" color="dark" @click="alarmeStore.addModalAlame = true">
+                <ion-fab-button mode="ios" color="dark" @click="addAlarm()">
                     <ion-icon :icon="add"></ion-icon>
-                    <!-- {{ $t('text.addAlarm') }} -->
                 </ion-fab-button>
             </ion-fab>
 
@@ -361,8 +365,6 @@ const getHighlighted = () => {
                     </ion-text>
                 </ion-col>
             </ion-row>
-
-            <add-alrme-modal />
 
         </ion-content>
     </ion-page>

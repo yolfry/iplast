@@ -185,6 +185,7 @@ const startCodeScan = async () => {
         // This is just a simple example, check out the better checks below
         await BarcodeScanner.checkPermission({ force: true })
 
+
         // make background of WebView transparent
         // note: if you are using ionic this might not be enough, check below
         await BarcodeScanner.hideBackground() //Ocultar fondo

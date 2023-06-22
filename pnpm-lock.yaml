@@ -69,8 +69,8 @@ dependencies:
     specifier: ^0.27.2
     version: 0.27.2
   capacitor-clock-alarm:
-    specifier: ^0.5.13
-    version: 0.5.13(@capacitor/core@5.0.5)
+    specifier: ^0.5.19
+    version: 0.5.19(@capacitor/core@5.0.5)
   core-js:
     specifier: ^3.30.2
     version: 3.30.2
@@ -1147,8 +1147,8 @@ packages:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
 
-  /capacitor-clock-alarm@0.5.13(@capacitor/core@5.0.5):
-    resolution: {integrity: sha512-qi0cAKUb+w/76z1/2sURgWd++WE29ixciS6xC9pDDTLhoIgkUFShQ9vS4+0qyQtNrnnVrHAeDmqiHbl2EpWwGQ==}
+  /capacitor-clock-alarm@0.5.19(@capacitor/core@5.0.5):
+    resolution: {integrity: sha512-siV6TOxWxOjTXwoyRBi6/JiUfPb5g/Hnb4f26olTy+rvX661Q7nBxqR8H9mscsJ8AoUBRRpeZQ2pZ0zw73Lcsg==}
     peerDependencies:
       '@capacitor/core': ^5.0.0
     dependencies:

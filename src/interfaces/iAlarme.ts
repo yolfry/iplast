@@ -15,16 +15,6 @@ enum Weekday {
     Saturday = 7
 }
 
-interface ScheduleOn {
-    year?: number;
-    month?: number;
-    day?: number;
-    weekday?: Weekday;
-    hour?: number;
-    minute?: number;
-    second?: number;
-}
-
 
 interface iAlarmeGroup {
     id: number;
@@ -41,12 +31,14 @@ interface iAlarme {
     alarmeCategory: alarmeCategory;  // Categoria de alarma 
     repeat?: boolean;               // Si la alarma se repite,
     color?: string;
-    on?: ScheduleOn;
     every?: ScheduleEvery;
     count?: number;
+    weekday?: Weekday;             //Dia de la semana    
+    hour?: number;                 //Hora
+    minute?: number;               //Minute
     idGroup?: number | undefined;   //Grupo de alarma, las alarmas se pueden guardar por grupos, ej. en caso de una receta etc.
 }
 
 
-export { iAlarme, iAlarmeGroup, Weekday, ScheduleEvery, ScheduleOn }
+export { iAlarme, iAlarmeGroup, Weekday, ScheduleEvery }
 
