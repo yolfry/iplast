@@ -21,6 +21,8 @@ interface iAlarmeGroup {
     name: string;
 }
 
+type notifyType = 'weekly' | 'monthly' | 'annual'
+
 interface iAlarme {
     id: number;    //Id de la alarma
     name: string;   //Nombre de la frecuencia
@@ -33,12 +35,21 @@ interface iAlarme {
     color?: string;
     every?: ScheduleEvery;
     count?: number;
-    weekday?: Weekday;             //Dia de la semana    
+    weekday?: number[];             //Dia de la semana    
     hour?: number;                 //Hora
     minute?: number;               //Minute
     idGroup?: number | undefined;   //Grupo de alarma, las alarmas se pueden guardar por grupos, ej. en caso de una receta etc.
+    options?: {
+        reminder?: {
+            notify?: notifyType | null
+        };
+        medicine?: {};
+        cita?: {
+            rememberBefore?: boolean
+        };
+    }
 }
 
 
-export { iAlarme, iAlarmeGroup, Weekday, ScheduleEvery }
+export { iAlarme, iAlarmeGroup, Weekday, ScheduleEvery, notifyType }
 

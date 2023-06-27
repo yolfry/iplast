@@ -45,6 +45,7 @@
         "stone": "St"
     },
     "text": {
+        "dateAndTime": "Date and time",
         "delete": {
             "yes": "Yes",
             "no": "No",

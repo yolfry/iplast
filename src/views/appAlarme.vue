@@ -242,7 +242,7 @@ const addAlarm = async () => {
         <ion-content :fullscreen="true">
 
             <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-                <ion-fab-button mode="ios" color="dark" @click="addAlarm()">
+                <ion-fab-button mode="ios" color="primary" @click="addAlarm()">
                     <ion-icon :icon="add"></ion-icon>
                 </ion-fab-button>
             </ion-fab>
@@ -266,7 +266,7 @@ const addAlarm = async () => {
             <!--Dia-->
 
             <ion-list mode="ios" class=" ion-margin">
-                <ion-item @click="isFilterDay = !isFilterDay">
+                <ion-item :color="(isFilterDay) ? `primary` : undefined" @click="isFilterDay = !isFilterDay">
                     <ion-label>
                         {{ $t(`text.filterType.day`)
                         }}
@@ -311,7 +311,7 @@ const addAlarm = async () => {
             <!--Mes-->
             <ion-list mode="ios" class=" ion-margin">
 
-                <ion-item @click="isFilterMonth = !isFilterMonth">
+                <ion-item :color="(isFilterMonth) ? `primary` : undefined" @click="isFilterMonth = !isFilterMonth">
                     <ion-label>
                         {{ $t(`text.filterType.month`)
                         }}

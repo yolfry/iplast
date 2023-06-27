@@ -26,7 +26,7 @@ import { useAccountStore } from "@/store/account";
 import { useI18n } from "vue-i18n";
 import { alertController } from "@ionic/vue";
 import { useAppStore } from "@/store/app";
-// import { changeTheme } from "@/ts/dark";
+import appPackage from '../../package.json'
 
 
 const account = useAccountStore();
@@ -178,7 +178,7 @@ account.getUserData()
       <ion-item color="tertiary" mode="ios">
         <ion-icon slot="start" :icon="informationCircle" color="primary"></ion-icon>
         <ion-label class="textItem">
-          {{ $t('app.version') }} v{{ isPlatform('ios') ? appStore.versionIos : appStore.version }}
+          {{ appPackage.version }}
         </ion-label>
       </ion-item>
 

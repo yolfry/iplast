@@ -27,7 +27,9 @@ import {
     IonRefresherContent,
     IonBackButton,
     IonPage,
-    useIonRouter
+    useIonRouter,
+    IonDatetimeButton,
+    IonModal
 } from "@ionic/vue";
 
 import { useAppStore } from '@/store/app';
@@ -47,6 +49,7 @@ const { t } = useI18n()
 const router = useIonRouter()
 const alarmeStore = useAlarmeStore()
 const appStore = useAppStore()
+const time = ref()
 
 
 //Fecha actual del sistema
@@ -66,25 +69,33 @@ const alarme = ref<iAlarme>({
     active: true,
     body: '',
     at: parseISOString(date.value),
-    alarmeCategory: alarmeCategory.medicine,
+    alarmeCategory: alarmeCategory.reminder,
     repeat: false,
     color: '#357fb7',
-    weekday: undefined,
-    count: 1
+    weekday: [],
+    count: 1,
+    options: {
+        cita: {
+            rememberBefore: false
+        },
+        reminder: {
+            notify: null
+        }
+    }
 })
-
 
 
 
 //Dia de la semana
 const cadaSelect = ref<ScheduleEvery>('hour')
-const cada = ['year', 'month', 'two-weeks', 'week', 'day', 'hour', 'minute', 'second'].reverse()
+const cada = ['month', 'week', 'day', 'hour'].reverse()
 const week = [1, 2, 3, 4, 5, 6, 7]
+
+const intervalNotifyType = ['weekly', 'monthly', 'annual']
 
 
 //Guardar Alarma
 const saveAlarme = async (alarmeIn: iAlarme) => {
-
 
 
     //Agregar Repetir y tipo de repeticion
@@ -142,8 +153,6 @@ const doRefresh = async (e: any) => {
     }
 }
 
-
-
 </script>
   
 
@@ -165,7 +174,6 @@ const doRefresh = async (e: any) => {
         </ion-header>
         <ion-content :fullscreen="true">
 
-
             <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
                 <ion-refresher-content></ion-refresher-content>
             </ion-refresher>
@@ -186,86 +194,72 @@ const doRefresh = async (e: any) => {
                 </ion-col>
             </ion-row>
 
-            <ion-card mode="ios">
-                <ion-card-content>
-                    <ion-label>
-                        <h2>{{ $t('text.alarmeName') }}</h2>
-                    </ion-label>
-                    <ion-textarea v-model="alarme.body" :placeholder="$t(`text.alarme`)"></ion-textarea>
-                </ion-card-content>
-            </ion-card>
 
-            <!--Type Meical-->
-            <template v-if="alarme.type == alarmeType.specific">
-                <ion-card mode="ios">
-                    <ion-datetime :disabled="alarme.repeat" size="cover" presentation="date" :min="parseISOString(date)"
-                        :value="parseISOString(date)" v-model="alarme.at">
-                    </ion-datetime>
-                </ion-card>
-
-
-                <ion-item class="ion-margin" mode="ios">
-                    <ion-label slot="start">
-                        <h2>{{ $t('text.hour') }}</h2>
-                    </ion-label>
-                </ion-item>
-
-
+            <!--Recordatorio o Alarma-->
+            <template v-if="alarme.alarmeCategory == alarmeCategory.reminder">
                 <ion-card mode="ios">
                     <ion-card-content>
-                        <ion-datetime color="warning" slot="start"
-                            :disabled="alarme.weekday ? false : true && alarme.repeat" :value="parseISOString(date)"
-                            class=" ion-margin ion-margin-start" hourCycle="h12" v-model="alarme.at"
-                            presentation="time"></ion-datetime>
+                        <ion-label>
+                            <h2>Detalle de la alarma</h2>
+                        </ion-label>
+                        <ion-textarea v-model="alarme.body" placeholder="Alarma"></ion-textarea>
                     </ion-card-content>
                 </ion-card>
 
+                <ion-item class="ion-margin" mode="ios">
 
-
-
-
-
-                <ion-item class="ion-margin " mode="ios">
-                    <ion-label>
-                        <h2>{{ $t('text.repeatAlarm') }}</h2>
+                    <ion-label slot="start" position="fixed">
+                        <h2>{{ $t('text.dateAndTime') }}</h2>
                     </ion-label>
-                    <ion-toggle mode="ios" v-model="alarme.repeat" :checked="alarme.repeat"></ion-toggle>
+
+                    <ion-datetime-button slot="start" v-model="alarme.at" :value="parseISOString(date)"
+                        :min="parseISOString(date)" datetime="datetime"></ion-datetime-button>
+
+                    <ion-modal :keep-contents-mounted="true">
+                        <ion-datetime hourCycle="h12" id="datetime"></ion-datetime>
+                    </ion-modal>
                 </ion-item>
 
-                <ion-item v-if="alarme.repeat" class="ion-margin " mode="ios">
-                    <ion-row>
-                        <ion-col size="12" class=" ion-margin-top ion-margin-bottom">
-                            <ion-buttons>
-                                <ion-button
-                                    :style="alarme.weekday == weeday ? `border-bottom: 2px solid var(--ion-color-dark)` : null"
-                                    @click="() => {
-                                        if (alarme.weekday == weeday) {
-                                            alarme.weekday = undefined
-                                        } else {
-                                            alarme.weekday = weeday
-                                        }
+                <ion-item v-if="alarme.weekday?.length" class="ion-margin-horizontal">
+                    <ion-label style="display:inline-flex;" mode="ios" position="stacked">
+                        <h2 class="ion-text-wrap">Cada &nbsp;</h2>
+                        <h2 :key="wee" v-for="wee in alarme.weekday"> {{
+                            $t(`text.weekday.${Weekday[wee]}`).substring(0, 2)
+                        }}, &nbsp;</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item :disabled="alarme?.options?.reminder?.notify ? true : false" class="ion-margin-horizontal">
+                    <ion-buttons>
+                        <ion-button size="small"
+                            :fill="alarme.weekday?.filter(wee => wee == weeday)[0] ? 'solid' : 'outline'" shape="round"
+                            color="primary" @click="() => {
+                                if (alarme.weekday?.filter(wee => wee == weeday)[0]) {
 
-                                    }" fill="outline" v-for="weeday in week" size="large">
-                                    {{
-                                        $t(`text.weekday.${Weekday[weeday]}`).substring(0, 2)
-                                    }}</ion-button>
-                            </ion-buttons>
-                        </ion-col>
+                                    // Remover del objeto
+                                    alarme.weekday = alarme.weekday.filter(wee => wee != weeday)
+                                } else {
+                                    //Add Objeto
+                                    alarme.weekday?.push(weeday)
+                                }
 
-                        <ion-col size="6">
-                            <ion-input :disabled="alarme.weekday ? true : false" v-model="alarme.count"
-                                style="font-size: 24px;border-bottom: 1px solid var(--ion-color-primary);"
-                                :label="$t(`text.frequencyC`)" placeholder="1" type="number"></ion-input>
-                        </ion-col>
-                        <ion-col size="6" class=" ion-margin-bottom">
-                            <ion-select :disabled="alarme.weekday ? true : false" style="font-size: 24px;"
-                                interface="popover" v-model="cadaSelect" :placeholder="$t(`text.cada.${cada[2]}`)">
-                                <ion-select-option :value="cd" v-for="cd in cada">{{ $t(`text.cada.${cd}`)
-                                }}</ion-select-option>
-                            </ion-select>
-                        </ion-col>
+                            }" v-for="weeday in week">
+                            {{
+                                $t(`text.weekday.${Weekday[weeday]}`).substring(0, 2)
+                            }}</ion-button>
+                    </ion-buttons>
+                </ion-item>
 
-                    </ion-row>
+                <ion-item :disabled="(alarme.weekday?.length) ? true : false" v-if="alarme?.options?.reminder"
+                    class="ion-margin " mode="ios">
+                    <ion-label>
+                        <h2>Notificar</h2>
+                    </ion-label>
+                    <ion-select placeholder="No" v-model="alarme.options.reminder.notify" style="font-size: 24px;"
+                        interface="popover">
+                        <ion-select-option :value="null"></ion-select-option>
+                        <ion-select-option :value="notify" v-for="notify in intervalNotifyType">{{ notify
+                        }}</ion-select-option>
+                    </ion-select>
                 </ion-item>
 
                 <ion-item class="ion-margin" mode="ios">
@@ -275,6 +269,110 @@ const doRefresh = async (e: any) => {
                     <input v-model="alarme.color" type="color" />
                 </ion-item>
 
+
+            </template>
+
+            <!--Formulario tipo Medicamento-->
+            <template v-if="alarme.alarmeCategory == alarmeCategory.medicine">
+
+                <ion-card mode="ios">
+                    <ion-card-content>
+                        <ion-label>
+                            <h2>Detalle del edicamento</h2>
+                        </ion-label>
+                        <ion-textarea v-model="alarme.body" placeholder="Medicamento"></ion-textarea>
+                    </ion-card-content>
+                </ion-card>
+
+                <ion-item :disabled="alarme.weekday ? false : true && alarme.repeat" class="ion-margin" mode="ios">
+
+                    <ion-label slot="start" position="fixed">
+                        <h2>{{ $t('text.dateAndTime') }}</h2>
+                    </ion-label>
+
+                    <ion-datetime-button slot="start" v-model="alarme.at" :value="parseISOString(date)"
+                        :disabled="alarme.repeat" :min="parseISOString(date)" datetime="datetime"></ion-datetime-button>
+
+                    <ion-modal :keep-contents-mounted="true">
+                        <ion-datetime hourCycle="h12" id="datetime"></ion-datetime>
+                    </ion-modal>
+
+                </ion-item>
+
+                <ion-item class="ion-margin " mode="ios">
+                    <ion-label>
+                        <h2>Repetir Medicamento</h2>
+                    </ion-label>
+                    <ion-toggle mode="ios" v-model="alarme.repeat" :checked="alarme.repeat"></ion-toggle>
+                </ion-item>
+
+                <ion-item v-if="alarme.repeat" class="ion-margin " mode="ios">
+
+                    <ion-input v-if="cadaSelect != 'hour'" v-model="alarme.count"
+                        style="font-size: 24px;border-bottom: 1px solid var(--ion-color-primary);"
+                        :label="$t(`text.frequencyC`)" placeholder="1" type="number"></ion-input>
+
+                    <ion-select slot="start" v-else style="font-size: 24px;" interface="popover" v-model="alarme.count"
+                        :label="$t(`text.frequencyC`)" placeholder="6">
+                        <ion-select-option :value="6">6</ion-select-option>
+                        <ion-select-option :value="8">8</ion-select-option>
+                        <ion-select-option :value="12">12</ion-select-option>
+                        <ion-select-option :value="24">24</ion-select-option>
+                    </ion-select>
+
+                    <ion-select slot="end" style="font-size: 24px;" interface="popover" v-model="cadaSelect"
+                        :placeholder="$t(`text.cada.${cada[2]}`)">
+                        <ion-select-option :value="cd" v-for="cd in cada">{{ $t(`text.cada.${cd}`)
+                        }}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-item class="ion-margin" mode="ios">
+                    <ion-label>
+                        <h2>{{ $t('text.color') }}</h2>
+                    </ion-label>
+                    <input v-model="alarme.color" type="color" />
+                </ion-item>
+
+            </template>
+
+            <!--Formulario tipo cita-->
+            <template v-if="alarme.alarmeCategory == alarmeCategory.cita">
+
+                <ion-card mode="ios">
+                    <ion-card-content>
+                        <ion-label>
+                            <h2>Detalle de la Cita</h2>
+                        </ion-label>
+                        <ion-textarea v-model="alarme.body" placeholder="Cita"></ion-textarea>
+                    </ion-card-content>
+                </ion-card>
+
+                <ion-item class="ion-margin" mode="ios">
+                    <ion-label slot="start" position="fixed">
+                        <h2>{{ $t('text.dateAndTime') }}</h2>
+                    </ion-label>
+                    <ion-datetime-button slot="start" v-model="alarme.at" :value="parseISOString(date)"
+                        :min="parseISOString(date)" datetime="datetime"></ion-datetime-button>
+                    <ion-modal :keep-contents-mounted="true">
+                        <ion-datetime hourCycle="h12" id="datetime"></ion-datetime>
+                    </ion-modal>
+                </ion-item>
+
+                <ion-item v-if="alarme.options?.cita" class="ion-margin " mode="ios">
+                    <ion-label>
+                        <h2>Recordar un dia antes</h2>
+                    </ion-label>
+                    <ion-toggle mode="ios" v-model="alarme.options.cita.rememberBefore"
+                        :checked="alarme.repeat"></ion-toggle>
+                </ion-item>
+
+                <ion-item class="ion-margin" mode="ios">
+                    <ion-label>
+                        <h2>{{ $t('text.color') }}</h2>
+                    </ion-label>
+                    <input v-model="alarme.color" type="color" />
+                </ion-item>
 
             </template>
 

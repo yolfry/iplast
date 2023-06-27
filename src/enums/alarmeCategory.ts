@@ -1,6 +1,6 @@
 enum alarmeCategory {
-    medicine = "medicine",
     reminder = "reminder",
+    medicine = "medicine",
     cita = "cita"
 }
 

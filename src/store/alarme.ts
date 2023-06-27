@@ -1,10 +1,11 @@
 import { iAlarme } from "@/interfaces/iAlarme";
 import { defineStore } from "pinia";
 import { useAppStore } from "./app";
-import { LocalNotifications, PermissionStatus, Schedule, ScheduleOptions } from "@capacitor/local-notifications";
+import { LocalNotifications, PermissionStatus } from "@capacitor/local-notifications";
 //capacitor-alarm-notification
 import { clockAlarm } from 'capacitor-clock-alarm'
 import { parseISOString } from '@/ts/parseISOString'
+import alarmeCategory from "@/enums/alarmeCategory";
 
 
 
@@ -35,8 +36,8 @@ export const useAlarmeStore = defineStore(`alarmeStore`, {
                     await appStore.saveDataApp('idNotificationCont', 1000)
                     return 1000
                 } else {
-                    await appStore.saveDataApp('idNotificationCont', parseInt(resData) + 1)
-                    return parseInt(resData) + 1
+                    await appStore.saveDataApp('idNotificationCont', parseInt(resData) + 7)
+                    return parseInt(resData) + 7
                 }
             } catch (error) {
                 return 1000
@@ -76,121 +77,358 @@ export const useAlarmeStore = defineStore(`alarmeStore`, {
                 await this.permissionNotification()
 
 
-                const alarmeOption = {
-                    id: alarme.id,
-                    autoCancel: true,
-                    title: `Iplast Alarm ${alarme.alarmeCategory}`,
-                    body: alarme.body,
-                    summaryText: alarme.body,
-                    smallIcon: 'icon_' + alarme.alarmeCategory,
-                    largeIcon: 'icon_' + alarme.alarmeCategory,
-                    iconColor: alarme.color,
-                }
+                //Type alarm Cita
+                if (alarme.alarmeCategory == alarmeCategory.cita) {
 
-
-                //Declare Schedule
-                const schedule: Schedule = {
-                    allowWhileIdle: true
-                }
-
-
-
-                //No repetir
-                if (!alarme.repeat) {
-
-                    //Alarme por fecha directa
-                    if (alarme.at) {
-                        const at = new Date(alarme.at)
-                        schedule.at = at
-
-                        //Clock Alarme
-                        await clockAlarm.setAlarm({
-                            at: parseISOString(at),
-                            id: alarme.id,
-                            message: alarme.body
-                        })
-
-                    }
-
-
-                } else { //Repetir
-
-                    //Alarme Repeat Cada x dia
-                    if (alarme.count && alarme.every && alarme.weekday == undefined) {
-                        schedule.every = alarme.every
-                        schedule.count = alarme.count
-
-                        //Clock Alarme
-                        await clockAlarm.setAlarm({
-                            id: alarme.id,
-                            message: alarme.body,
-                            repeats: alarme.repeat,
-                            every: alarme.every,
-                            count: alarme.count,
-                        })
-
-                    }
-
-                    if (alarme.weekday) {
-
-                        const at = new Date(alarme.at)
-
-                        const hour = at.getHours()
-                        const minute = at.getMinutes()
-
-                        schedule.on = {}
-                        schedule.on.weekday = alarme.weekday
-                        schedule.on.hour = hour
-                        schedule.on.minute = minute
-
-                        await clockAlarm.setAlarm({
-                            id: alarme.id,
-                            message: alarme.body,
-                            repeats: alarme.repeat,
-                            Weekday: alarme.weekday,
-                            hour: hour,
-                            minute: minute
-                        })
-
-                    }
-
-
-                }
-
-
-
-
-                //Alarma Repetir el dia y la fecha y hora espesifico
-                if (alarme.repeat && !alarme.count) {
+                    //Fecha y Hora
                     const at = new Date(alarme.at)
 
-                    schedule.at = at
-                    schedule.repeats = alarme.repeat
+                    //Recordar un dia antes
+                    if (alarme.options?.cita?.rememberBefore) {
 
+                        const dateDayBefore = new Date(alarme.at)
+                        dateDayBefore.setDate(dateDayBefore.getDate() - 1);
+
+                        //Clock Alarme date before
+                        await clockAlarm.setAlarm({
+                            id: alarme.id + 1,
+                            message: `Recuerda la Siguiente Cita ` + at.toLocaleString(),
+                            repeats: false,
+                            at: parseISOString(dateDayBefore)
+                        })
+
+                        //Notification
+                        await LocalNotifications.schedule({
+                            notifications: [
+                                {
+                                    id: alarme.id + 1,
+                                    autoCancel: true,
+                                    title: `Recuerda la Siguiente Cita ` + at.toLocaleString(),
+                                    body: alarme.body,
+                                    summaryText: alarme.body,
+                                    smallIcon: 'icon_' + alarme.alarmeCategory,
+                                    largeIcon: 'icon_' + alarme.alarmeCategory,
+                                    iconColor: alarme.color,
+                                    schedule: {
+                                        allowWhileIdle: true,
+                                        at: dateDayBefore
+                                    }
+                                }]
+                        })
+
+                    }
+
+                    //Recordar 30 minutos antes
+                    const date30MinuteBefore = new Date(alarme.at)
+                    date30MinuteBefore.setMinutes(date30MinuteBefore.getMinutes() - 30);
+
+                    //Clock Alarme date before
+                    await clockAlarm.setAlarm({
+                        id: alarme.id + 2,
+                        message: `Tu cita empieza en 30 minutos ` + at.toLocaleString(),
+                        repeats: false,
+                        at: parseISOString(date30MinuteBefore)
+                    })
+
+                    //Notification
+                    await LocalNotifications.schedule({
+                        notifications: [
+                            {
+                                id: alarme.id + 2,
+                                autoCancel: true,
+                                title: `Tu cita empieza en 30 minutos ` + at.toLocaleString(),
+                                body: alarme.body,
+                                summaryText: alarme.body,
+                                smallIcon: 'icon_' + alarme.alarmeCategory,
+                                largeIcon: 'icon_' + alarme.alarmeCategory,
+                                iconColor: alarme.color,
+                                schedule: {
+                                    allowWhileIdle: true,
+                                    at: date30MinuteBefore
+                                }
+                            }]
+                    })
+
+
+                    //Recordar el dia de la cita
                     //Clock Alarme
                     await clockAlarm.setAlarm({
-                        at: alarme.at,
                         id: alarme.id,
-                        message: alarme.body,
+                        message: 'Hola, tu cita a comenzado! ' + alarme.body,
+                        repeats: false,
+                        at: parseISOString(at)
+                    })
+
+                    //Notificacion
+                    await LocalNotifications.schedule({
+                        notifications: [
+                            {
+                                id: alarme.id,
+                                autoCancel: true,
+                                title: `Hola, tu cita a comenzado!`,
+                                body: alarme.body,
+                                summaryText: alarme.body,
+                                smallIcon: 'icon_' + alarme.alarmeCategory,
+                                largeIcon: 'icon_' + alarme.alarmeCategory,
+                                iconColor: alarme.color,
+                                schedule: {
+                                    allowWhileIdle: true,
+                                    at: at
+                                }
+                            }]
                     })
 
                 }
+                //Fin del modo cita
 
 
+                //Recordatorio o Alarma Basica
+                if (alarme.alarmeCategory == alarmeCategory.reminder) {
 
 
+                    const at = new Date(alarme.at)
 
-                const notifications: ScheduleOptions = {
-                    notifications: [{
-                        ...alarmeOption,
-                        schedule: { ...schedule }
-                    }]
+                    //Recordatorio por fecha
+                    if (!alarme.weekday?.length && !alarme.options?.reminder?.notify) {
+
+                        //Clock Alarme
+                        await clockAlarm.setAlarm({
+                            id: alarme.id,
+                            message: 'Recordatorio, ' + alarme.body,
+                            repeats: false,
+                            at: parseISOString(at)
+                        })
+
+                        //Notificacion
+                        await LocalNotifications.schedule({
+                            notifications: [
+                                {
+                                    id: alarme.id,
+                                    autoCancel: true,
+                                    title: `Recordatorio`,
+                                    body: alarme.body,
+                                    summaryText: alarme.body,
+                                    smallIcon: 'icon_' + alarme.alarmeCategory,
+                                    largeIcon: 'icon_' + alarme.alarmeCategory,
+                                    iconColor: alarme.color,
+                                    schedule: {
+                                        allowWhileIdle: true,
+                                        at: at
+                                    }
+                                }]
+                        })
+                    }
+
+
+                    //Recordatorio, cada dia de la Semana
+                    if (alarme.weekday?.length) {
+                        //Reccorrer dia de la semana
+                        alarme.weekday.forEach(async (wee, index) => {
+
+                            await clockAlarm.setAlarm({
+                                id: alarme.id + index,
+                                message: alarme.alarmeCategory + " " + alarme.body,
+                                repeats: true,
+                                Weekday: wee,
+                                hour: at.getHours(),
+                                minute: at.getMinutes()
+                            })
+
+                            //Notificacion
+                            await LocalNotifications.schedule({
+                                notifications: [
+                                    {
+                                        id: alarme.id + index,
+                                        autoCancel: true,
+                                        title: alarme.alarmeCategory,
+                                        body: alarme.body,
+                                        summaryText: alarme.body,
+                                        smallIcon: 'icon_' + alarme.alarmeCategory,
+                                        largeIcon: 'icon_' + alarme.alarmeCategory,
+                                        iconColor: alarme.color,
+                                        schedule: {
+                                            allowWhileIdle: true,
+                                            on: {
+                                                hour: at.getHours(),
+                                                minute: at.getMinutes(),
+                                                weekday: wee
+                                            }
+                                        }
+                                    }]
+                            })
+
+                        });
+
+                    }
+
+                    //Recordar por notificaciones
+                    if (alarme.options?.reminder?.notify) {
+
+                        switch (alarme.options.reminder.notify) {
+
+                            case 'weekly':
+
+                                //"annual" | "monthly" | "weekly"
+                                await LocalNotifications.schedule({
+                                    notifications: [
+                                        {
+                                            id: alarme.id,
+                                            autoCancel: true,
+                                            title: alarme.alarmeCategory,
+                                            body: alarme.body,
+                                            summaryText: alarme.body,
+                                            smallIcon: 'icon_' + alarme.alarmeCategory,
+                                            largeIcon: 'icon_' + alarme.alarmeCategory,
+                                            iconColor: alarme.color,
+                                            schedule: {
+                                                allowWhileIdle: true,
+                                                on: {
+                                                    hour: at.getHours(),
+                                                    minute: at.getMinutes()
+                                                }
+                                            }
+                                        }]
+                                })
+                                break;
+
+                            case "monthly":
+                                await LocalNotifications.schedule({
+                                    notifications: [
+                                        {
+                                            id: alarme.id,
+                                            autoCancel: true,
+                                            title: alarme.alarmeCategory,
+                                            body: alarme.body,
+                                            summaryText: alarme.body,
+                                            smallIcon: 'icon_' + alarme.alarmeCategory,
+                                            largeIcon: 'icon_' + alarme.alarmeCategory,
+                                            iconColor: alarme.color,
+                                            schedule: {
+                                                allowWhileIdle: true,
+                                                on: {
+                                                    day: at.getDate(),
+                                                    hour: at.getHours(),
+                                                    minute: at.getMinutes()
+                                                }
+                                            }
+                                        }]
+                                })
+                                break;
+
+                            case "annual":
+
+                                await LocalNotifications.schedule({
+                                    notifications: [
+                                        {
+                                            id: alarme.id,
+                                            autoCancel: true,
+                                            title: alarme.alarmeCategory,
+                                            body: alarme.body,
+                                            summaryText: alarme.body,
+                                            smallIcon: 'icon_' + alarme.alarmeCategory,
+                                            largeIcon: 'icon_' + alarme.alarmeCategory,
+                                            iconColor: alarme.color,
+                                            schedule: {
+                                                allowWhileIdle: true,
+                                                on: {
+                                                    month: at.getMonth() + 1,
+                                                    day: at.getDate(),
+                                                    hour: at.getHours(),
+                                                    minute: at.getMinutes()
+                                                }
+                                            }
+                                        }]
+                                })
+                                break;
+                        }
+
+                    }
+
                 }
 
-                const resLocalNotification = await LocalNotifications.schedule(notifications)
-                if (!resLocalNotification) {
-                    throw new Error("No alarme");
+
+                //Type alarm Medicine 
+                if (alarme.alarmeCategory == alarmeCategory.medicine) {
+
+                    const at = new Date(alarme.at)
+
+                    if (!alarme.repeat) {
+
+                        //Clock Alarme date before
+                        await clockAlarm.setAlarm({
+                            id: alarme.id,
+                            message: alarme.body,
+                            repeats: false,
+                            at: parseISOString(at)
+                        })
+
+                        //Notification
+                        await LocalNotifications.schedule({
+                            notifications: [
+                                {
+                                    id: alarme.id,
+                                    autoCancel: true,
+                                    title: alarme.alarmeCategory,
+                                    body: alarme.body,
+                                    summaryText: alarme.body,
+                                    smallIcon: 'icon_' + alarme.alarmeCategory,
+                                    largeIcon: 'icon_' + alarme.alarmeCategory,
+                                    iconColor: alarme.color,
+                                    schedule: {
+                                        allowWhileIdle: true,
+                                        at: at
+                                    }
+                                }]
+                        })
+
+                    } else {
+
+                        let cont: number | undefined = 0
+
+                        if (alarme.every == 'hour') {
+                            if (alarme.count) {
+                                cont = (alarme.count < 6) ? 6 : alarme.count
+                            } else {
+                                cont = 6
+                            }
+                        } else {
+                            cont = alarme.count
+                        }
+
+                        //Clock Alarme date before
+                        await clockAlarm.setAlarm({
+                            id: alarme.id,
+                            message: alarme.body,
+                            repeats: true,
+                            every: alarme.every,
+                            count: cont
+                        })
+
+                        //Notification
+                        await LocalNotifications.schedule({
+                            notifications: [
+                                {
+                                    id: alarme.id,
+                                    autoCancel: true,
+                                    title: alarme.alarmeCategory,
+                                    body: alarme.body,
+                                    summaryText: alarme.body,
+                                    smallIcon: 'icon_' + alarme.alarmeCategory,
+                                    largeIcon: 'icon_' + alarme.alarmeCategory,
+                                    iconColor: alarme.color,
+                                    schedule: {
+                                        allowWhileIdle: true,
+                                        every: alarme.every,
+                                        count: cont
+                                    }
+                                }]
+                        })
+
+                    }
+
                 }
+
+
 
                 return true
             } catch (error) {
@@ -218,14 +456,27 @@ export const useAlarmeStore = defineStore(`alarmeStore`, {
         },
         async cancelNotification(id: number) {
             try {
-                //Cancelar Notification
-                await LocalNotifications.cancel({
-                    notifications: [
-                        {
-                            id
-                        }
-                    ]
-                })
+
+                //Eliminar grupo de alarma 7 
+                for (let i = 0; i < 8; i++) {
+
+                    //Cancelar Notification
+                    await LocalNotifications.cancel({
+                        notifications: [
+                            {
+                                id: (id + i)
+                            }
+                        ]
+                    })
+
+                    //Cancelar Alarm
+                    await clockAlarm.removeAlarm({
+                        id: (id + i)
+                    })
+
+                }
+
+
                 return true
             } catch (error) {
                 return false
@@ -234,10 +485,6 @@ export const useAlarmeStore = defineStore(`alarmeStore`, {
         async delete(id: number) {
 
             try {
-
-                await clockAlarm.removeAlarm({
-                    id: id
-                });
 
                 await this.cancelNotification(id)
                 const index = this.alarmes.findIndex(e => e.id === id)
