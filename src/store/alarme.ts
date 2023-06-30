@@ -182,7 +182,7 @@ export const useAlarmeStore = defineStore(`alarmeStore`, {
                 //Fin del modo cita
 
 
-                //Recordatorio o Alarma Basica
+                //Recordatorio o Alarma Basica ✅
                 if (alarme.alarmeCategory == alarmeCategory.reminder) {
 
 
@@ -220,7 +220,7 @@ export const useAlarmeStore = defineStore(`alarmeStore`, {
                     }
 
 
-                    //Recordatorio, cada dia de la Semana
+                    //Recordatorio, cada dia de la Semana ✅
                     if (alarme.weekday?.length) {
                         //Reccorrer dia de la semana
                         alarme.weekday.forEach(async (wee, index) => {

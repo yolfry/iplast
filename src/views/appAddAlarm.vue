@@ -61,8 +61,7 @@ setInterval(() => {
 }, 1000)
 
 
-//Objeto Alarma
-const alarme = ref<iAlarme>({
+const alarmeDefaultValue = {
     id: 1000,
     name: '',
     type: alarmeType.specific,
@@ -82,7 +81,10 @@ const alarme = ref<iAlarme>({
             notify: null
         }
     }
-})
+}
+
+//Objeto Alarma
+const alarme = ref<iAlarme>({ ...alarmeDefaultValue })
 
 
 
@@ -110,7 +112,6 @@ const saveAlarme = async (alarmeIn: iAlarme) => {
 
     }
 
-    console.log(alarmeIn)
 
     const loading = await loadingController.create({
         message: t('account.loading')
@@ -122,8 +123,7 @@ const saveAlarme = async (alarmeIn: iAlarme) => {
         await alarmeStore.setAlarme(alarmeIn)
         await alarmeStore.getAlarmes()
 
-        alarme.value.body = ''
-        alarme.value.at = parseISOString(date.value)
+        cleanAlarm()
         await loading.dismiss()
 
         router.push('/tabs/alarme')
@@ -134,16 +134,35 @@ const saveAlarme = async (alarmeIn: iAlarme) => {
 }
 
 
+//Clean form
+const cleanAlarm = () => {
+    alarme.value.body = alarmeDefaultValue.body
+    alarme.value.repeat = alarmeDefaultValue.repeat
+    alarme.value.color = alarmeDefaultValue.color
+    alarme.value.at = parseISOString(date.value)
+    alarme.value.weekday = []
+
+
+    if (alarme.value?.options && alarme.value?.options?.reminder) {
+        alarme.value.options.reminder.notify = null
+    }
+
+    alarme.value.count = alarmeDefaultValue.count
+
+    if (alarme.value?.options && alarme.value.options?.cita?.rememberBefore) {
+        alarme.value.options.cita.rememberBefore = false
+    }
+
+}
+
+
 const doRefresh = async (e: any) => {
     try {
         await alarmeStore.getAlarmes()
 
-        alarme.value.body = ''
-        alarme.value.repeat = false
-        alarme.value.color = undefined
-        cadaSelect.value = 'hour'
 
 
+        cleanAlarm()
 
         e.target.complete()
 
@@ -212,11 +231,11 @@ const doRefresh = async (e: any) => {
                         <h2>{{ $t('text.dateAndTime') }}</h2>
                     </ion-label>
 
-                    <ion-datetime-button slot="start" v-model="alarme.at" :value="parseISOString(date)"
-                        :min="parseISOString(date)" datetime="datetime"></ion-datetime-button>
+                    <ion-datetime-button slot="start" datetime="datetime"></ion-datetime-button>
 
                     <ion-modal :keep-contents-mounted="true">
-                        <ion-datetime hourCycle="h12" id="datetime"></ion-datetime>
+                        <ion-datetime v-model="alarme.at" :value="parseISOString(date)" hourCycle="h12"
+                            id="datetime"></ion-datetime>
                     </ion-modal>
                 </ion-item>
 
@@ -284,17 +303,17 @@ const doRefresh = async (e: any) => {
                     </ion-card-content>
                 </ion-card>
 
-                <ion-item :disabled="alarme.weekday ? false : true && alarme.repeat" class="ion-margin" mode="ios">
+                <ion-item :disabled="alarme.repeat" class="ion-margin" mode="ios">
 
                     <ion-label slot="start" position="fixed">
                         <h2>{{ $t('text.dateAndTime') }}</h2>
                     </ion-label>
 
-                    <ion-datetime-button slot="start" v-model="alarme.at" :value="parseISOString(date)"
-                        :disabled="alarme.repeat" :min="parseISOString(date)" datetime="datetime"></ion-datetime-button>
+                    <ion-datetime-button slot="start" datetime="datetime"></ion-datetime-button>
 
                     <ion-modal :keep-contents-mounted="true">
-                        <ion-datetime hourCycle="h12" id="datetime"></ion-datetime>
+                        <ion-datetime v-model="alarme.at" :value="parseISOString(date)" hourCycle="h12"
+                            id="datetime"></ion-datetime>
                     </ion-modal>
 
                 </ion-item>
@@ -352,10 +371,10 @@ const doRefresh = async (e: any) => {
                     <ion-label slot="start" position="fixed">
                         <h2>{{ $t('text.dateAndTime') }}</h2>
                     </ion-label>
-                    <ion-datetime-button slot="start" v-model="alarme.at" :value="parseISOString(date)"
-                        :min="parseISOString(date)" datetime="datetime"></ion-datetime-button>
+                    <ion-datetime-button slot="start" datetime="datetime"></ion-datetime-button>
                     <ion-modal :keep-contents-mounted="true">
-                        <ion-datetime hourCycle="h12" id="datetime"></ion-datetime>
+                        <ion-datetime v-model="alarme.at" :value="parseISOString(date)" hourCycle="h12"
+                            id="datetime"></ion-datetime>
                     </ion-modal>
                 </ion-item>
 

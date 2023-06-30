@@ -1,5 +1,5 @@
 {
-  "version": "2.5.9",
+  "version": "2.5.12",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
